@@ -1,9 +1,6 @@
 function datas = freq_decomp(datas, wavelet_width)
 
 
-
-    addpath('.\utilities');
-
     [thin, med, thick] = split_data(datas);
 
     step = 1/512;
@@ -11,7 +8,7 @@ function datas = freq_decomp(datas, wavelet_width)
     endt = 3.998;
 
     cfg = [];
-    cfg.output = 'pow';
+    cfg.output = 'powandcsd';
     cfg.method = 'wavelet';
     cfg.width = wavelet_width;
     cfg.foi = 1:1:80;
