@@ -13,11 +13,11 @@ function datas = freq_decomp(datas, wavelet_width)
     cfg.width = wavelet_width;
     cfg.foi = 1:1:80;
     cfg.toi = start:step:endt;
-    cfg.pad = 1000;
+    cfg.pad = 256;
     cfg.channel = 'all';
     cfg.trials = 'all';
 
-    parfor index = 1:length(datas)
+    for index = 1:length(datas)
         %datas{index} = ft_freqanalysis(cfg, datas{index});
         thin{index} = ft_freqanalysis(cfg, thin{index});
         med{index} = ft_freqanalysis(cfg, med{index});
