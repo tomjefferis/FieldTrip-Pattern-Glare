@@ -8,7 +8,7 @@ function datas = freq_decomp(datas, wavelet_width)
     endt = 3.998;
 
     cfg = [];
-    cfg.output = 'powandcsd';
+    cfg.output = 'pow';
     cfg.method = 'wavelet';
     cfg.width = wavelet_width;
     cfg.foi = 1:1:80;
