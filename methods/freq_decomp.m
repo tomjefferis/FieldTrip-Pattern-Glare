@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width)
+function datas = freq_decomp(datas, wavelet_width,output)
 
 
     [thin, med, thick] = split_data(datas);
@@ -8,12 +8,12 @@ function datas = freq_decomp(datas, wavelet_width)
     endt = 3.998;
 
     cfg = [];
-    cfg.output = 'pow';
+    cfg.output = output;
     cfg.method = 'wavelet';
     cfg.width = wavelet_width;
     cfg.foi = 1:1:80;
     cfg.toi = start:step:endt;
-    cfg.pad = 256;
+    cfg.pad = 'nextpow2';
     cfg.channel = 'all';
     cfg.trials = 'all';
 

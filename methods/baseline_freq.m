@@ -1,6 +1,6 @@
 function data = baseline_freq(data)
 
-% baselines freq data to the db scale before creating pgi in the frequency domain
+% Baselines freq data to the db scale before creating pgi in the frequency domain
 % 
 % Use as:
 %       baseline_freq(data)

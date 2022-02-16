@@ -22,7 +22,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 % ROI window
 time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
 %time_window = [3.09, 3.18; ];
-n_participants = 40;
+n_participants = 2;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
 max_windows = 4; % maximum amount of windows the roi finder finds
@@ -43,7 +43,7 @@ gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only gene
 plot_designs = false; %plots design matrix for partitions ONLY
 plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
-%% generate design matricies
+%% generate experiment design 
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1

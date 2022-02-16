@@ -70,7 +70,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                 % gets the design matrix
                 [design_matrix, data] = get_design_matrix(factor, datas, orders);
 
-                % only runs the stat if spec  cxzvbdfgdsazxified
+                % only runs the stat if spec  
                 if clust_volume || topograpic_map_plot || stat_run || plot_erps
                     stat = stat_test(data, factor, start_time, end_time, design_matrix, time_freq, frequency_range, testing);
 
