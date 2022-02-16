@@ -23,7 +23,7 @@ function datas = freq_decomp(datas, wavelet_width,output)
     cfg.channel = 'all';
     cfg.trials = 'all';
 
-    parfor index = 1:length(datas)
+    for index = 1:length(datas)
         %datas{index} = ft_freqanalysis(cfg, datas{index});
         thin{index} = ft_freqanalysis(cfg, thin{index});
         med{index} = ft_freqanalysis(cfg, med{index});
@@ -43,7 +43,7 @@ function datas = freq_decomp(datas, wavelet_width,output)
             datas{index}.powspctrm = datas{index}.med_powspctrm - (datas{index}.thin_powspctrm + datas{index}.thick_powspctrm) / 2;
         else
            datas{index}.thin_fourierspctrm = thin{index}.fourierspctrm; 
-           %datas{index}.med_fourierspctrm = med{index}.fourierspctrm; 
+           datas{index}.med_fourierspctrm = med{index}.fourierspctrm; 
            datas{index}.thick_fourierspctrm = thick{index}.fourierspctrm;
            
         end

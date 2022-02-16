@@ -63,7 +63,7 @@ filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet
 if ~exist(filename_precomposed, 'file')
     [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
 
-    [datas, orders] = freq_fourier_decopmosition(datas, orders, wavelet_width, filename_precomposed);
+    [datas, orders] = freq_fourier_decomposition(datas, orders, wavelet_width, filename_precomposed);
 
 else
     data = load(filename_precomposed).decomposed;

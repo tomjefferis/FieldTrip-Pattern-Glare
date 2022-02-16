@@ -1,7 +1,7 @@
-function [datas, orders] = freq_fourier_decopmosition(datas, orders, wavelet_width, filename_precomposed)
+function [datas, orders] = freq_fourier_decomposition(datas, orders, wavelet_width, filename_precomposed)
 
     if contains(filename_precomposed, 'onsets')
-        datas = freq_decomp(datas, wavelet_width, wavelet_width,'fourier');
+        datas = freq_decomp(datas, wavelet_width,'fourier');
     else
         datas.part1 = freq_decomp(datas.part1, wavelet_width,'fourier');
         datas.part2 = freq_decomp(datas.part2, wavelet_width,'fourier');
