@@ -36,7 +36,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
         else
 
-            filename_precomposed = strcat(results_dir, "/", onsets_part, "/",string(wavelet_width),"-cyc-","decomposed_dat.mat");
+            filename_precomposed = strcat(results_dir, "/", onsets_part, "/",string(wavelet_width),"-cyc-pow-","decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
