@@ -41,7 +41,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
 
-                [datas, orders] = freq_decopmosition(datas, orders, wavelet_width, filename_precomposed);
+                [datas, orders] = freq_power_decopmosition(datas, orders, wavelet_width, filename_precomposed);
 
             else
                 data = load(filename_precomposed).decomposed;
