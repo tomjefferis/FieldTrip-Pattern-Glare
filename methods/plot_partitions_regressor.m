@@ -1,8 +1,6 @@
 function plot_partitions_regressor(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis)
     % partitions plot 5x2 grid
-    maxi = 4;
-    mini = -2;
-    ylimit = [mini, maxi];
+    ylimit = ylimit_finder([dataone,datatwo,datathree],electrode);
     start = 2.8;
     f1 = figure;
 

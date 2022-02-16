@@ -58,8 +58,8 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     end
 
     ylim([0, ymax]);
-    xlabel('Time (S)')
-    ylabel('% volume scaled')
+    xlabel('Time (S)');
+    ylabel('volume');
     title(strcat(polarity, " clusters as % volume"));
     cluster_leg = strings([1, size(plotted_clust, 1)]);
 

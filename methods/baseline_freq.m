@@ -6,7 +6,6 @@ function data = baseline_freq(data)
 %       baseline_freq(data)
 % 
 
-
     cfg.baseline = [2.8 3.0];
     cfg.baselinetype = 'db';
     data = ft_freqbaseline(cfg, data);

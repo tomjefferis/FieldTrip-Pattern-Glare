@@ -57,7 +57,7 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     end
 
     xline(end_window_time, '-', {"Window End"});
-    xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal');
+    xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     title(graph_title);
     subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));
 

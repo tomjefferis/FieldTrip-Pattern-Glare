@@ -42,7 +42,7 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     end
 
     xline(end_window_time, '-', {"Window End"});
-    xline(significant_electrode.time, '--r', {"Maximum", "Effect"});
+    xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     title(graph_title);
     subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));
     hold on;

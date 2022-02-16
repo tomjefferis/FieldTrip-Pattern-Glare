@@ -1,5 +1,5 @@
 %% EEG pattern glare analysis - Author: Tom Jefferis
-%% setting up pathes to plugins and default folder
+%% setting up paths to plugins and default folder
 clear all;
 restoredefaultpath;
 addpath('.\methods');

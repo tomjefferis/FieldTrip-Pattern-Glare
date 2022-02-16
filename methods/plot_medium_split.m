@@ -7,9 +7,10 @@ function plot_medium_split(high, low, electrode, factor, start_time, end_time, g
 %       plot_medium_split(high, low, electrode, factor, start_time, end_time, generate_cis, results)
 % 
 
-    maxi = 2.5;
-    mini = -2;
-    ylimit = [mini, maxi];
+
+
+
+    ylimit = ylimit_finder([high,low],electrode);
     start = 2.8;
     f1 = figure;
 

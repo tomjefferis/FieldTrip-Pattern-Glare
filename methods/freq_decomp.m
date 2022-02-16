@@ -1,5 +1,11 @@
 function datas = freq_decomp(datas, wavelet_width,output)
 
+%%  Frequency decomposition function
+%   This is the main function for frequency decomposition 
+%   It is the lowest level function and is called by:
+%           freq_power_decomposition() or freq_fourier_decomposition()
+%
+
 
     [thin, med, thick] = split_data(datas);
 

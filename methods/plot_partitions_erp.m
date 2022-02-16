@@ -4,9 +4,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     [low2, high2] = median_split(datatwo, 1, design2);
     [low3, high3] = median_split(datathree, 1, design2);
 
-    maxi = 4;
-    mini = -2;
-    ylimit = [mini, maxi];
+
+    ylimit = ylimit_finder([dataone,datatwo,datathree],electrode);
     start = 2.8;
     f1 = figure;
 
