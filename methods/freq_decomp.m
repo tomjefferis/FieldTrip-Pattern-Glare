@@ -17,7 +17,7 @@ function datas = freq_decomp(datas, wavelet_width,output)
     cfg.channel = 'all';
     cfg.trials = 'all';
 
-    for index = 1:length(datas)
+    parfor index = 1:length(datas)
         %datas{index} = ft_freqanalysis(cfg, datas{index});
         thin{index} = ft_freqanalysis(cfg, thin{index});
         med{index} = ft_freqanalysis(cfg, med{index});
