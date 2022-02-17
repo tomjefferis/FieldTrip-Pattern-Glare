@@ -7,7 +7,13 @@ function datas = freq_decomp(datas, wavelet_width, output)
     %
 
     [thin, med, thick] = split_data(datas);
-
+    if ~strcmp(output,'pow')
+        thin = [];
+        thick = [];
+        datas = med;
+        med = [];    
+    end
+    
     step = 1/512;
     start = 2;
     endt = 3.998;
@@ -40,9 +46,7 @@ function datas = freq_decomp(datas, wavelet_width, output)
             datas{index}.powspctrm = datas{index}.med_powspctrm - (datas{index}.thin_powspctrm + datas{index}.thick_powspctrm) / 2;
         else
 
-            med{index} = ft_freqanalysis(cfg, med{index});
-
-            datas{index} = med{index};
+            datas{index} = ft_freqanalysis(cfg, datas{index});
             %datas{index}.thin_fourierspctrm = thin{index}.fourierspctrm;
             %datas{index}.med_fourierspctrm = med{index}.fourierspctrm;
             %datas{index}.thick_fourierspctrm = thick{index}.fourierspctrm;
