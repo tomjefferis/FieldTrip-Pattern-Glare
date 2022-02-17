@@ -6,12 +6,17 @@ function datas = freq_decomp(datas, wavelet_width, output)
     %           freq_power_decomposition() or freq_fourier_decomposition()
     %
 
-    [thin, med, thick] = split_data([datas]);
+    [thin, med, thick] = split_data({datas});
     if ~strcmp(output,'pow')
         thin = [];
         thick = [];
-        datas = med;
+        datas = med{1};
         med = [];    
+    else
+        thin = thin{1};
+        thick = thick{1};
+        datas = med{1};
+        med = med{1};   
     end
 
     step = 1/512;
@@ -27,7 +32,7 @@ function datas = freq_decomp(datas, wavelet_width, output)
     cfg.pad = 'nextpow2';
     cfg.channel = 'all';
     cfg.trials = 'all';
-
+    cfg.parameter = 'avg';
     
 
         if strcmp(cfg.output, 'pow')

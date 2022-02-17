@@ -1,7 +1,7 @@
 function [datas] = freq_fourier_decomposition(datas, wavelet_width, filename)
 
 
-    if contains(filename_precomposed, 'onsets')
+    if contains(filename, 'onsets')
         datas = freq_decomp(datas, wavelet_width,'fourier');
     else
         datas.part1 = freq_decomp(datas.part1, wavelet_width,'fourier');
