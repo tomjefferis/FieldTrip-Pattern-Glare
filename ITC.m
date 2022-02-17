@@ -61,7 +61,7 @@ results_dir = strcat(results_dir, "/", time_freq);
 filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-for-", "decomposed_dat.mat");
 
 if ~exist(filename_precomposed, 'file')
-    [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
+    [datas, orders] = load_data(main_path, single_trial_freq_filename, n_participants, onsets_part);
 
     [datas, orders] = freq_fourier_decomposition(datas, orders, wavelet_width, filename_precomposed);
 
