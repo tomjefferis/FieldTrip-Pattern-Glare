@@ -1,5 +1,8 @@
-function [datas] = freq_fourier_decomposition(datas, wavelet_width, filename)
+function [datas] = freq_fourier_decomposition(datas, wavelet_width, filename, time)
 
+    if ~exist('time','var')
+        time = [2,3.998];
+    end
 
     if contains(filename, 'onsets')
         datas = freq_decomp(datas, wavelet_width,'fourier');

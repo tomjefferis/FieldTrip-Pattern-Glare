@@ -22,7 +22,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 
 %% Experiment parameters
 % ROI window
-time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
+time_window = [2.7998,3.5];
 %time_window = [3.09, 3.18; ];
 n_participants = 40;
 baseline_period = [2.8 3.0];
@@ -55,10 +55,12 @@ testing = false;
 %% End of config
 
 
+
+
 [results_dir, main_path] = getFolderPath();
 results_dir = strcat(results_dir, "/", time_freq);
 
 filename_precomposed = strcat(string(wavelet_width), "-cyc-for-", onsets_part,"-decomposed_dat.mat");
 
-[datas, order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width)
+[datas, order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width, time_window)
 

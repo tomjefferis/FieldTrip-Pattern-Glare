@@ -1,4 +1,9 @@
-function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_filename, n_participants, wavelet_width)
+function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_filename, n_participants, wavelet_width,time)
+
+    if ~exist('time','var')
+        time = [2,3.998];
+    end
+
 
     if contains(composed_filename, "pow-")
         output = "pow";
@@ -24,9 +29,9 @@ function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_
                 datas.dimord = 'chan_time';
                 datas.time = datas.time{1};
                 if contains(output, "pow")
-                    decomposed = freq_power_decopmosition(datas, wavelet_width, composed_filename);
+                    decomposed = freq_power_decopmosition(datas, wavelet_width, composed_filename, time);
                 else
-                    decomposed = freq_fourier_decomposition(datas, wavelet_width, composed_filename);
+                    decomposed = freq_fourier_decomposition(datas, wavelet_width, composed_filename, time);
                 end
 
                 save(composed_filename, "decomposed", '-v7.3');

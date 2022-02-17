@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width, output)
+function datas = freq_decomp(datas, wavelet_width, output, time)
 
     %%  Frequency decomposition function
     %   This is the main function for frequency decomposition
@@ -20,8 +20,8 @@ function datas = freq_decomp(datas, wavelet_width, output)
     end
 
     step = 1/512;
-    start = 2;
-    endt = 3.998;
+    start = time(1);
+    endt = time(2);
 
     cfg = [];
     cfg.output = output;

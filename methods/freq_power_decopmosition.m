@@ -1,4 +1,9 @@
-function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed)
+function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time)
+
+    if ~exist('time','var')
+        time = [2,3.998];
+    end
+
 
     if contains(filename_precomposed, 'onsets')
         datas = freq_decomp(datas, wavelet_width, 'pow');
