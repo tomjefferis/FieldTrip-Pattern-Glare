@@ -20,7 +20,9 @@ function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_
             elseif isfile(single_trial_name)
                 order(end + 1) = index;
                 datas = load(single_trial_name).data;
-                
+                datas.trialinfo = [1];
+                datas.dimord = 'chan_time';
+                datas.time = datas.time{1};
                 if contains(output, "pow")
                     decomposed = freq_power_decopmosition(datas, wavelet_width, composed_filename);
                 else
