@@ -6,14 +6,14 @@ function datas = freq_decomp(datas, wavelet_width, output)
     %           freq_power_decomposition() or freq_fourier_decomposition()
     %
 
-    [thin, med, thick] = split_data(datas);
+    [thin, med, thick] = split_data([datas]);
     if ~strcmp(output,'pow')
         thin = [];
         thick = [];
         datas = med;
         med = [];    
     end
-    
+
     step = 1/512;
     start = 2;
     endt = 3.998;
@@ -28,31 +28,30 @@ function datas = freq_decomp(datas, wavelet_width, output)
     cfg.channel = 'all';
     cfg.trials = 'all';
 
-    for index = 1:length(datas)
-        %datas{index} = ft_freqanalysis(cfg, datas{index});
+    
 
         if strcmp(cfg.output, 'pow')
-            thin{index} = ft_freqanalysis(cfg, thin{index});
-            med{index} = ft_freqanalysis(cfg, med{index});
-            thick{index} = ft_freqanalysis(cfg, thick{index});
-            thin{index} = baseline_freq(thin{index});
-            med{index} = baseline_freq(med{index});
-            thick{index} = baseline_freq(thick{index});
-            datas{index} = med{index};
+            thin = ft_freqanalysis(cfg, thin);
+            med = ft_freqanalysis(cfg, med);
+            thick = ft_freqanalysis(cfg, thick);
+            thin = baseline_freq(thin);
+            med = baseline_freq(med);
+            thick = baseline_freq(thick);
+            datas = med;
 
-            datas{index}.thin_powspctrm = thin{index}.powspctrm;
-            datas{index}.med_powspctrm = med{index}.powspctrm;
-            datas{index}.thick_powspctrm = thick{index}.powspctrm;
-            datas{index}.powspctrm = datas{index}.med_powspctrm - (datas{index}.thin_powspctrm + datas{index}.thick_powspctrm) / 2;
+            datas.thin_powspctrm = thin.powspctrm;
+            datas.med_powspctrm = med.powspctrm;
+            datas.thick_powspctrm = thick.powspctrm;
+            datas.powspctrm = datas.med_powspctrm - (datas.thin_powspctrm + datas.thick_powspctrm) / 2;
         else
 
-            datas{index} = ft_freqanalysis(cfg, datas{index});
-            %datas{index}.thin_fourierspctrm = thin{index}.fourierspctrm;
-            %datas{index}.med_fourierspctrm = med{index}.fourierspctrm;
-            %datas{index}.thick_fourierspctrm = thick{index}.fourierspctrm;
+            datas = ft_freqanalysis(cfg, datas);
+            %datas.thin_fourierspctrm = thin.fourierspctrm;
+            %datas.med_fourierspctrm = med.fourierspctrm;
+            %datas.thick_fourierspctrm = thick.fourierspctrm;
 
         end
 
-    end
+    
 
 end
