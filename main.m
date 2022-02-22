@@ -21,13 +21,13 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-time_window = [3.09, 3.18; ];
+time_window = [3.45, 3.83; ];
 n_participants = 40;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
 max_windows = 4; % maximum amount of windows the roi finder finds
-spatial_roi = true; % generate a spatial region of interest - not useful for most of these analysis ----- NEED TO FIX FOR FREQ
-posneg = true; %true = positive side of roi false = negative
+spatial_roi = false; % generate a spatial region of interest - not useful for most of these analysis ----- NEED TO FIX FOR FREQ
+posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
 stat_run = true;

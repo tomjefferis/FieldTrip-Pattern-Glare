@@ -49,7 +49,7 @@ function [high, low] = ylimit_finder(data,electrode)
             temp = {temp,temp_thin,temp_med,temp_thick};
 
             tempseries = [];
-            for item = 1:numel(temp)
+            for item = 1:numel(temp)upd
                 tempseries(item,:) = get_timeseries_data_electrode(temp{item},elec_index,'avg');
             end
 

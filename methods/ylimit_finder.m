@@ -37,14 +37,20 @@ function [high, low] = ylimit_finder(data,electrode)
 
             [thin,med,thick] = split_data(data);
 
+            
+            temp_thin = ft_timelockgrandaverage(cfg, thin{:});
 
+            temp_med= ft_timelockgrandaverage(cfg, med{:});
+
+            temp_thick = ft_timelockgrandaverage(cfg, thick{:});
+       
+            temp = ft_timelockgrandaverage(cfg, data{:});
+
+            temp = {temp,temp_thin,temp_med,temp_thick};
 
             tempseries = [];
-            for item = 1:numel(data)
-                tempseries(end+1,:) = get_timeseries_data_electrode(data{item},elec_index,'avg');
-                tempseries(end+1,:) = get_timeseries_data_electrode(thin{item},elec_index,'avg');
-                tempseries(end+1,:) = get_timeseries_data_electrode(med{item},elec_index,'avg');
-                tempseries(end+1,:) = get_timeseries_data_electrode(thick{item},elec_index,'avg');
+            for item = 1:numel(temp)
+                tempseries(item,:) = get_timeseries_data_electrode(temp{item},elec_index,'avg');
             end
 
             nums = [max(max(tempseries)), min(min(tempseries))];
