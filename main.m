@@ -45,7 +45,7 @@ plot_partitions_erps = true; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment design 
 time_freq = 'time'; % time or frequency domain options: time or frequency
-factor_scores = {'headache','visual-stress','discomfort'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
 %% disable this when wanting to run for real results
