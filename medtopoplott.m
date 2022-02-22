@@ -2,7 +2,7 @@
 %% setting up paths to plugins and default folder
 clear all;
 restoredefaultpath;
-addpath('.\methods');
+addpath('./methods');
 
 grand_avg_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
@@ -45,7 +45,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment design
 time_freq = 'time'; % time or frequency domain options: time or frequency
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
+factor = 'discomfort'; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
 %% disable this when wanting to run for real results

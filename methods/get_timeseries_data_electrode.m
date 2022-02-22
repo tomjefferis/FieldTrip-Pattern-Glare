@@ -13,10 +13,15 @@ function [timeseries_data] = get_timeseries_data_electrode(data, electrode, chan
 
     timeseries_data = [];
 
+    if ~isstruct(data)
     for index = 1:numel(data)
         item = data{index};
-        temp = getfield(item, channel)
+        temp = getfield(item, channel);
         timeseries_data{index} = temp(electrode, :);
+    end
+    else
+        temp = getfield(data, channel);
+        timeseries_data = temp(electrode, :);
     end
 
 end

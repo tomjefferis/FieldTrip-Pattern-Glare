@@ -64,6 +64,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                 if spatial_roi && ~strcmp(factor{1}, 'none')
                     % finds spatial ROI
+                    datas_pure = datas;
                     datas = roi_mask(datas, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                 end
 
@@ -118,6 +119,11 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                     end
 
                 end
+
+                  if spatial_roi && ~strcmp(factor{1}, 'none')
+                    % finds spatial ROI
+                    datas = datas_pure;
+                  end
 
                 %% Topomap plotter
                 if topograpic_map_plot
@@ -300,6 +306,12 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                     % ROI
                     if spatial_roi && ~strcmp(factor{1}, 'none')
                         % finds spatial ROI
+
+                        data1_pure = data1;
+                        data2_pure = data2;
+                        data3_pure = data3;
+
+
                         data1 = roi_mask(data1, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                         data2 = roi_mask(data2, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                         data3 = roi_mask(data3, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
@@ -363,6 +375,13 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         end
 
                     end
+
+                    if spatial_roi && ~strcmp(factor{1}, 'none')
+                    % finds spatial ROI
+                        data1 = data1_pure;
+                        data2 = data2_pure;
+                        data3 = data3_pure;
+                  end
 
                     %% Topomap plotter
                     if topograpic_map_plot

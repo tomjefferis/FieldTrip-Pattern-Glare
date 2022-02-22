@@ -36,7 +36,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
     end
 
     xline(end_window_time, '-', {"Window End"});
-    xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     title(tit);
     subtitle(strcat("Maximum T Value = ", string(electrode.t_value)));
     xlabel("Time in S");
