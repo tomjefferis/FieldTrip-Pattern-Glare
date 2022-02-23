@@ -5,7 +5,7 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     [low3, high3] = median_split(datathree, 1, design2);
 
 
-    [highl, lowl] = ylimit_finder(dataone,electrode);
+    [highl, lowl] = ylimit_finder(high1,electrode);
     ylimit = [lowl,highl];
     start = 2.8;
     f1 = figure;
