@@ -46,9 +46,10 @@ function [high, low] = ylimit_finder(data,electrode)
                 tempseries(item,:) = get_timeseries_data_electrode(temp{item},elec_index,'avg');
             end
 
-          
+            highs = 
+            lows = 
 
-            nums =  prctile(tempseries,[2,98],'all');
+            nums = [max(max(tempseries)), min(min(tempseries))];
         
     else
         if ~isstruct(data)
