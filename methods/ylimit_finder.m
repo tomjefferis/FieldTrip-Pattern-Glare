@@ -43,12 +43,13 @@ function [high, low] = ylimit_finder(data,electrode)
 
             tempseries = [];
             for item = 1:numel(temp)
-                tempseries(item,:) = get_timeseries_data_electrode(temp{item},elec_index,'avg');
+                x = get_timeseries_data_electrode(temp{item},elec_index,'avg');
+                tempseries(item,:) = prctile(x,[5,97],'all');
             end
 
           
 
-            nums =  prctile(tempseries,[2,98],'all');
+            nums =  [mean(tempseries(:,1)),mean(tempseries(:,2))]
         
     else
         if ~isstruct(data)

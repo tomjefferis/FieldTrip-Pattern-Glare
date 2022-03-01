@@ -1,6 +1,7 @@
 function plot_partitions_regressor(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis)
     % partitions plot 5x2 grid
-    ylimit = ylimit_finder([dataone,datatwo,datathree],electrode);
+    [high,low] = ylimit_finder([dataone,datatwo,datathree],electrode);
+    ylimit = [low,high];
     start = 2.8;
     f1 = figure;
 
@@ -19,7 +20,7 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwest');
+    legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwestoutside');
     tit = strcat("Partitions regressor PGI through partitions @ ", electrode.electrode);
     title(tit);
 
@@ -38,7 +39,7 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwest');
+    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwestoutside');
     tit = strcat("Low Group Medium through partitions @ ", electrode.electrode);
     subtitle("");
     title(tit);
@@ -51,9 +52,8 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
+    legend('location', 'northwestoutside');
     tit = strcat("Partition 1 @ ", electrode.electrode);
     subtitle("");
     title(tit);
@@ -66,11 +66,10 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     tit = strcat("Partition 2 @ ", electrode.electrode);
     subtitle("");
+    legend('location', 'northwestoutside');
     title(tit);
 
     Ax = subplot(5, 1, 5);
@@ -81,11 +80,10 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     tit = strcat("Partition 3 @ ", electrode.electrode);
     subtitle("");
+    legend('location', 'northwestoutside');
     title(tit);
 
     titles = strcat("Interactions through partitions Partitions regressor");

@@ -11,11 +11,13 @@ function datas = freq_decomp(datas, wavelet_width, output, time)
         thin = [];
         thick = [];
         datas = med{1};
+        datas.avg = datas.avg(2:end);
         med = [];    
     else
         thin = thin{1};
         thick = thick{1};
         datas = med{1};
+        datas.avg = datas.avg{2:end};
         med = med{1};   
     end
 

@@ -21,7 +21,7 @@ function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_
             cd(participant_main_path);
             if isfile(composed_filename)
                 order(end + 1) = index;
-                data{index} = load(composed_filename);
+                data{end+1} = load(composed_filename).decomposed;
             elseif isfile(single_trial_name)
                 order(end + 1) = index;
                 datas = load(single_trial_name).data;
@@ -35,7 +35,7 @@ function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_
                 end
 
                 save(composed_filename, "decomposed", '-v7.3');
-                data{index} = decomposed;
+                data{end+1} = decomposed;
             end
 
         end

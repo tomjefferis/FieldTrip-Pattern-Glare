@@ -57,51 +57,19 @@ testing = false;
 [results_dir, main_path] = getFolderPath();
 results_dir = strcat(results_dir, "/", time_freq);
 
-filename_precomposed = strcat(string(wavelet_width), "-cyc-for-", onsets_part, "-decomposed_dat.mat");
+filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-", onsets_part, "-decomposed_dat.mat");
 
-output = "fourier";
 
-data = [];
-order = [];
 
-for index = 1:n_participants
-    fprintf('LOADING %d/%d \n', index, n_participants);
-    participant_main_path = strcat(main_path, int2str(index));
+[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);
 
-    if exist(participant_main_path, 'dir')
-        cd(participant_main_path);
-
-        if isfile(filename_precomposed)
-            order(end + 1) = index;
-            temp = load(filename_precomposed);
-            data{end+1} = temp.decomposed;
-
-        elseif isfile(single_trial_freq_filename)
-            order(end + 1) = index;
-            datas = load(single_trial_freq_filename).data;
-            datas.trialinfo = [1];
-            datas.dimord = 'chan_time';
-            datas.time = datas.time{1};
-            
-            temp = freq_fourier_decomposition(datas, wavelet_width, filename_precomposed, time_window);
-            decomposed = compute_itc(temp);
-
-            
-
-            save(filename_precomposed, "decomposed", '-v7.3');
-            data{index} = decomposed;
-        end
-
-    end
-
-end
 
 [design_matrix, data] = get_design_matrix(factor, data, order);
 
 [low, high] = median_split(data, order, design_matrix);
 
-low = average_itc(low.data);
-high = average_itc(high.data);
+low = average_power(low.data);
+high = average_power(high.data);
 elec = [];
 elec.label = 'A26';
 plot_med_split_itc(low, high,elec);

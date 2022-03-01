@@ -73,8 +73,8 @@ for index = 1:n_participants
 
         if isfile(filename_precomposed)
             order(end + 1) = index;
-            temp = load(filename_precomposed);
-            data{end+1} = temp.decomposed;
+            temp = load(filename_precomposed)
+            data{index} = temp.decomposed;
 
         elseif isfile(single_trial_freq_filename)
             order(end + 1) = index;
@@ -102,8 +102,7 @@ end
 
 low = average_itc(low.data);
 high = average_itc(high.data);
-elec = [];
-elec.label = 'A26';
-plot_med_split_itc(low, high,elec);
+
+plot_med_split_itc(low, high);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);
