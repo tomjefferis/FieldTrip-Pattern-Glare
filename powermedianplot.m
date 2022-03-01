@@ -72,6 +72,6 @@ low = average_power(low.data);
 high = average_power(high.data);
 elec = [];
 elec.label = 'A26';
-plot_med_split_itc(low, high,elec);
+plot_median_split_power(low, high);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);
