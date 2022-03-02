@@ -1,0 +1,13 @@
+function [itc] = average_power(data)
+
+
+    cfg = [];
+    
+
+    
+    
+
+    
+    
+
+end

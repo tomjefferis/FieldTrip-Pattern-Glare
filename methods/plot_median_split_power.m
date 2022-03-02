@@ -1,20 +1,20 @@
-function plot_median_split_power(low, high)
+function plot_median_split_power(low, high, electrode)
 
     xlimit = [2.8 3.7];
-    ylimit_line = [0 0.5];
-    ylimit = [8 13];
+    ylimit_line = [-1 1];
 
+    electrode_idx = get_electrode_index(low, electrode);
 
-    electrode_idx = 26;
-
-    lowitpc = mean(squeeze(low.powspctrm(electrode_idx,8:13,:)),1);
-    highitpc = mean(squeeze(high.powspctrm(electrode_idx,8:13,:)),1);
+    lowitpc = mean(squeeze(low.powspctrm(electrode_idx,:,:)),1);
+    highitpc = mean(squeeze(high.powspctrm(electrode_idx,:,:)),1);
 
     plot(low.time,lowitpc,'g',high.time,highitpc,'b','LineWidth', 1.4);
     xlim(xlimit);
     ylim(ylimit_line);
-    title('Inter-trial phase coherence Alpha Average');
+    title('Median split power');
     legend("Low", "High");
+    xlabel("Time S");
+    ylabel("Power db");
     grid on;
 
 end

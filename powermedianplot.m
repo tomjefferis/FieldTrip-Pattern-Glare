@@ -23,7 +23,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 time_window = [2.5, 3.998];
-%time_window = [3.09, 3.18; ];
+%time_window = [3.09, 3.18;];
 n_participants = 40;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -35,16 +35,7 @@ posneg = true; %true = positive side of roi false = negative
 stat_run = true;
 %% frequency config
 wavelet_width = 5;
-frequency_range = [8 13]; % start and end frequency for stat tests
-%% Plotting config
-clust_volume = false; % cluter volume over time
-topograpic_map_plot = true; % make topographic maps
-plot_erps = false; % plotting ERPs for each condition and PGI
-median_split_plots = false; % plots the median split across time window for factors
-gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
-plot_designs = false; %plots design matrix for partitions ONLY
-plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
-generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
+frequency_range = [20 35]; % start and end frequency for stat tests
 %% generate experiment design
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor = 'discomfort'; % options: none, headache, visual-stress, discomfort, all
@@ -68,10 +59,10 @@ filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-", onsets_part, "
 
 [low, high] = median_split(data, order, design_matrix);
 
-low = average_power(low.data);
-high = average_power(high.data);
+low = average_power(low.data, frequency_range);
+high = average_power(high.data, frequency_range);
 elec = [];
-elec.label = 'A26';
-plot_median_split_power(low, high);
+elec.label = 'D14';
+plot_median_split_power(low, high,elec);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);

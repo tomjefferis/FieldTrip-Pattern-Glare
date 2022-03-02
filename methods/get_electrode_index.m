@@ -9,7 +9,11 @@ function [elec_index] = get_electrode_index(data, electrode)
 
 
 
-    data_point = data{1, 1}.elec.label;
+    if iscell(data)
+        data_point = data{1, 1}.elec.label;
+    else
+        data_point = data.elec.label;
+    end
 
     for index = 1:numel(data_point)
 
