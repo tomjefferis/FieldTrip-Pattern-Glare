@@ -62,7 +62,7 @@ filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-", onsets_part, "
 low = average_power(low.data, frequency_range);
 high = average_power(high.data, frequency_range);
 elec = [];
-elec.label = 'D14';
+elec.electrode = 'D14';
 plot_median_split_power(low, high,elec);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);

@@ -12,7 +12,7 @@ function [elec_index] = get_electrode_index(data, electrode)
     if iscell(data)
         data_point = data{1, 1}.elec.label;
     else
-        data_point = data.elec.label;
+        data_point = data.label;
     end
 
     for index = 1:numel(data_point)
