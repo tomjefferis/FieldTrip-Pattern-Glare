@@ -35,7 +35,7 @@ posneg = true; %true = positive side of roi false = negative
 stat_run = true;
 %% frequency config
 wavelet_width = 5;
-frequency_range = [20 35]; % start and end frequency for stat tests
+frequency_range = [60 80]; % start and end frequency for stat tests
 %% generate experiment design
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor = 'discomfort'; % options: none, headache, visual-stress, discomfort, all
@@ -62,7 +62,7 @@ filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-", onsets_part, "
 low = average_power(low.data, frequency_range);
 high = average_power(high.data, frequency_range);
 elec = [];
-elec.electrode = 'D14';
+elec.electrode = 'D16';
 plot_median_split_power(low, high,elec);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);

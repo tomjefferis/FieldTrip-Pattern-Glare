@@ -4,7 +4,7 @@ function plot_med_split_itc(low, high,electrode)
     ylimit_line = [0 0.5];
     ylimit = [8 13];
 
-    electrode_idx = 26;
+    electrode_idx = get_electrode_index(low, electrode);
 
     lowitpc = mean(squeeze(low.itpc(electrode_idx,8:13,:)),1);
     highitpc = mean(squeeze(high.itpc(electrode_idx,8:13,:)),1);
