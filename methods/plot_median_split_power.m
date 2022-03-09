@@ -1,6 +1,6 @@
-function plot_median_split_power(low, high, electrode)
+function plot_median_split_power(low, high, electrode, time, factor, save_dir)
 
-    xlimit = [2.8 3.7];
+    xlimit = time;
     ylimit_line = [-2 3];
 
     electrode_idx = get_electrode_index(low, electrode);
@@ -30,7 +30,7 @@ function plot_median_split_power(low, high, electrode)
     plot(low.time,lowitlc,'g',high.time,highitlc,'b','LineWidth', 1.4);
     xlim(xlimit);
     ylim(ylimit_line);
-    title('Median split power PGI Medium');
+    title('Median split power Medium');
     xline(3, '--o', {"Stimulus", "Off"});
     legend("Low", "High","");
     xlabel("Time S");
@@ -39,6 +39,32 @@ function plot_median_split_power(low, high, electrode)
 
 
 
-    sgtitle("Median split for Beta band");
+    if contains(factor, "habituation") || contains(factor, "sensitization")
+
+        if contains(factor, "visual")
+            results_fact = "visual-stress";
+            imgname = "visual-stress partitions power map.png";
+        elseif contains(factor, "headache")
+            results_fact = "headache";
+            imgname = "headache partitions power map.png";
+        elseif contains(factor, "discomfort")
+            results_fact = "discomfort";
+            imgname = "discomfort partitions power map.png";
+        else
+            results_fact = "none";
+            imgname = strcat("none partitions power map.png");
+        end
+
+    else
+        results_fact = factor;
+        imgname = strcat(factor, " ", string(time(1)), " onsets power map.png");
+    end
+
+
+    sgtitle(strcat("Median split for Beta band ",factor));
+    imgname = strcat(imgname);
+    save_dir_full = strcat(save_dir, "/", results_fact, "/", imgname);
+    saveas(gcf, save_dir_full);
+    hold off;
 
 end
