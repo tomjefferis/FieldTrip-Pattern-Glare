@@ -1,7 +1,7 @@
 function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time)
 
     if ~exist('time','var')
-        time = [2,3.998];
+        time = [0,3.998];
     end
 
 

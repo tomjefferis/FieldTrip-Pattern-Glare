@@ -34,8 +34,8 @@ posneg = true; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 5;
-frequency_range = [60 80]; % start and end frequency for stat tests
+wavelet_width = 3;
+frequency_range = [8 13]; % start and end frequency for stat tests
 %% generate experiment design
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor = 'discomfort'; % options: none, headache, visual-stress, discomfort, all
