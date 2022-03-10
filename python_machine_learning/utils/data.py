@@ -182,7 +182,7 @@ def get_trials(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sfreq=
                 array, info, markers, event_id=label_dict, tmin=tmin, baseline=baseline)
             item.set_montage(sensor_locs)
             data.append(item)
-
+    return data
 
 # makes one series of all conditions
 # def combine_array(thin, med=None, thick=None)
