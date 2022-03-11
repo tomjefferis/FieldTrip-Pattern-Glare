@@ -55,7 +55,7 @@ model.add(layers.TimeDistributed(layers.Flatten()))
 #model.add(LSTM(64))
 model.add(Dense(16))
 model.add(Dense(1))
-model.compile(loss='mean_squared_error', optimizer='adam',metrics=[tf.keras.metrics.MeanSquaredError()])
+model.compile(loss='mean_squared_error', optimizer='adam', metrics=[tf.keras.metrics.MeanSquaredError()])
 model.fit(train_dataset, epochs=250)
 
 model.evaluate(test_dataset)
