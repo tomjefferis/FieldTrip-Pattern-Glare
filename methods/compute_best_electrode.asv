@@ -84,14 +84,11 @@ function [significant_electrode] = compute_best_electrode(stat, type)
     for col = 1:columns
         if any(cluster_matrix_locations(:,col) == 1)
             if start_clus == -1
-                start_clus = col;
+                
             else
-                end_clus = col;
+                
             end
         end
     end
-significant_electrode.sig_start = significant_electrode.time(start_clus);
-significant_electrode.sif_end =  significant_electrode.time(end_clus);
-    
 
 end

@@ -47,7 +47,7 @@ generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOT
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'onsets-23-45-67'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
-type_of_effect = {'habituation'}; % habituation or sensitization
+type_of_effect = {'sensitization'}; % habituation or sensitization
 %% disable this when wanting to run for real results
 testing = false;
 %% End of config 
