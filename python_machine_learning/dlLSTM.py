@@ -19,13 +19,20 @@ y = [
         0.3791, -0.63074, 2.14683, -1.49948, 1.21954, -0.79734, -1.0687, -1.02592, -0.87653, 0.444
     ]
 
+mean_y = np.median(y)
+for item in range(0,len(y)):
+    if y[item] > mean_y:
+        y[item] = 1
+    else:
+        y[item] = 0
+
 for index in range(0,len(data)):
     items = data[index].get_data()
     events = np.squeeze(np.delete(data[index].events,slice(2),1))
     items = items[events == 2]
     data[index] = items[:25,:,:]
 
-x = np.reshape(data, (len(data),25,2150,128,1))
+x = np.reshape(data, (len(data),2150,25,128,1))
 data = []
 
 
@@ -47,15 +54,16 @@ test_dataset = test_dataset.batch(BATCH_SIZE)
 #print(x_train.shape, y_train.shape)
 
 model = keras.Sequential()
-model.add(layers.TimeDistributed(layers.Conv2D(64, (4, 4), activation='relu', input_shape=(25,2150, 128, 1))))
+model.add(layers.TimeDistributed(layers.Conv2D(32, (4, 4), activation='relu', input_shape=(2150,25, 128, 1))))
 model.add(layers.TimeDistributed(layers.MaxPooling2D((4, 4))))
 model.add(layers.TimeDistributed(layers.Conv2D(32, (3, 3), activation='relu')))
 model.add(layers.TimeDistributed(layers.MaxPooling2D((2, 2))))
 model.add(layers.TimeDistributed(layers.Flatten()))
-#model.add(LSTM(64))
+model.add(LSTM(32))
 model.add(Dense(16))
-model.add(Dense(1))
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=[tf.keras.metrics.MeanSquaredError()])
-model.fit(train_dataset, epochs=250)
+model.add(Dense(16))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(train_dataset, epochs=50)
 
 model.evaluate(test_dataset)

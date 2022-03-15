@@ -86,17 +86,22 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
                         effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                        stat_scores(jindex + 1).Positive_Cluster = stat.posclusters.prob;
-                        stat_scores(jindex + 1).Positive_Cluster_Electrode = elec.electrode;
-                        stat_scores(jindex + 1).Positive_Electrode_T = elec.t_value;
-                        stat_scores(jindex + 1).Positive_Electrode_Time = elec.time;
+                        
+                        
+
+                        stat_scores(jindex + 1).Positive_Cluster = {stat.posclusters.prob};
+                        stat_scores(jindex + 1).Positive_Cluster_Electrode = {elec.electrode};
+                        stat_scores(jindex + 1).Positive_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Positive_Electrode_Time = {elec.time};
                         stat_scores(jindex + 1).Positive_Effect_size = effect_size;
+                        stat_scores(jindex + 1).Positive_Cohens_D = cohens_d;
                     catch E
                         stat_scores(jindex + 1).Positive_Cluster = 'N/A';
                         stat_scores(jindex + 1).Positive_Cluster_Electrode = 'N/A';
                         stat_scores(jindex + 1).Positive_Electrode_T = 'N/A';
                         stat_scores(jindex + 1).Positive_Electrode_Time = 'N/A';
                         stat_scores(jindex + 1).Positive_Effect_size = 'N/A';
+                        stat_scores(jindex + 1).Positive_Cohens_D = 'N/A';
                     end
 
                     try
@@ -105,17 +110,19 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
                         effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                        stat_scores(jindex + 1).Negative_Cluster = stat.negclusters.prob;
-                        stat_scores(jindex + 1).Negative_Cluster_Electrode = elec.electrode;
-                        stat_scores(jindex + 1).Negative_Electrode_T = elec.t_value;
-                        stat_scores(jindex + 1).Negative_Electrode_Time = elec.time;
+                        stat_scores(jindex + 1).Negative_Cluster = {stat.negclusters.prob};
+                        stat_scores(jindex + 1).Negative_Cluster_Electrode = {elec.electrode};
+                        stat_scores(jindex + 1).Negative_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Negative_Electrode_Time = {elec.time};
                         stat_scores(jindex + 1).Negative_Effect_size = effect_size;
+                        stat_scores(jindex + 1).Negative_Cohens_D = cohens_d;
                     catch E
                         stat_scores(jindex + 1).Negative_Cluster = 'N/A';
                         stat_scores(jindex + 1).Negative_Cluster_Electrode = 'N/A';
                         stat_scores(jindex + 1).Negative_Electrode_T = 'N/A';
                         stat_scores(jindex + 1).Negative_Electrode_Time = 'N/A';
                         stat_scores(jindex + 1).Negative_Effect_size = 'N/A';
+                        stat_scores(jindex + 1).Negative_Cohens_D = 'N/A';
                     end
 
                 end
@@ -247,7 +254,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", "Onsets_Stat_Results.xls");
+        savedir = strcat(results_dir, "/", "stat_results", "/",onsets_part,"_",factor,"_",string(start_time),"_", string(end_time),"_Onsets_Stat_Results.xls");
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -333,46 +340,49 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         stat_scores(jindex + 1).Factor_Name = stat_name;
 
                         try
-                            elec = compute_best_electrode(stat, "positive");
+                        elec = compute_best_electrode(stat, "positive");
 
-                            cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
-                            effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
+                        cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
+                        effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                            stat_scores(jindex + 1).Positive_Cluster = stat.posclusters.prob;
-                            stat_scores(jindex + 1).Positive_Cluster_Electrode = elec.electrode;
-                            stat_scores(jindex + 1).Positive_Electrode_T = elec.t_value;
-                            stat_scores(jindex + 1).Positive_Electrode_Time = elec.time;
+                        
+                        
 
-                            stat_scores(jindex + 1).Positive_Effect_size = effect_size;
-                        catch E
-                            stat_scores(jindex + 1).Positive_Cluster = 'N/A';
-                            stat_scores(jindex + 1).Positive_Cluster_Electrode = 'N/A';
-                            stat_scores(jindex + 1).Positive_Electrode_T = 'N/A';
-                            stat_scores(jindex + 1).Positive_Electrode_Time = 'N/A';
+                        stat_scores(jindex + 1).Positive_Cluster = {stat.posclusters.prob};
+                        stat_scores(jindex + 1).Positive_Cluster_Electrode = {elec.electrode};
+                        stat_scores(jindex + 1).Positive_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Positive_Electrode_Time = {elec.time};
+                        stat_scores(jindex + 1).Positive_Effect_size = effect_size;
+                        stat_scores(jindex + 1).Positive_Cohens_D = cohens_d;
+                    catch E
+                        stat_scores(jindex + 1).Positive_Cluster = 'N/A';
+                        stat_scores(jindex + 1).Positive_Cluster_Electrode = 'N/A';
+                        stat_scores(jindex + 1).Positive_Electrode_T = 'N/A';
+                        stat_scores(jindex + 1).Positive_Electrode_Time = 'N/A';
+                        stat_scores(jindex + 1).Positive_Effect_size = 'N/A';
+                        stat_scores(jindex + 1).Positive_Cohens_D = 'N/A';
+                    end
 
-                            stat_scores(jindex + 1).Positive_Effect_size = 'N/A';
-                        end
+                    try
+                        elec = compute_best_electrode(stat, "negative");
 
-                        try
-                            elec = compute_best_electrode(stat, "negative");
+                        cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
+                        effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                            cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
-                            effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
-
-                            stat_scores(jindex + 1).Negative_Cluster = stat.negclusters.prob;
-                            stat_scores(jindex + 1).Negative_Cluster_Electrode = elec.electrode;
-                            stat_scores(jindex + 1).Negative_Electrode_T = elec.t_value;
-                            stat_scores(jindex + 1).Negative_Electrode_Time = elec.time;
-
-                            stat_scores(jindex + 1).Negative_Effect_size = effect_size;
-                        catch E
-                            stat_scores(jindex + 1).Negative_Cluster = 'N/A';
-                            stat_scores(jindex + 1).Negative_Cluster_Electrode = 'N/A';
-                            stat_scores(jindex + 1).Negative_Electrode_T = 'N/A';
-                            stat_scores(jindex + 1).Negative_Electrode_Time = 'N/A';
-
-                            stat_scores(jindex + 1).Negative_Effect_size = 'N/A';
-                        end
+                        stat_scores(jindex + 1).Negative_Cluster = {stat.negclusters.prob};
+                        stat_scores(jindex + 1).Negative_Cluster_Electrode = {elec.electrode};
+                        stat_scores(jindex + 1).Negative_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Negative_Electrode_Time = {elec.time};
+                        stat_scores(jindex + 1).Negative_Effect_size = effect_size;
+                        stat_scores(jindex + 1).Negative_Cohens_D = cohens_d;
+                    catch E
+                        stat_scores(jindex + 1).Negative_Cluster = 'N/A';
+                        stat_scores(jindex + 1).Negative_Cluster_Electrode = 'N/A';
+                        stat_scores(jindex + 1).Negative_Electrode_T = 'N/A';
+                        stat_scores(jindex + 1).Negative_Electrode_Time = 'N/A';
+                        stat_scores(jindex + 1).Negative_Effect_size = 'N/A';
+                        stat_scores(jindex + 1).Negative_Cohens_D = 'N/A';
+                    end
 
                     end
 

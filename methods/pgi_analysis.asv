@@ -36,12 +36,12 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
         else
 
-            filename_precomposed = strcat(results_dir, "/", onsets_part, "/","decomposed_dat.mat");
+            filename_precomposed = strcat(results_dir, "/", onsets_part, "/",string(wavelet_width),"-cyc-pow-","decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
 
-                [datas, orders] = freq_power_decopmosition(datas, orders, wavelet_width, filename_precomposed);
+                [datas] = freq_power_decopmosition(datas,  wavelet_width, filename_precomposed);
 
             else
                 data = load(filename_precomposed).decomposed;
@@ -64,6 +64,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                 if spatial_roi && ~strcmp(factor{1}, 'none')
                     % finds spatial ROI
+                    datas_pure = datas;
                     datas = roi_mask(datas, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                 end
 
@@ -85,11 +86,14 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
                         effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                        stat_scores(jindex + 1).Positive_Cluster = stat.posclusters.prob;
-                        stat_scores(jindex + 1).Positive_Cluster_Electrode = elec.electrode;
-                        stat_scores(jindex + 1).Positive_Electrode_T = elec.t_value;
-                        stat_scores(jindex + 1).Positive_Electrode_Time = elec.time;
-                        stat_scores(jindex + 1).Positive_Effect_size = effect_size;
+                        
+                        
+
+                        stat_scores(jindex + 1).Positive_Cluster = {stat.posclusters.prob};
+                        stat_scores(jindex + 1).Positive_Cluster_Electrode = {elec.electrode};
+                        stat_scores(jindex + 1).Positive_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Positive_Electrode_Time = {elec.time};
+                        stat_scores(jindex + 1).Positive_Effect_size = {effect_size};
                     catch E
                         stat_scores(jindex + 1).Positive_Cluster = 'N/A';
                         stat_scores(jindex + 1).Positive_Cluster_Electrode = 'N/A';
@@ -104,11 +108,11 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         cohens_d = round((2 * elec.t_value) / sqrt(stat.df), 2);
                         effect_size = round(sqrt((elec.t_value * elec.t_value) / ((elec.t_value * elec.t_value) + stat.df)), 2);
 
-                        stat_scores(jindex + 1).Negative_Cluster = stat.negclusters.prob;
-                        stat_scores(jindex + 1).Negative_Cluster_Electrode = elec.electrode;
-                        stat_scores(jindex + 1).Negative_Electrode_T = elec.t_value;
-                        stat_scores(jindex + 1).Negative_Electrode_Time = elec.time;
-                        stat_scores(jindex + 1).Negative_Effect_size = effect_size;
+                        stat_scores(jindex + 1).Negative_Cluster = {stat.negclusters.prob;
+                        stat_scores(jindex + 1).Negative_Cluster_Electrode = {elec.electrode;
+                        stat_scores(jindex + 1).Negative_Electrode_T = {elec.t_value};
+                        stat_scores(jindex + 1).Negative_Electrode_Time = {elec.time};
+                        stat_scores(jindex + 1).Negative_Effect_size = {effect_size};
                     catch E
                         stat_scores(jindex + 1).Negative_Cluster = 'N/A';
                         stat_scores(jindex + 1).Negative_Cluster_Electrode = 'N/A';
@@ -118,6 +122,11 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                     end
 
                 end
+
+                  if spatial_roi && ~strcmp(factor{1}, 'none')
+                    % finds spatial ROI
+                    datas = datas_pure;
+                  end
 
                 %% Topomap plotter
                 if topograpic_map_plot
@@ -300,6 +309,12 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                     % ROI
                     if spatial_roi && ~strcmp(factor{1}, 'none')
                         % finds spatial ROI
+
+                        data1_pure = data1;
+                        data2_pure = data2;
+                        data3_pure = data3;
+
+
                         data1 = roi_mask(data1, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                         data2 = roi_mask(data2, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
                         data3 = roi_mask(data3, orders, start_time, end_time, results_dir, time_freq, frequency_range, posneg, main_path, grand_avg_filename, n_participants, onsets_part);
@@ -363,6 +378,13 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
                         end
 
                     end
+
+                    if spatial_roi && ~strcmp(factor{1}, 'none')
+                    % finds spatial ROI
+                        data1 = data1_pure;
+                        data2 = data2_pure;
+                        data3 = data3_pure;
+                  end
 
                     %% Topomap plotter
                     if topograpic_map_plot
