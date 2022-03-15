@@ -210,6 +210,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
+                        plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
                         generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, "negative");
                         clf;
@@ -218,6 +219,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
+                        plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
                         generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, "positive");
                         clf;
@@ -236,12 +238,14 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
+                        plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
                         plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
                     end
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
+                        plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
                         plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
                     else
@@ -467,7 +471,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                         if Negative_Cluster <= 0.2
                             electrode = compute_best_electrode(stat, "negative");
-
+                            plot_peak_electrode(stat, significant_electrode, results_dir);
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                             else
@@ -478,7 +482,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                         if Positive_Cluster <= 0.2
                             electrode = compute_best_electrode(stat, "positive");
-
+                            plot_peak_electrode(stat, significant_electrode, results_dir);
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                             else
@@ -499,12 +503,14 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                         if Negative_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "negative");
+                            plot_peak_electrode(stat, significant_electrode, results_dir);
                             generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative");
                             generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative")
                         end
 
                         if Positive_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "positive");
+                            plot_peak_electrode(stat, significant_electrode, results_dir);
                             generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive");
                             generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive")
                         else

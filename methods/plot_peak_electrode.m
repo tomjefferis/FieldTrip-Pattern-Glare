@@ -1,13 +1,16 @@
 %% creates a topographic map highlighting the peak electrode
-function plot_peak_electrode(stat, pos_peak_level_stats, save_dir)
+function plot_peak_electrode(stat, peak_electrode, save_dir)
     
+    if ~isstring(peak_electrode)
+        pos_peak_level_stats = peak_electrode;
+        peak_electrode = pos_peak_level_stats.electrode;
+    end
 
     elecs = zeros(size(stat.elec.chanpos,1), 1);
-    peak_electrode = pos_peak_level_stats.electrode;
     e_idx = find(contains(stat.label,peak_electrode));
     elecs(e_idx)=1;
     
-    save_dir = save_dir + "/" + "highlighted_electrode.png";
+    save_dir = save_dir + "/" + peak_electrode +"_highlighted_electrode.png";
 
     cfg = [];
     cfg.parameter = 'stat';

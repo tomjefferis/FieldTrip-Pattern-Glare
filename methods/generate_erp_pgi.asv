@@ -55,8 +55,7 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
 
     end
 
-    plot([find(time==significant_electrode.sig_start),find(time==significant_electrode.end_start)],[0,0],'b','LineWidth', 1.4);
-
+    plot([significant_electrode.,],[0,0]);
 
     legend(gfp, "", 'location', 'northwest');
     xlabel("Time in S");
