@@ -37,7 +37,7 @@ frequency_range = [8 13]; % start and end frequency for stat tests
 %% Plotting config
 clust_volume = false; % cluter volume over time
 topograpic_map_plot = false; % make topographic maps
-plot_erps = false; % plotting ERPs for each condition and PGI
+plot_erps = true; % plotting ERPs for each condition and PGI
 median_split_plots = false; % plots the median split across time window for factors
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
 plot_designs = false; %plots design matrix for partitions ONLY
@@ -46,7 +46,7 @@ generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOT
 %% generate experiment design 
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partition1'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
+onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
 %% disable this when wanting to run for real results
 testing = false;
