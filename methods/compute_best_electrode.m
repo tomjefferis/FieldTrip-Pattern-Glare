@@ -31,7 +31,7 @@ function [significant_electrode] = compute_best_electrode(stat, type)
 
             which_cluster = cluster_matrix_locations(row, col);
 
-            if which_cluster == 2
+            if which_cluster == 1
                 keys = peak_level_stats.keys;
 
                 if any(strcmp(keys, electrode))
@@ -91,7 +91,7 @@ function [significant_electrode] = compute_best_electrode(stat, type)
         end
     end
 significant_electrode.sig_start = stat.time(start_clus);
-significant_electrode.sif_end =  stat.time(end_clus);
+significant_electrode.sig_end =  stat.time(end_clus);
     
 
 end
