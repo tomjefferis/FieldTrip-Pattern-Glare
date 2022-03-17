@@ -35,21 +35,27 @@ function [high, low] = ylimit_finder(data,electrode)
 
     if time
 
+        if ~(isfield(unit, 'PGI'))
             [thin,med,thick] = split_data(data);
 
-            
-
             temp = [data,thin,med,thick];
+        else
+            temp = data;
+        end
 
             tempseries = [];
             for item = 1:numel(temp)
                 x = get_timeseries_data_electrode(temp{item},elec_index,'avg');
-                tempseries(item,:) = prctile(x,[5,97],'all');
+                tempseries(item,:) = x;
             end
+
+
+             nums = prctile(tempseries,[5,95],1);
+
 
           
 
-            nums =  [mean(tempseries(:,1)),mean(tempseries(:,2))]
+            
         
     else
         if ~isstruct(data)
@@ -77,8 +83,8 @@ function [high, low] = ylimit_finder(data,electrode)
     end
 
 
-    high = round((max(max(nums)) + 0.51)*2)/2;
-    low = round((min(min(nums)) - 0.51)*2)/2;
+    high = round((max(prctile(nums,95,2)) + 0.51)*2)/2;
+    low = round((min(prctile(nums,5,2)) + 0.51)*2)/2;
 
 
 end

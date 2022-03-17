@@ -29,11 +29,15 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     time = data{1}.time;
     y1 = grandavg.avg(electrode_index, :);
 
-    plot(time, y1, 'g', 'LineWidth', 1.4);
+    temp = data{1};
+    temp.PGI = true;
+    data{1} = temp;
+    [high, low] = ylimit_finder(data, significant_electrode);
+    plot(time, y1, 'g', 'LineWidth', 1.6);
     hold on;
     plot([significant_electrode.sig_start,significant_electrode.sig_end],[0,0] ,'b','LineWidth', 1.4);
     xlim(plotting_window);
-    ylim([-4, 2]);
+    ylim([low high]);
     yline(0, '--');
 
     if ~(start_window_time == 3)
@@ -60,7 +64,7 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     
 
 
-    legend(gfp, "Duration of Significance","",'location', 'northwest');
+    legend(gfp, "Duration of Effect","",'location', 'northwest');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 1200, 600]);

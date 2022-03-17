@@ -41,12 +41,14 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     y2 = grandavgmed.avg(electrode_index, :);
     y3 = grandavgthick.avg(electrode_index, :);
 
+    [high, low] = ylimit_finder(data, significant_electrode);
+
     plot(time, y1, 'Color', '#0072BD', 'LineWidth', 2);
     hold on;
     plot(time, y2, 'Color', '#D95319', 'LineWidth', 2);
     plot(time, y3, 'Color', '#EDB120', 'LineWidth', 2);
     xlim(plotting_window);
-    ylim([-4, 6]);
+    ylim([low high]);
     yline(0, '--');
 
     if ~(start_window_time == 3)
