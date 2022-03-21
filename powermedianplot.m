@@ -35,7 +35,7 @@ posneg = true; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 3;
+wavelet_width = 5;
 frequency_range = [8 13]; % start and end frequency for stat tests
 %% generate experiment design
 statistic = 'ft_statfun_diff_itc'; % "freq" (default) or defined statistic from fieldtrip
@@ -56,6 +56,6 @@ testing = false;
 tab = freq_analysis(single_trial_freq_filename, time_window, n_participants, baseline_period, ...
         spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
         median_split_plots, spect_plot, statistic, plot_designs, factor_scores, ...
-        onsets_part, type_of_effect, testing)
+        onsets_part, type_of_effect, "itc", testing)
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);

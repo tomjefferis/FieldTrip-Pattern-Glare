@@ -28,8 +28,8 @@ function tab = freq_analysis(single_trial_filename, time, n_participants, baseli
         [datas,orders] = load_freq_decomp(main_path, single_trial_filename, filename_precomposed, n_participants, wavelet_width);
 
         %% really bodge plz fix
-        vars = load("time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat").data;
-        datas{1}.elec = vars.elec;
+        vars = load("time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat");
+        datas{1}.elec 
 
 
         %cfg = [];

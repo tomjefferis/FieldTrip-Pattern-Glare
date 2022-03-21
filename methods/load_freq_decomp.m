@@ -34,6 +34,8 @@ function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_
                     decomposed = freq_fourier_decomposition(datas, wavelet_width, composed_filename, time);
                 end
 
+                decomposed.diamord = "chan_time";
+
                 save(composed_filename, "decomposed", '-v7.3');
                 data{end+1} = decomposed;
             end

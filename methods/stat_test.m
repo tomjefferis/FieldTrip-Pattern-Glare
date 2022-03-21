@@ -58,6 +58,8 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             end
             cfg.statistic = timefreq;
             cfg.design = design_matrix;
+            %cfg.parameter = 'itpc';
+
         end
         
 
