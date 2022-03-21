@@ -41,9 +41,28 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
         end
 
     else
+        if strcmp(timefreq, "freq")
+             if strcmp(factor, 'none')
+                cfg.statistic = 'ft_statfun_depsamplesT';
+             else
+                cfg.statistic = 'ft_statfun_indepsamplesregrT';
+             end
+        else
+            median_des = median(design_matrix);
+            for index = 1:size(design_matrix,2)
+                if design_matrix(index) < median_des
+                    design_matrix(index) = 1;
+                else 
+                    design_matrix(index) = 2;
+                end
+            end
+            cfg.statistic = timefreq;
+            cfg.design = design_matrix;
+        end
+        
+
         % no factor rins a t-test between the PGI and zero data to find significance between Medium and thick/thin
         if strcmp(factor, 'none')
-            cfg.statistic = 'ft_statfun_depsamplesT';
             null_data = set_values_to_zero(data);
             cfg.avgoverfreq = 'yes';
             cfg.ivar = 2; % the 1st row in cfg.design contains the independent variable
@@ -65,8 +84,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             stat.ref = squeeze(stat.ref);
 
         else
-            % if there is a condition a t-test is done with independant samples to find significance on factors
-            cfg.statistic = 'ft_statfun_indepsamplesregrT';
+            % if there is a condition a t-test is done with independant samples to find significance on factor
             cfg.avgoverfreq = 'yes';
             cfg.ivar = 1;
             cfg.frequency = freqrange;

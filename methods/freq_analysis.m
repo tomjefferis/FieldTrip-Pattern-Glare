@@ -1,7 +1,7 @@
 function tab = freq_analysis(single_trial_filename, time, n_participants, baseline_period, ...
         spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
-        median_split_plots, spect_plot, plot_designs, factor_scores, ...
-        onsets_part, type_of_effect, testing)
+        median_split_plots, spect_plot, statistic, plot_designs, factor_scores, ...
+        onsets_part, type_of_effect, itc, testing)
 
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
@@ -19,7 +19,11 @@ function tab = freq_analysis(single_trial_filename, time, n_participants, baseli
     if strcmp(onsets_part, 'onsets') || strcmp(onsets_part, 'partition1')
         clf;
 
-        filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-",onsets_part ,"-decomposed_dat.mat");
+        if strcmp(itc, "pow")
+            filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-",onsets_part ,"-decomposed_dat.mat");
+        else
+            filename_precomposed = strcat(string(wavelet_width), "-cyc-for-", onsets_part, "-decomposed_dat.mat");
+        end
 
         [datas,orders] = load_freq_decomp(main_path, single_trial_filename, filename_precomposed, n_participants, wavelet_width);
 
@@ -40,7 +44,7 @@ function tab = freq_analysis(single_trial_filename, time, n_participants, baseli
 
                 % only runs the stat if spec
                 if clust_volume || topograpic_map_plot || stat_run  
-                    stat = stat_test(data, factor, start_time, end_time, design_matrix, "freq", frequency_range, testing);
+                    stat = stat_test(data, factor, start_time, end_time, design_matrix, statistic, frequency_range, testing);
 
                     % adding stat result to the list
                     stat_name = strcat(factor, " ", string(start_time), "-", string(end_time));

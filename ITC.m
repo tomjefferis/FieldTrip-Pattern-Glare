@@ -96,14 +96,19 @@ for index = 1:n_participants
 
 end
 
-[design_matrix, data] = get_design_matrix(factor, data, order);
+%[design_matrix, data] = get_design_matrix(factor, data, order);
 
-[low, high] = median_split(data, order, design_matrix);
+%[low, high] = median_split(data, order, design_matrix);
 
-low = average_itc(low.data);
-high = average_itc(high.data);
-elec = [];
-elec.label = 'A26';
-plot_med_split_itc(low, high,elec);
+%low = average_itc(low.data);
+%high = average_itc(high.data);
+%elec = [];
+%elec.label = 'A26';
+%plot_med_split_itc(low, high,elec);
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);
+
+tab = freq_analysis(single_trial_freq_filename, time_window, n_participants, baseline_period, ...
+        spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
+        median_split_plots, spect_plot, statistic, plot_designs, factor_scores, ...
+        onsets_part, type_of_effect, testing)

@@ -15,6 +15,7 @@ single_trial_partitions_filename = 'time_domain_partitions_partitioned_onsets_2_
 grand_avg_freq_filename = 'frequency_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_freq_filename = 'frequency_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
 
+
 grand_avg_freq_partitions_filename = 'frequency_domain_partitions_partitioned_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_freq_partitions_filename = 'frequency_domain_partitions_partitioned_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
 
@@ -37,6 +38,7 @@ stat_run = true;
 wavelet_width = 3;
 frequency_range = [8 13]; % start and end frequency for stat tests
 %% generate experiment design
+statistic = 'ft_statfun_diff_itc'; % "freq" (default) or defined statistic from fieldtrip
 factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
@@ -51,9 +53,9 @@ plot_designs = true; %does nothing atm
 testing = false;
 %% End of config
 
-tab = freq_analysis(single_trial_filename, time_window, n_participants, baseline_period, ...
+tab = freq_analysis(single_trial_freq_filename, time_window, n_participants, baseline_period, ...
         spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
-        median_split_plots, spect_plot, plot_designs, factor_scores, ...
+        median_split_plots, spect_plot, statistic, plot_designs, factor_scores, ...
         onsets_part, type_of_effect, testing)
 
 %[data,order] = load_freq_decomp(main_path, single_trial_freq_filename, filename_precomposed, n_participants, wavelet_width,time_window);
