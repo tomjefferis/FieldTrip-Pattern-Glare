@@ -1,7 +1,7 @@
 function [data,order] = load_freq_decomp(main_path, single_trial_name, composed_filename, n_participants, wavelet_width,time)
 
     if ~exist('time','var')
-        time = [0,3.998];
+        time = [2.8,3.998];
     end
 
 

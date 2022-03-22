@@ -1,7 +1,7 @@
 function [datas] = freq_fourier_decomposition(datas, wavelet_width, filename, time)
 
     if ~exist('time','var')
-        time = [2,3.998];
+        time = [2.8,3.998];
     end
 
     if contains(filename, 'onsets')

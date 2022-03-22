@@ -35,7 +35,7 @@ posneg = true; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 5;
+wavelet_width = 3;
 frequency_range = [8 13]; % start and end frequency for stat tests
 %% generate experiment design
 statistic = 'ft_statfun_diff_itc'; % "freq" (default) or defined statistic from fieldtrip
