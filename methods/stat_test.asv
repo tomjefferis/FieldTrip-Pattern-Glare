@@ -68,7 +68,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             cfg.design = new_design;
             cfg.clusterthreshold = 'nonparametric_individual';
             cfg.parameter = 'fourierspctrm';
-            cfg.numrandomization = 1000; % cos its slow 
+            cfg.numrandomization = 1000; % cos its sl
 
         end
         
