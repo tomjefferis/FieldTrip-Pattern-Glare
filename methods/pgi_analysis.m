@@ -550,7 +550,7 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
 
                 for effect = type_of_effect
                     % Loads Averaged data (1 timeseries per conditon per patricipant)
-
+                    grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.mat';
                     [datas, orders] = load_data(main_path, grand_avg_eyes, n_participants, onsets_part);
                     datas = apply_dummy_coordinates_to_eye_electrodes(datas);
                     % gets the design matrix
