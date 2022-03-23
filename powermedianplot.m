@@ -24,7 +24,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 %time_window = [2.5, 3.998];
-time_window = [3.09, 3.99;];
+time_window = [2.8, 3.45;];
 n_participants = 40;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -43,9 +43,9 @@ factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discom
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
 %% plotting function
-clust_volume = true;
-topograpic_map_plot = true;
-median_split_plots = true;
+clust_volume = false;
+topograpic_map_plot = false;
+median_split_plots = false;
 spect_plot = true; %does nothing atm
 plot_designs = true; %does nothing atm
 
