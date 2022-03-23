@@ -11,6 +11,11 @@ function data = apply_dummy_coordinates_to_eye_electrodes(data)
         HEOG = REOG_build(6, :);
         VEOG = REOG_build(7, :);
 
+        participant.thin_all = participant.thin(6:7,:);
+        participant.med_all = participant.med(6:7,:);
+        participant.thick_all = participant.thick(6:7,:);
+        
+
         elec.chantype = {'eeg'};
 
         elec.chanunit = {'V'};
@@ -24,7 +29,7 @@ function data = apply_dummy_coordinates_to_eye_electrodes(data)
         participant.label = {'A19'};
         participant.avg = REOG;
         participant.thin = HEOG;
-        participant.med = REOG + HEOG;
+        participant.med = REOG;
         participant.thick = VEOG;
         data{i} = participant;
     end
