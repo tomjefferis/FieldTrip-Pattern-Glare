@@ -21,7 +21,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-time_window = [3.08, 3.99;];
+time_window = [3.09, 3.18;];
 n_participants = 40;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -35,7 +35,7 @@ stat_run = true;
 wavelet_width = 5; 
 frequency_range = [8 13]; % start and end frequency for stat tests
 %% Plotting config
-clust_volume = false; % cluter volume over time
+clust_volume = true; % cluter volume over time
 topograpic_map_plot = false; % make topographic maps
 plot_erps = true; % plotting ERPs for each condition and PGI
 median_split_plots = false; % plots the median split across time window for factors
@@ -46,7 +46,7 @@ generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOT
 %% generate experiment design 
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'eyes'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
+onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
 type_of_effect = {'habituation'}; % habituation or sensitization
 %% disable this when wanting to run for real results
 testing = false;

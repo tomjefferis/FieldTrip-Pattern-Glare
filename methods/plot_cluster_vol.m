@@ -3,9 +3,11 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     if strcmp(polarity, "positive")
         cluster_prob = {stat.posclusters(:).prob};
         cluster = stat.posclusterslabelmat;
+        p_vals = [stat.posclusters.prob];
     else
         cluster_prob = {stat.negclusters(:).prob};
         cluster = stat.negclusterslabelmat;
+        p_vals = [stat.negclusters.prob];
     end
 
     %sets the time of x axis
@@ -59,14 +61,14 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
 
     ylim([0, ymax]);
     xlabel('Time (S)');
-    ylabel('volume');
+    ylabel('Volume');
     title(strcat(polarity, " clusters as % volume"));
     cluster_leg = strings([1, size(plotted_clust, 1)]);
 
     for index = 1:size(plotted_clust, 1)
         y = plotted_clust(index, :);
         area(x, y);
-        cluster_leg(index) = strcat("Cluster ", string(index));
+        cluster_leg(index) = strcat("Cluster ", string(index), " p = ", string(round(p_vals(index) * 10000)/10000))
     end
 
     legend(cluster_leg);
