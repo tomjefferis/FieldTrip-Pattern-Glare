@@ -54,6 +54,10 @@ function tab = pgi_analysis(grand_avg_filename,single_trial_filename,grand_avg_p
             %grandavg = ft_freqgrandaverage(cfg, datas{:});
         end
 
+        if sum(baseline_period == [2.8 3.0]) < 2
+            datas = rebaseline_data(datas,baseline_period);
+        end 
+
         %for every time windows
         for index = 1:size(time, 1)
             % gets the time window, either selected by the roi finder or
