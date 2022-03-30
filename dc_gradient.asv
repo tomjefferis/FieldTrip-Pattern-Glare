@@ -3,14 +3,13 @@
 clear all;
 restoredefaultpath;
 addpath('./methods');
-addpath("C:\Users\Tom\AppData\Roaming\MathWorks\MATLAB Add-Ons\Functions\Patchline")
 grand_avg_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
 
 %% Experiment parameters
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-time_window = [0.25, 3; ];
+time_window = [2.8, 3; ];
 n_participants = 40;
 baseline_period = [-0.2 0];
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
@@ -36,32 +35,33 @@ end
 
 if grad_stat
 
-dm = [ones(1, numel(datas)), (2 * ones(1, numel(datas))), (3 * ones(1, numel(datas)))];
+    grads = [];
 
-cfg = [];
-cfg.feedback = 'no';
-cfg.method = 'distance';
-cfg.elec = datas{1}.elec;
-neighbours = ft_prepare_neighbours(cfg);
+    start_t = interp1(datas{1}.time, 1:length(datas{1}.time), time_window(1), 'nearest');
+    end_t = interp1(datas{1}.time, 1:length(datas{1}.time), time_window(2), 'nearest');
 
-cfg = [];
-cfg.latency = time_window;
-cfg.channel = 'all';
-cfg.method = 'montecarlo';
-cfg.correctm = 'cluster';
-cfg.neighbours = neighbours;
-cfg.clusteralpha = 0.025;
-cfg.numrandomization = 5000;
-cfg.design = dm;
-cfg.computeprob = 'yes';
-cfg.alpha = 0.05;
 
-cfg.statistic = 'ft_statfun_indepsamplesregrT';
-cfg.ivar = 1;
-stat = ft_timelockstatistics(cfg, thin{:},med{:},thick{:});
+    for index = 1:numel(datas)
+        for jndex = 1:size(datas{1}.label)
+            gee = polyfit(datas{index}.time(start_t:end_t),datas{index}.avg(jndex,start_t:end_t),1);
+            grads(index,jndex) = gee(1);
+        end
+    end
+
+    stat = [];
+
+    for index = 1:size(grads,2)
+        stat(index) = ttest(grads(:,index));
+    end
+
+    stat;
+
+
+
 else
 
-    significant_electrode.electrode = 'A23';
+    figure;
+    significant_electrode.electrode = 'A14';
     electrode_index = get_electrode_index(datas, significant_electrode);
     significant_electrode.time = 3.99;
     significant_electrode.t_value = 0;
@@ -90,5 +90,9 @@ else
     patchline(x,grandavgmed.avg(electrode_index,:), 'edgecolor', '#D95319', 'LineWidth', 2,'edgealpha',0.3);
     patchline(x,grandavgthick.avg(electrode_index,:), 'edgecolor', '#EDB120', 'LineWidth', 2,'edgealpha',0.3);
     grid on;
-    
+    xlim(time_window);
+    ylim([-2,4]);
+    title(strcat("ERP with best fit at ",significant_electrode.electrode));
+    thinname = strcat("Thin ∇=", )
+    legend(["Thin","Medium","Thick"]);
 end
