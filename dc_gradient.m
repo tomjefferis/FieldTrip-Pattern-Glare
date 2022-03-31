@@ -38,7 +38,7 @@ if grad_stat
     start_t = interp1(datas{1}.time, 1:length(datas{1}.time), time_window(1), 'nearest');
     end_t = interp1(datas{1}.time, 1:length(datas{1}.time), time_window(2), 'nearest');
 
-
+ n
     for index = 1:numel(datas)
         for jndex = 1:size(datas{1}.label)
             gee = polyfit(datas{index}.time(start_t:end_t),datas{index}.avg(jndex,start_t:end_t),1);

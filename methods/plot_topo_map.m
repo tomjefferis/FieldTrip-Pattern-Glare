@@ -1,6 +1,6 @@
 function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
 
-    difference = linspace(start_time, end_time, 9); %amount of subplots in this
+    difference = linspace(start_time, end_time, 13); %amount of subplots in this
 
     if strcmp(polarity, "positive")
         clustermark = stat.posclusterslabelmat;
@@ -16,7 +16,7 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     %replacing nans with 0 to not break function
     stat.stat(isnan(stat.stat))=0;
 
-    for i = 1:8
+    for i = 1:12
 
         %finding time window from the closest times in the series to the inputs
         lower = interp1(stat.time, 1:length(stat.time), difference(i), 'nearest');
@@ -30,10 +30,10 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
             lower = length(stat.time) - 1;
         end
 
-        highlight = mean(clustermark(:, lower:upper), 2);
+        highlight = round(mean(clustermark(:, lower:upper), 2));
         highlight = stat.label(highlight == 1);
 
-        subplot(1, 12, i);
+        subplot(3, 4, i);
         % cfg for plot
         cfg = [];
         cfg.xlim = [difference(i), difference(i + 1)];

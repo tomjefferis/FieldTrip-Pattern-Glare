@@ -6,11 +6,11 @@ function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_preco
 
 
     if contains(filename_precomposed, 'onsets')
-        datas = freq_decomp(datas, wavelet_width, 'pow',time);
+        datas = freq_decomp(datas, wavelet_width, 'pow',frequency_range,time);
     else
-        datas.part1 = freq_decomp(datas.part1, wavelet_width,'pow',time);
-        datas.part2 = freq_decomp(datas.part2, wavelet_width,'pow',time);
-        datas.part3 = freq_decomp(datas.part3, wavelet_width,'pow',time);
+        datas.part1 = freq_decomp(datas.part1, wavelet_width,'pow',frequency_range,time);
+        datas.part2 = freq_decomp(datas.part2, wavelet_width,'pow',frequency_range,time);
+        datas.part3 = freq_decomp(datas.part3, wavelet_width,'pow',frequency_range,time);
     end
 
 
