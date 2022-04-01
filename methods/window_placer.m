@@ -88,6 +88,9 @@ function [peaks, windowindexs] = window_placer(gfp, windows, baseline_period)
     end
 
     for index = remove
+        if index > size(peakwindows,2)
+            index = size(peakwindows,2);
+        end
         peakwindows(index) = [];
     end
 

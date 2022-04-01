@@ -11,7 +11,7 @@ function plot_peak_electrode(stat, peak_electrode, save_dir)
     elecs(e_idx)=1;
     
     save_dir = save_dir + "/" + peak_electrode +"_highlighted_electrode.png";
-
+    figure;
     cfg = [];
     cfg.parameter = 'stat';
     cfg.zlim = [-5, 5];
@@ -26,7 +26,7 @@ function plot_peak_electrode(stat, peak_electrode, save_dir)
     cfg.style = 'blank';
     
     ft_topoplotER(cfg, stat);
-
+    b = gca; legend(b,'off');
     set(gcf,'Position',[100 100 250 250])
     exportgraphics(gcf,save_dir,'Resolution',500);
     close;

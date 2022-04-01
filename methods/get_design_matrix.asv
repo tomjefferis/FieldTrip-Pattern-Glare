@@ -58,9 +58,9 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
         design_matrix3 = design_matrix3 - min_n;
 
         if contains(factor, "orthog")
-            design_matrix.one = design_matrix1 - mean(design_matrix1);
-            design_matrix.two = design_matrix2 - mean(design_matrix2);
-            design_matrix.three = design_matrix3 - mean(design_matrix3);
+            design_matrix1 = design_matrix1 - mean(design_matrix1);
+            design_matrix2 = design_matrix2 - mean(design_matrix2);
+            design_matrix3 = design_matrix3 - mean(design_matrix3);
         else
             design_matrix.one = design_matrix1;
             design_matrix.two = design_matrix2;

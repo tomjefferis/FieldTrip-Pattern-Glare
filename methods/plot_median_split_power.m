@@ -61,7 +61,7 @@ function plot_median_split_power(low, high, electrode, time, factor, save_dir)
     end
 
 
-    sgtitle(strcat("Median split for Beta band ",factor));
+    sgtitle(strcat("Median split for power ",factor, "at ",electrode));
     imgname = strcat(imgname);
     save_dir_full = strcat(save_dir, "/", results_fact, "/", imgname);
     saveas(gcf, save_dir_full);

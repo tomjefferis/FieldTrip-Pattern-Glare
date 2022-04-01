@@ -1,4 +1,8 @@
-function [significant_electrode] = compute_best_electrode(stat, type)
+function [significant_electrode] = compute_best_electrode(stat, type, cluster)
+
+    if ~exist('cluster','var')
+        cluster = 1;
+    end
 
     % if isfield(stat,"freq")
     %    t_values = stat.stat;
@@ -31,7 +35,7 @@ function [significant_electrode] = compute_best_electrode(stat, type)
 
             which_cluster = cluster_matrix_locations(row, col);
 
-            if which_cluster == 1
+            if which_cluster == cluster
                 keys = peak_level_stats.keys;
 
                 if any(strcmp(keys, electrode))
