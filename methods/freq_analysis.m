@@ -20,12 +20,12 @@ function tab = freq_analysis(single_trial_filename, time, n_participants, baseli
         clf;
 
         if strcmp(itc, "pow")
-            filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-",onsets_part ,"-decomposed_dat.mat");
+            filename_precomposed = strcat(string(wavelet_width), "-cyc-pow-", onsets_part,"-",frequency_range(1),"-",frequency_range(2), "-decomposed_dat.mat");
         else
-            filename_precomposed = strcat(string(wavelet_width), "-cyc-for-", onsets_part, "-decomposed_dat.mat");
+            filename_precomposed = strcat(string(wavelet_width), "-cyc-for-", onsets_part,"-",frequency_range(1),"-",frequency_range(2), "-decomposed_dat.mat");
         end
 
-        [datas,orders] = load_freq_decomp(main_path, single_trial_filename, filename_precomposed, n_participants, wavelet_width);
+        [datas,orders] = load_freq_decomp(main_path, single_trial_filename, filename_precomposed, n_participants,frequency_range, wavelet_width);
 
         %% really bodge plz fix
         vars = load("time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat").data;

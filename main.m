@@ -51,7 +51,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = false;
-%% End of config 
+%% End of config   nm 
 
 
 

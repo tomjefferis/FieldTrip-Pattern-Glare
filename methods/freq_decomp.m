@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width, output, time)
+function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
 
     %%  Frequency decomposition function
     %   This is the main function for frequency decomposition
@@ -29,7 +29,7 @@ function datas = freq_decomp(datas, wavelet_width, output, time)
     cfg.output = output;
     cfg.method = 'wavelet';
     cfg.width = wavelet_width;
-    cfg.foi = 5:1:30; %% 
+    cfg.foi = frequency_range(1):1:frequency_range(2); %% 
     cfg.toi = start:step:endt;
     cfg.pad = 'nextpow2';
     cfg.channel = 'all';
