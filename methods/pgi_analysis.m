@@ -6,8 +6,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
     % If the factors are all then it sets all the factors
-    if strcmp(factor_scores{1}, 'all')
+    if strcmp(factor_scores{1}, 'all') && ~contains(orthoganilized_partitions,'orthog')
         factor_scores = {'none', 'headache', 'visual-stress', 'discomfort'};
+    elseif strcmp(factor_scores{1}, 'all') && contains(orthoganilized_partitions,'orthog')
+        factor_scores = {'headache', 'visual-stress', 'discomfort'};
     end
 
     %setting folder path to output to time or freq folders
@@ -422,7 +424,8 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         if Negative_Cluster <= 0.1
                             plot_topo_map(stat, start_time, end_time, "negative", factors, results_dir);
-                        elseif Positive_Cluster <= 0.1
+                        end
+                        if Positive_Cluster <= 0.1
                             plot_topo_map(stat, start_time, end_time, "positive", factors, results_dir);
                         else
                             fprintf("Nothing significant to plot on a topographic map");
@@ -477,9 +480,9 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             Positive_Cluster = 1;
                         end
 
-                        if Negative_Cluster <= 0.2
+                        if Negative_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "negative");
-                            plot_peak_electrode(stat, significant_electrode, results_dir);
+                            plot_peak_electrode(stat, electrode, results_dir);
 
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
@@ -489,9 +492,9 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         end
 
-                        if Positive_Cluster <= 0.2
+                        if Positive_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "positive");
-                            plot_peak_electrode(stat, significant_electrode, results_dir);
+                            plot_peak_electrode(stat, electrode, results_dir);
 
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);

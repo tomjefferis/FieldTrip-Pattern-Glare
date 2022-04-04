@@ -50,7 +50,7 @@ function [high, low] = ylimit_finder(data,electrode)
             end
 
 
-             nums = prctile(tempseries,[5,95],1);
+             nums = prctile(tempseries,[10,90],1);
 
 
           
@@ -83,8 +83,8 @@ function [high, low] = ylimit_finder(data,electrode)
     end
 
 
-    high = round((max(prctile(nums,95,2)) + 0.51)*2)/2;
-    low = round((min(prctile(nums,5,2)) + 0.51)*2)/2;
+    high = round((max(prctile(nums,90,2)) + 0.51)*2)/2;
+    low = round((min(prctile(nums,10,2)) + 0.51)*2)/2;
 
 
 end
