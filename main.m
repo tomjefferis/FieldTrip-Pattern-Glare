@@ -21,7 +21,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-time_window = [3.09,3.83];
+time_window = [3.09,3.18];
 n_participants = 40;
 baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
