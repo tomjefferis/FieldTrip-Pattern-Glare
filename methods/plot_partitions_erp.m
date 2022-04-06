@@ -186,6 +186,6 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     titles = strcat("Interactions through partitions Low vs High group ", factor);
     f1.Position = f1.Position + [0 -300 0 300];
     %sgtitle(titles);
-    name = strcat(results, "/partitions/", factor, ' erpcombined.png');
+    name = strcat(results, "/partitions/", factor,electrode.electrode, ' erpcombined.png');
     saveas(gcf, name);
 end

@@ -5,8 +5,13 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     start_window_time = start_time;
     end_window_time = end_time;
 
-    start_time = 2.8;
-    end_time = 3.99;
+    if start_time >= 2.8
+        start_time = 2.8;
+        end_time = 3.99;
+    else
+        start_time = -0.2;
+        end_time = 3.1;
+    end
 
     save_dir = strcat(results_dir, "\", factor, "\");
     plotting_window = [start_time, end_time];
@@ -41,14 +46,15 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     y2 = grandavgmed.avg(electrode_index, :);
     y3 = grandavgthick.avg(electrode_index, :);
 
-    [high, low] = ylimit_finder(data, significant_electrode);
+    %high = 3;
+    %low = -3;%ylimit_finder(data, significant_electrode);
 
     plot(time, y1, 'Color', '#0072BD', 'LineWidth', 2);
     hold on;
     plot(time, y2, 'Color', '#D95319', 'LineWidth', 2);
     plot(time, y3, 'Color', '#EDB120', 'LineWidth', 2);
     xlim(plotting_window);
-    ylim([low high]);
+    %ylim([low high]);
     yline(0, '--');
 
     if ~(start_window_time == 3)

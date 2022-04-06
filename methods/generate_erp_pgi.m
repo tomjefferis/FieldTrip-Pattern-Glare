@@ -5,8 +5,14 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     start_window_time = start_time;
     end_window_time = end_time;
 
-    start_time = 2.8;
-    end_time = 3.99;
+  
+    if start_time >= 2.8
+        start_time = 2.8;
+        end_time = 3.99;
+    else
+        start_time = -0.2;
+        end_time = 3.1;
+    end
 
     save_dir = strcat(results_dir, "\", factor, "\");
     plotting_window = [start_time, end_time];
