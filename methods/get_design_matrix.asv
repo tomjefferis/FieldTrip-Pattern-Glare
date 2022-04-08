@@ -92,11 +92,7 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             end
 
             dm = reshape(dm,num,[]);
-
-            design_matrix.one = dm(:,1);
-            design_matrix.two = dm(:,2);
-            design_matrix.three = dm(:,3);
-
+            
            
         else
             design_matrix.one = design_matrix1;
