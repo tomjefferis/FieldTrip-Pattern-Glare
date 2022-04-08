@@ -7,7 +7,7 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
 
     [highl, lowl] = ylimit_finder(high1,electrode);
     ylimit = [lowl,highl];
-    start = 2.8;
+    %start = 2.8;
     f1 = figure;
 
     % First subplot low PGI across partitions
