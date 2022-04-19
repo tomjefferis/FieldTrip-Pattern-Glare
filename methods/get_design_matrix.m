@@ -93,9 +93,9 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
 
             dm = reshape(dm,num,[]);
 
-            design_matrix.one = dm(:,1);
-            design_matrix.two = dm(:,2);
-            design_matrix.three = dm(:,3);
+            design_matrix.one = rot90(dm(:,1));
+            design_matrix.two = rot90(dm(:,2));
+            design_matrix.three = rot90(dm(:,3));
 
            
         else

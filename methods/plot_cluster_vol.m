@@ -41,8 +41,10 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
             imgname = "discomfort partitions cluster volume.png";
         else
             results_fact = "none";
-            imgname = strcat(string(start_time), " none partitions cluster volume.png");
+            imgname = strcat("none partitions cluster volume.png");
         end
+
+        imgname = strcat(string(start_time)," ", imgname);
 
     else
         results_fact = factor;
@@ -50,7 +52,7 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     end
 
     save_dir = strcat(save_dir, "/", results_fact, "/", polarity, " ", imgname);
-
+    figure;
     hold on;
     xlim([start_time, end_time]);
     ymax = max(plotted_clust, [], 'all') + 0.2;
