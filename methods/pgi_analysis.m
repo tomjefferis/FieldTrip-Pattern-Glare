@@ -213,7 +213,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     try
                         Positive_Cluster = stat.posclusters.prob;
                     catch
-                        Positive_Cluster = 1;
+                        Positive_Cluster = 1;median_split_plots
                     end
 
                     if Negative_Cluster <= 0.2
@@ -554,9 +554,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", results_fact, "_", onsets_part, "_Stat_Results.xls");
+        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_Stat_Results.xls");
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
+
     elseif strcmp(onsets_part, 'eyes')
         %for every time windows
         for index = 1:size(time, 1)

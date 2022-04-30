@@ -16,7 +16,7 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     %replacing nans with 0 to not break function
     stat.stat(isnan(stat.stat))=0;
     figure;
-    set(gcf, 'Position',  [100, 100, 1000, 800]);
+    set(gcf, 'Position',  [100, 100, 2000, 1200]);
 
     for i = 1:12
 

@@ -83,8 +83,8 @@ function [high, low] = ylimit_finder(data,electrode)
     end
 
 
-    high = round((max(prctile(nums,95,2)) + 0.51)*2)/2;
-    low = round((min(prctile(nums,5,2)) + 0.51)*2)/2;
+    high = (round((max(prctile(nums,95,2)))*2)/2) -1;
+    low = (round((min(prctile(nums,5,2)))*2)/2) +1;
 
 
 end
