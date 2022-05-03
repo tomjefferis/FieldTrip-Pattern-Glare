@@ -43,7 +43,11 @@ data = rebaseline_data(data, [-0.2 0]);
     ylabel('Offset Peak');
     title('DC Peak vs. Offset Peak');
     hold on;
-    plot([0,1],[0,1],'--');
+    %line of best fit
+    p = polyfit(dc_peak,offset_peak,1);
+    x = linspace(min(dc_peak),max(dc_peak));
+    y = p(1)*x + p(2);
+    plot(x,y);
     saveas(fig, strcat(results_dir, '/dc_offset_scatter.png'));
     hold off;
    
