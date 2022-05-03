@@ -36,19 +36,21 @@ data = rebaseline_data(data, [-0.2 0]);
     end
 
     [R,P] = corrcoef(dc_peak,offset_peak);
-    print(p);
-    
+    %print(p);
+    %scatter plot
+    figure;
     scatter(dc_peak, offset_peak);
     xlabel('DC Peak');
     ylabel('Offset Peak');
     title('DC Peak vs. Offset Peak');
     hold on;
+    grid on;
     %line of best fit
     p = polyfit(dc_peak,offset_peak,1);
     x = linspace(min(dc_peak),max(dc_peak));
     y = p(1)*x + p(2);
     plot(x,y);
-    saveas(fig, strcat(results_dir, '/dc_offset_scatter.png'));
+    saveas(gcf,strcat(results_dir, '/dc_offset_scatter.png'));
     hold off;
    
 
