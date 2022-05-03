@@ -35,8 +35,17 @@ data = rebaseline_data(data, [-0.2 0]);
         offset_peak(index) = findpeaks((data{index}.avg(26,offset_lower:offset_upper)*-1),'SortStr', 'descend', 'NPeaks',1) * -1;
     end
 
-    [R,P] = corrcoef(dc_peak,offset_peak)
-
-    %% scatter plot plz
+    [R,P] = corrcoef(dc_peak,offset_peak);
+    print(p);
+    
+    scatter(dc_peak, offset_peak);
+    xlabel('DC Peak');
+    ylabel('Offset Peak');
+    title('DC Peak vs. Offset Peak');
+    hold on;
+    plot([0,1],[0,1],'--');
+    saveas(fig, strcat(results_dir, '/dc_offset_scatter.png'));
+    hold off;
+   
 
 
