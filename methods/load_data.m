@@ -98,105 +98,41 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 ft_data{idx_used_for_saving_data} = ft;
             elseif strcmp(onsets_part, 'partitions_vs_onsets')   
                 
-                part1.label = data.label;
-                part1.time = data.time{1};
-                part1.trialinfo = [1];
-                part1.elec = data.elec;
-                part1.dimord = 'chan_time';
-                part1.thin = data.thin;
-                part1.med = data.med;
-                part1.thick = data.thick;
-
-                part1.avg = data.med - (data.thin + data.thick) / 2;
+                on_23_part1,on_23_part2,on_23_part3  = low_level_load(data);
 
                 data2 = load(filename2).data;
+                on_45_part1,on_45_part2,on_45_part3  = low_level_load(data2);
 
-                part2.label = data2.label;
-                part2.time = data2.time{1};
-                part2.trialinfo = [1];
-                part2.elec = data2.elec;
-                part2.dimord = 'chan_time';
-                part2.thin = data2.thin;
-                part2.med = data2.med;
-                part2.thick = data2.thick;
-
-                part2.avg = data2.med - (data2.thin + data2.thick) / 2;
-
+                
                 data3 = load(filename3).data;
+                on_67_part1,on_67_part2,on_67_part3  = low_level_load(data3);
 
-                part3.label = data3.label;
-                part3.time = data3.time{1};
-                part3.trialinfo = [1];
-                part3.elec = data3.elec;
-                part3.dimord = 'chan_time';
-                part3.thin = data3.thin;
-                part3.med = data3.med;
-                part3.thick = data3.thick;
+                
 
-                part3.avg = data3.med - (data3.thin + data3.thick) / 2;
-
-                if(contains(filename, '2_3'))
-                    on_23_p1{end + 1} = part1;
-                    on_23_p2{end + 1} = part2;
-                    on_23_p3{end + 1} = part3;
-                elseif(contains(filename, '4_5'))
-                    on_45_p1{end + 1} = part1;
-                    on_45_p2{end + 1} = part2;
-                    on_45_p3{end + 1} = part3;
-                elseif(contains(filename, '6_7'))
-                    on_67_p1{end + 1} = part1;
-                    on_67_p2{end + 1} = part2;
-                    on_67_p3{end + 1} = part3;
-                end
+               
+                    on_23_p1{end + 1} = on_23_part1;
+                    on_23_p2{end + 1} = on_23_part2;
+                    on_23_p3{end + 1} = on_23_part3;
+                    on_45_p1{end + 1} = on_45_part1;
+                    on_45_p2{end + 1} = on_45_part2;
+                    on_45_p3{end + 1} = on_45_part3;
+                    on_67_p1{end + 1} = on_67_part1;
+                    on_67_p2{end + 1} = on_67_part2;
+                    on_67_p3{end + 1} = on_67_part3;
+                    
+               
 
 
                 
 
 
             elseif strcmp(onsets_part, 'partitions')
-                %% stores in struct of structs for each partition for reusability of onsets functions
-                part1.label = data.label;
-                part1.time = data.time{1};
-                part1.trialinfo = [1];
-                part1.elec = data.elec;
-                part1.dimord = 'chan_time';
-                part1.thin = data.p1_thin;
-                part1.med = data.p1_med;
-                part1.thick = data.p1_thick;
-
-                if isfield(data, 'p1_pgi')
-                    part1.avg = data.p1_pgi;
-                end
-
-                part2.label = data.label;
-                part2.time = data.time{1};
-                part2.trialinfo = [1];
-                part2.elec = data.elec;
-                part2.dimord = 'chan_time';
-                part2.thin = data.p2_thin;
-                part2.med = data.p2_med;
-                part2.thick = data.p2_thick;
-
-                if isfield(data, 'p2_pgi')
-                    part2.avg = data.p2_pgi;
-                end
-
-                part3.label = data.label;
-                part3.time = data.time{1};
-                part3.trialinfo = [1];
-                part3.elec = data.elec;
-                part3.dimord = 'chan_time';
-                part3.thin = data.p3_thin;
-                part3.med = data.p3_med;
-                part3.thick = data.p3_thick;
-
-                if isfield(data, 'p3_pgi')
-                    part3.avg = data.p3_pgi;
-                end
+                part1,part2,part3 = low_level_load(data)
 
                 p1_data{idx_used_for_saving_data} = part1;
                 p2_data{idx_used_for_saving_data} = part2;
                 p3_data{idx_used_for_saving_data} = part3;
+
             else
                 part1.label = data.label;
                 part1.time = data.time{1};
