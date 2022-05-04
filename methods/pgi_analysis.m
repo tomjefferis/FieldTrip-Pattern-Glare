@@ -576,7 +576,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         if strcmp(onsets_part, 'partitions')
                             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
                         else
-                            [datas, orders] = load_data(main_path, grand_avg_filename, n_participants, onsets_part);
+                            [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
                         end
 
                     else

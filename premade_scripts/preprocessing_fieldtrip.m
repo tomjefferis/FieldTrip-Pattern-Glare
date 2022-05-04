@@ -5,16 +5,18 @@ restoredefaultpath;
 
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
-to_preprocess = {'mean_intercept','partitions'};
-type_of_analysis = 'frequency_domain'; % or time_domain
+to_preprocess = {'partitions'};
+type_of_analysis = 'time_domain'; % or time_domain
 onsets = [
-%[6,7];
-[2,3,4,5,6,7,8];
+    [2,3];
+    [4,5];
+    [6,7];
+%[2,3,4,5,6,7,8];
 ];
 number_of_onsets = size(onsets);
 number_of_onsets = number_of_onsets(1);
 n_participants = 40;
-filter_freq = [0.1, 80];
+filter_freq = [0.1, 35];
 baseline_window = [2.8 3.0];
 
 %% main preprocessing loop
@@ -26,7 +28,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
 
-        for participant = 1:n_participants
+        parfor participant = 1:n_participants
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);

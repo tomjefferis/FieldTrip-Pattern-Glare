@@ -21,7 +21,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %% Experiment parameters
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-time_window = [0.4, 3.05];
+time_window = [0.4 3.05];
 n_participants = 40;
 baseline_period = [-0.2, 0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -43,12 +43,12 @@ gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only gene
 plot_designs = false; %plots design matrix for partitions ONLY
 plot_partitions_erps = true; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
-%% generate experiment design 
+%% generate experiment dsign 
 time_freq = 'time'; % time or frequency domain options: time or frequency
-factor_scores = {'headache','discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets-23-45-67'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
-type_of_effect = {'sensitization'}; % habituation or sensitization
-partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
+onsets_part = 'partitions_vs_onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1
+type_of_effect = {'habituation'}; % habituation or sensitization
+partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = false;
 %% End of config   
