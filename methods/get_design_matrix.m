@@ -11,6 +11,29 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             [design_matrix1, data1] = get_factor_scores(factor, order, data.part1);
             [design_matrix2, data2] = get_factor_scores(factor, order, data.part2);
             [design_matrix3, data3] = get_factor_scores(factor, order, data.part3);
+        elseif contains(factor, '-partitions_vs_onsets')
+
+            if contains(factor, 'habituation')
+                type_effect = 'habituation';
+            else
+                type_effect = 'sensitization';
+            end
+
+
+
+            if contains(factor, 'headache')
+
+                [design_matrix, participant_data] = get_design_matrix(strcat('headache-partitions-',type_effect), data.part1, order);
+                [design_matrix2, participant_data2] = get_design_matrix(strcat('headache-partitions-',type_effect), data.part2, order);
+                [design_matrix3, participant_data3] = get_design_matrix(strcat('headache-partitions-',type_effect), data.part3, order);
+
+                %%TODO write rest of this code
+
+            elseif contains(factor, 'discomfort')
+            elseif contains(factor, 'stress')
+            end
+
+
 
         else
             [design_matrix, participant_data] = get_factor_scores(factor, order, data);
