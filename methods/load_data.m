@@ -8,8 +8,18 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
     p2_data = {};
     p3_data = {};
 
+    on_23_p1 = {};
+    on_23_p2 = {};
+    on_23_p3 = {};
+    on_45_p1 = {};
+    on_45_p2 = {};
+    on_45_p3 = {};
+    on_67_p1 = {};
+    on_67_p2 = {};
+    on_67_p3 = {};
+
     % breaks up into 3 filenames for all onsets
-    if strcmp(onsets_part, 'onsets-23-45-67')
+    if strcmp(onsets_part, 'onsets-23-45-67') || strcmp(onsets_part, 'partitions_vs_onsets')
         a = string(filename);
         b = split(filename, '_');
         c = b(end);
@@ -86,6 +96,63 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 ft.avg = data.p1_pgi;
 
                 ft_data{idx_used_for_saving_data} = ft;
+            elseif strcmp(onsets_part, 'partitions_vs_onsets')   
+                
+                part1.label = data.label;
+                part1.time = data.time{1};
+                part1.trialinfo = [1];
+                part1.elec = data.elec;
+                part1.dimord = 'chan_time';
+                part1.thin = data.thin;
+                part1.med = data.med;
+                part1.thick = data.thick;
+
+                part1.avg = data.med - (data.thin + data.thick) / 2;
+
+                data2 = load(filename2).data;
+
+                part2.label = data2.label;
+                part2.time = data2.time{1};
+                part2.trialinfo = [1];
+                part2.elec = data2.elec;
+                part2.dimord = 'chan_time';
+                part2.thin = data2.thin;
+                part2.med = data2.med;
+                part2.thick = data2.thick;
+
+                part2.avg = data2.med - (data2.thin + data2.thick) / 2;
+
+                data3 = load(filename3).data;
+
+                part3.label = data3.label;
+                part3.time = data3.time{1};
+                part3.trialinfo = [1];
+                part3.elec = data3.elec;
+                part3.dimord = 'chan_time';
+                part3.thin = data3.thin;
+                part3.med = data3.med;
+                part3.thick = data3.thick;
+
+                part3.avg = data3.med - (data3.thin + data3.thick) / 2;
+
+                if(contains(filename, '23'))
+                    on_23_p1{end + 1} = part1;
+                    on_23_p2{end + 1} = part2;
+                    on_23_p3{end + 1} = part3;
+                elseif(contains(filename, '45'))
+                    on_45_p1{end + 1} = part1;
+                    on_45_p2{end + 1} = part2;
+                    on_45_p3{end + 1} = part3;
+                elseif(contains(filename, '67'))
+                    on_67_p1{end + 1} = part1;
+                    on_67_p2{end + 1} = part2;
+                    on_67_p3{end + 1} = part3;
+                end
+
+
+                
+
+
             elseif strcmp(onsets_part, 'partitions')
                 %% stores in struct of structs for each partition for reusability of onsets functions
                 part1.label = data.label;
@@ -182,6 +249,8 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
         ft_data.part1 = p1_data;
         ft_data.part2 = p2_data;
         ft_data.part3 = p3_data;
+    elseif strcmp(onsets_part, 'partitions_vs_onsets')
+        
     end
 
 end
