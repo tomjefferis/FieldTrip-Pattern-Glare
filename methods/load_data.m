@@ -250,7 +250,22 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
         ft_data.part2 = p2_data;
         ft_data.part3 = p3_data;
     elseif strcmp(onsets_part, 'partitions_vs_onsets')
-        
+
+        p1.part1 = on_23_p1;
+        p1.part2 = on_45_p1;
+        p1.part3 = on_67_p1;
+
+        p2.part1 = on_23_p2;
+        p2.part2 = on_45_p2;
+        p2.part3 = on_67_p2;
+
+        p3.part1 = on_23_p3;
+        p3.part2 = on_45_p3;
+        p3.part3 = on_67_p3;
+
+        ft_data.part1 = p1;
+        ft_data.part2 = p2;
+        ft_data.part3 = p3;
     end
 
 end
