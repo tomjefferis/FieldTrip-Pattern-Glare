@@ -1,7 +1,7 @@
 function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
         aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-        onsets_part, type_of_effect, orthoganilized_partitions, testing)
+        onsets_part, type_of_effect,three_way_type, orthoganilized_partitions, testing)
 
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
@@ -559,7 +559,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
-    elseif strcmp(onsets_part, "partitions_vs_onsets")
+    elseif strcmp(onsets_part, "partitions-vs-onsets")
         %for every time windows
         for index = 1:size(time, 1)
 
@@ -603,7 +603,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     end
 
                     % sets up the factor for partitions
-                    factors = strcat(factor, '-', onsets_part, '-', effect, '-', orthoganilized_partitions);
+                    factors = strcat(three_way_type,'-',factor, '-', onsets_part, '-', orthoganilized_partitions, '-', effect);
                     % gets the design matrix
                     [design_matrix, data] = get_design_matrix(factors, datas, orders);
                     % splitting the data to seperate vars

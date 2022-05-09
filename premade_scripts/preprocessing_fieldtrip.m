@@ -3,6 +3,8 @@
 clear all;
 restoredefaultpath;
 
+
+
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
 to_preprocess = {'partitions'};
@@ -28,7 +30,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
 
-        parfor participant = 1:n_participants
+        for participant = 24:24
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);

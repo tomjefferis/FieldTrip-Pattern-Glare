@@ -19,7 +19,7 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
     on_67_p3 = {};
 
     % breaks up into 3 filenames for all onsets
-    if strcmp(onsets_part, 'onsets-23-45-67') || strcmp(onsets_part, 'partitions_vs_onsets')
+    if strcmp(onsets_part, 'onsets-23-45-67') || strcmp(onsets_part, 'partitions-vs-onsets')
         a = string(filename);
         b = split(filename, '_');
         c = b(end);
@@ -96,16 +96,16 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 ft.avg = data.p1_pgi;
 
                 ft_data{idx_used_for_saving_data} = ft;
-            elseif strcmp(onsets_part, 'partitions_vs_onsets')   
+            elseif strcmp(onsets_part, 'partitions-vs-onsets')   
                 
-                on_23_part1,on_23_part2,on_23_part3  = low_level_load(data);
+                [on_23_part1,on_23_part2,on_23_part3]  = low_level_load(data);
 
                 data2 = load(filename2).data;
-                on_45_part1,on_45_part2,on_45_part3  = low_level_load(data2);
+                [on_45_part1,on_45_part2,on_45_part3]  = low_level_load(data2);
 
                 
                 data3 = load(filename3).data;
-                on_67_part1,on_67_part2,on_67_part3  = low_level_load(data3);
+                [on_67_part1,on_67_part2,on_67_part3]  = low_level_load(data3);
 
                 
 
@@ -181,11 +181,11 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
 
     end
 
-    if ~strcmp(onsets_part, 'onsets') && ~strcmp(onsets_part, 'eyes') && ~strcmp(onsets_part, 'partition1') && ~strcmp(onsets_part, 'partitions_vs_onsets')
+    if ~strcmp(onsets_part, 'onsets') && ~strcmp(onsets_part, 'eyes') && ~strcmp(onsets_part, 'partition1') && ~strcmp(onsets_part, 'partitions-vs-onsets')
         ft_data.part1 = p1_data;
         ft_data.part2 = p2_data;
         ft_data.part3 = p3_data;
-    elseif strcmp(onsets_part, 'partitions_vs_onsets')
+    elseif strcmp(onsets_part, 'partitions-vs-onsets')
 
         p1.part1 = on_23_p1;
         p1.part2 = on_45_p1;
