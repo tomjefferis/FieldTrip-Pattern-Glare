@@ -780,11 +780,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             electrode = compute_best_electrode(stat, "negative");
                             plot_peak_electrode(stat, electrode, results_dir);
 
-                            if contains(factors, "none")
-                                plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
-                            else
-                                plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
-                            end
+                            plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
 
                         end
 
@@ -792,11 +788,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             electrode = compute_best_electrode(stat, "positive");
                             plot_peak_electrode(stat, electrode, results_dir);
 
-                            if contains(factors, "none")
-                                plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
-                            else
-                                plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
-                            end
+                            plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
 
                         else
                             fprintf("No significant clusters to plot");
