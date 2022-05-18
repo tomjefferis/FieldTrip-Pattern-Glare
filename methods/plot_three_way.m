@@ -41,7 +41,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 1);
-    data = partitions_combine(low11.data, low21.data, low31.data, "PGI");
+    data = partitions_combine(low11.data, low12.data, low13.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -54,8 +54,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 2,3 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partition 1 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -63,7 +63,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 2);
-    data = partitions_combine(high11.data, high21.data, high31.data, "PGI");
+    data = partitions_combine(high11.data, high12.data, high13.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -76,14 +76,14 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 2,3 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 1 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
         % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 3);
-    data = partitions_combine(low11.data, low21.data, low31.data, "med");
+    data = partitions_combine(low11.data, low12.data, low13.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -96,8 +96,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 2,3 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partition 1 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -105,7 +105,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 4);
-    data = partitions_combine(high11.data, high21.data, high31.data, "med");
+    data = partitions_combine(high11.data, high12.data, high13.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -118,14 +118,14 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 2,3 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 1 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
     %% First subplot low PGI across P2 onsets
     Ax = subplot(6, 2, 5);
-    data = partitions_combine(low12.data, low22.data, low32.data, "PGI");
+    data = partitions_combine(low21.data, low22.data, low23.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -138,8 +138,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 4,5 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partition 2 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -147,7 +147,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 6);
-    data = partitions_combine(high12.data, high22.data, high32.data, "PGI");
+    data = partitions_combine(high21.data, high22.data, high23.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -160,14 +160,14 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 4,5 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 2 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
         % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 7);
-    data = partitions_combine(low12.data, low22.data, low32.data, "med");
+    data = partitions_combine(low21.data, low22.data, low23.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -180,8 +180,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 4,5 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partition 2 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -189,7 +189,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 8);
-    data = partitions_combine(high12.data, high22.data, high32.data, "med");
+    data = partitions_combine(high21.data, high22.data, high23.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -202,15 +202,15 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 4,5 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 2 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
     %%P3
         % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 9);
-    data = partitions_combine(low13.data, low23.data, low33.data, "PGI");
+    data = partitions_combine(low31.data, low32.data, low33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -223,8 +223,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 6,7 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partition 3 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -232,7 +232,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 10);
-    data = partitions_combine(high13.data, high23.data, high33.data, "PGI");
+    data = partitions_combine(high31.data, high32.data, high33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = [0.8350 0.0780 0.1840];
@@ -245,14 +245,14 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 6,7 PGI ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 3 PGI ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
         % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 11);
-    data = partitions_combine(low13.data, low23.data, low33.data, "med");
+    data = partitions_combine(low31.data, low32.data, low33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -265,8 +265,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("Low Group Onsets 6,7 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("Low Group Partiton 3 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
@@ -274,7 +274,7 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
 
     % First subplot low PGI across P1 onsets
     Ax = subplot(6, 2, 12);
-    data = partitions_combine(high13.data, high23.data, high33.data, "med");
+    data = partitions_combine(high31.data, high32.data, high33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
     h = get(gca, 'Children');
     h(8).Color = 'r';
@@ -287,8 +287,8 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     PosVec = Ax.Position;
     Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("P1","P2","P3", 'location', 'eastoutside');
-    tit = strcat("High Group Onsets 6,7 Med ", " @ ", electrode.electrode);
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
+    tit = strcat("High Group Partition 3 Med ", " @ ", electrode.electrode);
     title(tit);
     subtitle("");
 
