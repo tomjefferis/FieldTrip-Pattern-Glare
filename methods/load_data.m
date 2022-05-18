@@ -83,6 +83,7 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 ft.thick = data.thick;
 
                 ft_data{idx_used_for_saving_data} = ft;
+                ft = {};
             elseif strcmp(onsets_part, 'partition1')
 
                 ft.label = data.label;
