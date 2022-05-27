@@ -29,7 +29,6 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             end
 
 
-
             if contains(factor, 'headache')
 
                 [design_matrix1, data1] = get_design_matrix(strcat('headache-partitions-',type_effect), data.part1, order);

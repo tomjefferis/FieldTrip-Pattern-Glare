@@ -13,6 +13,7 @@ function plot_design(design_matrix1, design_matrix2, design_matrix3, results, fa
 
         point = length(design_matrix1)/3;
 
+
         xline(point,'--', 'Onsets 2,3');
         xline(2*point, '--', 'Onsets 4,5');
         xline(3*point, '--', 'Onsets 6,7');

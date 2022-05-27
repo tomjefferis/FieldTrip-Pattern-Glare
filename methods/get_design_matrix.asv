@@ -22,11 +22,14 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
         end
 
 
-            if factor(1) == "h"
+            if factor(1) == 'h'
                 type_effect = 'habituation';
             else
                 type_effect = 'sensitization';
             end
+
+            %% comment these lines out if you want the design matrix round the right way
+            data1.part1 = data.part1.part1;
 
 
 
@@ -120,7 +123,7 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
         design_matrix2 = design_matrix2 - min_n;
         design_matrix3 = design_matrix3 - min_n;
 
-        if contains(factor, "orthog")
+        if contains(factor, 'orthog')
 
             
 
@@ -133,13 +136,13 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
                 g = 'sensitization';
             end
 
-                [vs, datas] = get_design_matrix(strcat("visual-stress-partitions","-",g), data, order);
+                [vs, datas] = get_design_matrix(strcat('visual-stress-partitions','-',g), data, order);
                 vs = [vs.one,vs.two,vs.three];
     
-                [hd, datas] = get_design_matrix(strcat("headache-partitions","-",g), data, order);
+                [hd, datas] = get_design_matrix(strcat('headache-partitions','-',g), data, order);
                 hd = [hd.one,hd.two,hd.three];
     
-                [diss, datas] = get_design_matrix(strcat("discomfort-partitions","-",g), data, order);
+                [diss, datas] = get_design_matrix(strcat('discomfort-partitions','-',g), data, order);
                 diss = [diss.one,diss.two,diss.three];
             elseif contains(factor, 'partitions-vs-onsets')
 
@@ -150,13 +153,13 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
                 g = 'sensitization';
                 end
 
-                [vs, datas] = get_design_matrix(strcat(type_effect,"-","visual-stress-partitions-vs-onsets","-",g), data, order);
+                [vs, datas] = get_design_matrix(strcat(type_effect,'-','visual-stress-partitions-vs-onsets-normal','-',g), data, order);
                 vs = [vs.one,vs.two,vs.three];
 
-            [hd, datas] = get_design_matrix(strcat(type_effect,"-","headache-partitions-vs-onsets","-",g), data, order);
+            [hd, datas] = get_design_matrix(strcat(type_effect,'-','headache-partitions-vs-onsets-normal','-',g), data, order);
             hd = [hd.one,hd.two,hd.three];
 
-            [diss, datas] = get_design_matrix(strcat(type_effect,"-","discomfort-partitions-vs-onsets","-",g), data, order);
+            [diss, datas] = get_design_matrix(strcat(type_effect,'-','discomfort-partitions-vs-onsets-normal','-',g), data, order);
             diss = [diss.one,diss.two,diss.three];
 
 
@@ -170,11 +173,11 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             orthog_data = gschmidt(X1, 1);
             num = length(order);
 
-            if contains(factor, "visual-stress")
+            if contains(factor, 'visual-stress')
                 dm = orthog_data(:,1);
-            elseif contains(factor, "headache")
+            elseif contains(factor, 'headache')
                 dm = orthog_data(:,2);
-            elseif contains(factor, "discomfort")
+            elseif contains(factor, 'discomfort')
                 dm = orthog_data(:,3);
             end
 
@@ -186,7 +189,7 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             design_matrix.two = rot90(dm(:,2));
             design_matrix.three = rot90(dm(:,3));
             else
-               dm = reshape(dm,num,[]);
+               dm = reshape(dm,(num*3),[]);
 
                 design_matrix.one = rot90(dm(:,1));
                 design_matrix.two = rot90(dm(:,2));

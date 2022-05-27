@@ -16,7 +16,7 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     %replacing nans with 0 to not break function
     stat.stat(isnan(stat.stat))=0;
     figure;
-    set(gcf, 'Position',  [100, 100, 2000, 1200]);
+    set(gcf, 'Position',  [100, 100, 1400, 300]);
 
     for i = 1:8
 
@@ -51,7 +51,7 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
         cfg.zlim = [-2 4];
 
         if i == 4
-            cfg.colorbar = 'yes'; % adds to every plot usually disabled, uness need figure with bar
+            cfg.colorbar = 'South'; % adds to every plot usually disabled, uness need figure with bar
         end
 
         cfg.parameter = 'stat';
