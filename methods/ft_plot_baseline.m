@@ -2,12 +2,16 @@ function ft_plot_baseline(data, baseline_1,baseline_2, electrode)
 
     
    data1 = rebaseline_data(data, baseline_1);
+   gradients1 = gradient_finder(data1, electrode);
     
   
    data2 = rebaseline_data(data, baseline_2);
+   gradients2 = gradient_finder(data2, electrode);
+
   [highl,lowl] = ylimit_finder(data,electrode);
     ylimit = [-1,1];
 
+    [h,p,ci,stats] = ttest2(gradients1,gradients2);
 
     figure
     subplot(2, 1, 1);

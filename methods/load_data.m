@@ -128,7 +128,7 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
 
 
             elseif strcmp(onsets_part, 'partitions')
-                part1,part2,part3 = low_level_load(data)
+                [part1,part2,part3] = low_level_load(data);
 
                 p1_data{idx_used_for_saving_data} = part1;
                 p2_data{idx_used_for_saving_data} = part2;

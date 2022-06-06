@@ -36,16 +36,16 @@ wavelet_width = 5;
 frequency_range = [8 13]; % start and end frequency for stat tests
 %% Plotting config
 clust_volume = false; % cluter volume over time
-topograpic_map_plot = false; % make topographic maps
+topograpic_map_plot = true; % make topographic maps
 plot_erps = false; % plotting ERPs for each condition and PGI
 median_split_plots = false; % plots the median split across time window for factors
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
-plot_designs = true; %plots design matrix for partitions ONLY
-plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
+plot_designs = false; %plots design matrix for partitions ONLY
+plot_partitions_erps = true; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign 
 time_freq = 'time'; % time or frequency domain options: time or frequency
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'headache'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
