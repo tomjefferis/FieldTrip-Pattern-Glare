@@ -11,7 +11,7 @@ function ft_plot_baseline(data, baseline_1,baseline_2, electrode)
   [highl,lowl] = ylimit_finder(data,electrode);
     ylimit = [-1,1];
 
-    [h,p,ci,stats] = ttest2(gradients1,gradients2);
+%%    [h,p,ci,stats] = ttest2(gradients1,gradients2);
 
     figure
     subplot(2, 1, 1);

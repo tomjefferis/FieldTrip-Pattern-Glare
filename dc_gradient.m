@@ -60,7 +60,7 @@ else
 
 
     
-    significant_electrode.electrode = 'A14';
+    significant_electrode.electrode = 'A23';
     
     significant_electrode.time = 3.99;
     significant_electrode.t_value = 0;

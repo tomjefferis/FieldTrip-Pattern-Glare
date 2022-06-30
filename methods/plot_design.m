@@ -2,11 +2,11 @@ function plot_design(design_matrix1, design_matrix2, design_matrix3, results, fa
     clf;
     maxm = max([design_matrix1, design_matrix2, design_matrix3]) + 0.5;
     minm = min([design_matrix1, design_matrix2, design_matrix3]) - 0.5;
-    plot(design_matrix1, 'LineWidth', 2);
+    plot(design_matrix1, 'LineWidth', 3);
     ylim([minm, maxm]);
     hold on;
-    plot(design_matrix2, 'LineWidth', 2);
-    plot(design_matrix3, 'LineWidth', 2);
+    plot(design_matrix2, 'LineWidth', 3);
+    plot(design_matrix3, 'LineWidth', 3);
     title(factor);
 
     if length(design_matrix1) > 34

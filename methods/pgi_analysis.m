@@ -6,7 +6,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
     % If the factors are all then it sets all the factors
-    if strcmp(factor_scores{1}, 'all') && ~contains(orthoganilized_partitions, 'orthog') && (contains(onsets_part, 'onsets') || contains(onsets_part, 'partition1'))
+    if strcmp(factor_scores{1}, 'all') && ~contains(orthoganilized_partitions, 'orthog') 
         factor_scores = {'none', 'headache', 'visual-stress', 'discomfort'};
     elseif strcmp(factor_scores{1}, 'all') && contains(orthoganilized_partitions, 'orthog')
         factor_scores = {'headache', 'visual-stress', 'discomfort'};

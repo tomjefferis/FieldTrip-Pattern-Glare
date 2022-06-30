@@ -86,7 +86,7 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
             factor = char(factor); % dodgy fix
         end
 
-        if factor(end-5) == 'u'
+        if factor(end-5) == 'u' || contains(factor, 'habituation-normal')
             design_matrix1 = design_matrix1 * 2.72;
             design_matrix2 = design_matrix2 * 1.65;
             design_matrix3 = design_matrix3 * 1.00;

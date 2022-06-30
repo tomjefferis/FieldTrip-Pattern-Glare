@@ -7,7 +7,7 @@ function plot_design_onsets(design_matrix1, results, factor)
 
     maxm = max(design_matrix1) + 0.5;
     minm = min(design_matrix1) - 0.5;
-    plot(design_matrix1, 'LineWidth', 2);
+    plot(design_matrix1, 'LineWidth', 3);
     ylim([minm, maxm]);
     hold on;
     legend(factor);
