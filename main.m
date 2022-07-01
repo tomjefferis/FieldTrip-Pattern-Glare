@@ -46,7 +46,7 @@ generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLO
 %% generate experiment dsign 
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'normal '; % orthogonolize design matrix for partitions (zero center), options: normal, orthog

@@ -102,7 +102,7 @@ function [design_matrix, participant_data] = get_design_matrix(factor, data, ord
 
         for k = 1:n_participants
 
-            if factor(end-5) == 'u'
+            if factor(end-5) == 'u' || contains(factor, 'habituation-normal')
                 to_remove = design_matrix3(k);
             else
                 to_remove = design_matrix1(k);
