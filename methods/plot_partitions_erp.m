@@ -43,8 +43,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     legend(legend1, 'location', 'eastoutside');
     tit = strcat("Low Group PGI through ", title4, " @ ", electrode.electrode);
@@ -61,8 +61,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     legend('hide');
     tit = strcat("High Group PGI through ", title4, " @ ", electrode.electrode);
@@ -80,8 +80,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     legend(legend2, 'location', 'eastoutside');
     tit = strcat("Low Group Medium through ", title4, " @ ", electrode.electrode);
@@ -100,8 +100,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     legend('hide');
     tit = strcat("High Group Medium through ", title4, " @ ", electrode.electrode);
@@ -116,8 +116,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("Low ", title1, " ERP @ ", electrode.electrode);
     subtitle("");
@@ -132,8 +132,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("High ", title1, " ERP @ ", electrode.electrode);
     subtitle("");
@@ -148,8 +148,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("Low ", title2, " ERP @ ", electrode.electrode);
     legend('location', 'eastoutside');
@@ -164,8 +164,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("High ", title2, " ERP @ ", electrode.electrode);
     subtitle("");
@@ -180,8 +180,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("Low ", title3, " ERP @ ", electrode.electrode);
     legend('location', 'eastoutside');
@@ -196,8 +196,8 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
     delete(h(6));
     delete(h(7));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
+ 
+     
     hold on;
     tit = strcat("High ", title3, " ERP @ ", electrode.electrode);
     subtitle("");
@@ -206,6 +206,7 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
 
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
     f1.Position = f1.Position + [0 -300 0 300];
+    set(gcf, 'Position', [100, 100, 800, 1500]);
     %sgtitle(titles);
     name = strcat(results, "/partitions/", factor,electrode.electrode, '_erpcombined.png');
     saveas(gcf, name);

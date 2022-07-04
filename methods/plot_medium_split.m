@@ -96,7 +96,6 @@ function plot_medium_split(high, low, electrode, factor, start_time, end_time, g
     titles = strcat(" Median split Low vs High group ", factor);
     f1.Position = f1.Position + [0 -300 0 300];
     sgtitle(titles);
-
     name = strcat(results, "/", factor, "/", string(start_time), 'erpcombined.png');
     saveas(gcf, name);
 end

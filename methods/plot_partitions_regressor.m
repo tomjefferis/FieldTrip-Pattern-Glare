@@ -17,8 +17,6 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwestoutside');
     tit = strcat("Partitions regressor PGI through partitions @ ", electrode.electrode);
@@ -36,8 +34,6 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     delete(h(3));
     delete(h(4));
     ylim(ylimit);
-    PosVec = Ax.Position;
-    Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwestoutside');
     tit = strcat("Low Group Medium through partitions @ ", electrode.electrode);

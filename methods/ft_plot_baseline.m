@@ -22,6 +22,6 @@ function ft_plot_baseline(data, baseline_1,baseline_2, electrode)
     plot_baseline(data2, baseline_2, electrode, baseline_2);
     ylim(ylimit);
 
-
+    set(gcf, 'Position', [100, 100, 850, 400]);
 
 end

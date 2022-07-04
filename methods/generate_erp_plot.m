@@ -12,6 +12,19 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
         start_time = -0.2;
         end_time = 3.1;
     end
+    if contains(factor, "visual")
+            factor = "visual-stress";
+            
+        elseif contains(factor, "headache")
+            factor = "headache";
+            
+        elseif contains(factor, "discomfort")
+            factor = "discomfort";
+            
+        else
+            factor = "none";
+            
+        end
 
     save_dir = strcat(results_dir, "\", factor, "\");
     plotting_window = [start_time, end_time];
@@ -86,10 +99,10 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     end
 
     % more plotting details
-    legend("Thin", "Medium", "Thick", "", "", "", 'location', 'northwest');
+    legend("Thin", "Medium", "Thick", "", "", "", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 1200, 600]);
+    set(gcf, 'Position', [100, 100, 900, 1400]);
     grid on;
     saveas(gcf, save_dir);
     hold off;

@@ -74,7 +74,7 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     end
 
     legend(cluster_leg);
-    set(gcf, 'Position', [100, 100, 1200, 600]);
+    set(gcf, 'Position', [100, 100, 800, 350]);
     grid on;
     saveas(gcf, save_dir);
     hold off;

@@ -12,6 +12,7 @@ function plot_design_onsets(design_matrix1, results, factor)
     hold on;
     legend(factor);
     title(strcat(factor, " design matrix"));
+    set(gcf, 'Position',  [100, 100, 500, 300]);
     name = strcat(results, "/general/", factor, 'onsets_designmtx.png');
     saveas(gcf, name);
 

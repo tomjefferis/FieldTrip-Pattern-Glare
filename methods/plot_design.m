@@ -20,7 +20,7 @@ function plot_design(design_matrix1, design_matrix2, design_matrix3, results, fa
         
     end
     legend("Partition 1", "Partition 2", "Partition 3",'Location','northeastoutside');
-    set(gcf, 'Position',  [100, 100, 900, 400]);
+    set(gcf, 'Position',  [100, 100, 500, 300]);
     name = strcat(results, "/general/", factor, 'partitions_designmtx.png');
     saveas(gcf, name);
     

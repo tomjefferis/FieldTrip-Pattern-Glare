@@ -10,7 +10,7 @@ function GFP_Plotter(results_dir, windowindexs, gfp, time, start_time, end_time,
     xlim(plotting_window);
     xlabel('Time in ms');
     ylabel('GFP');
-    set(gcf, 'Position', [100, 100, 1200, 600]);
+    set(gcf, 'Position', [100, 100, 600, 300]);
     grid on;
     saveas(gcf, save_dir);
 
