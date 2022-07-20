@@ -30,8 +30,8 @@ data = rebaseline_data(data, [-0.2 0]);
        
         % dc_peak(index) = m;
 
-        %dc_peak(index) = data{index}.med(25,max_mean_dc); %finds the peak in the dc shift period
-        dc_peak(index) = findpeaks(data{index}.med(25,dc_lower:dc_upper),'SortStr', 'descend', 'NPeaks',1);
+        dc_peak(index) = mean(data{index}.med(25,dc_lower:dc_upper)); %finds the peak in the dc shift period
+        %dc_peak(index) = findpeaks(data{index}.med(25,dc_lower:dc_upper),'SortStr', 'descend', 'NPeaks',1);
         offset_peak(index) = findpeaks((data{index}.med(26,offset_lower:offset_upper)*-1),'SortStr', 'descend', 'NPeaks',1) * -1;
     end
 
