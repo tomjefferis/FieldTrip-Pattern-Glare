@@ -9,8 +9,8 @@ single_trial_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-l
 data = rebaseline_data(data, [-0.2 0]);
 
 
-    offset_lower = interp1(data{1}.time, 1:length(data{1}.time), 3.09, 'nearest');
-    offset_upper = interp1(data{1}.time, 1:length(data{1}.time), 3.18, 'nearest');
+    offset_lower = interp1(data{1}.time, 1:length(data{1}.time), 3.3, 'nearest');
+    offset_upper = interp1(data{1}.time, 1:length(data{1}.time), 3.8, 'nearest');
 
     dc_lower = interp1(data{1}.time, 1:length(data{1}.time), 0.4, 'nearest');
     dc_upper = interp1(data{1}.time, 1:length(data{1}.time), 3.05, 'nearest');
@@ -30,19 +30,22 @@ data = rebaseline_data(data, [-0.2 0]);
        
         % dc_peak(index) = m;
 
-        dc_peak(index) = mean(data{index}.med(25,dc_lower:dc_upper)); %finds the peak in the dc shift period
+        dc_peak(index) = mean(data{index}.med(23,dc_lower:dc_upper)); %finds the peak in the dc shift period
         %dc_peak(index) = findpeaks(data{index}.med(25,dc_lower:dc_upper),'SortStr', 'descend', 'NPeaks',1);
-        offset_peak(index) = findpeaks((data{index}.med(26,offset_lower:offset_upper)*-1),'SortStr', 'descend', 'NPeaks',1) * -1;
+        %offset_peak(index) = findpeaks((data{index}.med(23,offset_lower:offset_upper)*-1),'SortStr', 'descend', 'NPeaks',1) * -1;
+        offset_peak(index) = mean(data{index}.med(23,offset_lower:offset_upper));
     end
 
     [R,P] = corrcoef(dc_peak,offset_peak);
+    sub = strcat('R = ', string(R(2)), ' P = ', string(P(2)));
     %print(p);
     %scatter plot
     figure;
     scatter(dc_peak, offset_peak);
-    xlabel('DC Peak');
-    ylabel('Offset Negativity');
-    title('DC Peak vs. Offset Negativity');
+    xlabel('DC Shift Average Amplitude');
+    ylabel('Offset Average');
+    title('DC Shift Average Amplitude vs. Offset Average');
+    subtitle(sub)
     hold on;
     grid on;
     %line of best fit
