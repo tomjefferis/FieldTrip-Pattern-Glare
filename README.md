@@ -14,6 +14,7 @@ Cluster Volume Plots | ✅| ⬜️ Power & ITC
 Frequency spectrum plots | ❌| ⬜️ Power & ITC
 
 ### To run:
+* Clone repository
 * Add FieldTrip Repository to MATLAB path
 * Preprocess data using included preprocessing script in premade_scripts
 * Setup filepaths in main.mat 
