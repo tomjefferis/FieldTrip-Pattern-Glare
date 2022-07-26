@@ -51,7 +51,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
             datas.thick_powspctrm = thick.powspctrm;
             datas.powspctrm = datas.med_powspctrm - (datas.thin_powspctrm + datas.thick_powspctrm) / 2;
         else
-
+            
             datas = ft_freqanalysis(cfg, datas);
             %datas.thin_fourierspctrm = thin.fourierspctrm;
             %datas.med_fourierspctrm = med.fourierspctrm;

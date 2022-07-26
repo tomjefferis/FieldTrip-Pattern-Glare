@@ -1,16 +1,22 @@
-function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time)
+function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time,frequency_range)
 
     if ~exist('time','var')
         time = [0,3.998];
     end
 
+    if contains(filename_precomposed, 'pow-')
+        output = "pow";
+    else
+        output = "fourier";
+    end
+
 
     if contains(filename_precomposed, 'onsets')
-        datas = freq_decomp(datas, wavelet_width, 'pow',frequency_range,time);
+        datas = freq_decomp(datas, wavelet_width, output,frequency_range,time);
     else
-        datas.part1 = freq_decomp(datas.part1, wavelet_width,'pow',frequency_range,time);
-        datas.part2 = freq_decomp(datas.part2, wavelet_width,'pow',frequency_range,time);
-        datas.part3 = freq_decomp(datas.part3, wavelet_width,'pow',frequency_range,time);
+        datas.part1 = freq_decomp(datas.part1, wavelet_width,output,frequency_range,time);
+        datas.part2 = freq_decomp(datas.part2, wavelet_width,output,frequency_range,time);
+        datas.part3 = freq_decomp(datas.part3, wavelet_width,output,frequency_range,time);
     end
 
 

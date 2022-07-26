@@ -1,5 +1,5 @@
 function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
-        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, clust_volume, topograpic_map_plot, ...
+        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range,power_itc, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
         onsets_part, type_of_effect,three_way_type, orthoganilized_partitions, testing)
 
@@ -38,12 +38,12 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
         else
 
-            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-pow-", "decomposed_dat.mat");
+            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-", "decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
 
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed);
+                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range);
 
             else
                 data = load(filename_precomposed).decomposed;

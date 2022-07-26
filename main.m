@@ -34,6 +34,7 @@ stat_run = true;
 %% frequency config
 wavelet_width = 5; 
 frequency_range = [8 13]; % start and end frequency for stat tests
+power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
 clust_volume = true; % cluter volume over time
 topograpic_map_plot = true; % make topographic maps
@@ -87,6 +88,6 @@ testing = true;
 
 
 tab = pgi_analysis(grand_avg_filename,single_trial_freq_filename,grand_avg_partitions_filename,time_window,n_participants,baseline_period, ...
-aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,clust_volume, topograpic_map_plot, ...
+aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,power_itc,clust_volume, topograpic_map_plot, ...
 plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,time_freq,factor_scores, ...
 onsets_part, type_of_effect, three_way_type,partitions, testing);
