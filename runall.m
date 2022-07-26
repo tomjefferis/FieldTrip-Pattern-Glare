@@ -1,4 +1,5 @@
 %% EEG pattern glare analysis - Author: Tom Jefferis
+%% This file is used for running all the statistics for onsets, partitions and onsets 2,3vs4,5,vs 6,7
 %% setting up paths to plugins and default folder
 clear all;
 restoredefaultpath;

@@ -1,3 +1,5 @@
 # FieldTrip Pattern Glare
-## A  package of methods for use with the pattern glare dataset and the Matlab extenstion FieldTrip
+## This program is a complete pipeline for pattern-glare analysis in FieldTrip.
+
+
 
