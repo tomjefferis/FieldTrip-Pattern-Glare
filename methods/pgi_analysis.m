@@ -42,7 +42,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range);
+                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
                 save(filename_precomposed, "decomposed");

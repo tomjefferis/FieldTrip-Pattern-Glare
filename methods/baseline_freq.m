@@ -1,4 +1,4 @@
-function data = baseline_freq(data)
+function data = baseline_freq(data, baseline_period)
 
 % Baselines freq data to the db scale before creating pgi in the frequency domain
 % 
@@ -6,7 +6,7 @@ function data = baseline_freq(data)
 %       baseline_freq(data)
 % 
 
-    cfg.baseline = [2.8 3.0];
+    cfg.baseline = baseline_period;
     cfg.baselinetype = 'db';
     data = ft_freqbaseline(cfg, data);
 end
