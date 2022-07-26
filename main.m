@@ -45,9 +45,9 @@ plot_designs = false; %plots design matrix for partitions ONLY
 plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign 
-time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'visual-stress'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+time_freq = 'time'; % time or frequency domain options: time or frequency
+factor_scores = {'headache'}; % options: none, headache, visual-stress, discomfort, all
+onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog

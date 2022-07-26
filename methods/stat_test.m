@@ -44,6 +44,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
         if strcmp(timefreq, "frequency")
              if strcmp(factor, 'none')
                 cfg.statistic = 'ft_statfun_depsamplesT';
+                null_data = set_values_to_zero(data);
              else
                 cfg.statistic = 'ft_statfun_indepsamplesregrT';
              end
