@@ -41,7 +41,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
         end
 
     else
-        if strcmp(timefreq, "freq")
+        if strcmp(timefreq, "frequency")
              if strcmp(factor, 'none')
                 cfg.statistic = 'ft_statfun_depsamplesT';
              else
@@ -51,7 +51,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             median_des = median(design_matrix);
             new_design = [];
             for index = 1:size(design_matrix,2)
-                for jndex = 1:size(data{index}.cumtapcnt,1)
+                %for jndex = 1:size(data{index}.cumtapcnt,1)
                     endmat = size(new_design,2)+1;
                     if design_matrix(index) < median_des
                         new_design(1,endmat) = 1;
@@ -60,14 +60,14 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
                         new_design(1,endmat) = 2;
                         new_design(2,endmat) = index;
                     end
-                end
+                %end
             end
             cfg.ivar = 1; % the 1st row in cfg.design contains the independent variable
             cfg.uvar = 2; % the 2nd row in cfg.design contains the subject number
-            cfg.statistic = timefreq;
-            cfg.design = new_design;
-            cfg.clusterthreshold = 'nonparametric_individual';
-            cfg.parameter = 'fourierspctrm';
+            cfg.statistic = "ft_statfun_indepsamplesT";
+            cfg.design = design_matrix;
+            %cfg.clusterthreshold = 'nonparametric_individual';
+            cfg.parameter = 'powspctrm';
             cfg.numrandomization = 1000; % cos its slow 
 
         end
@@ -109,6 +109,12 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
 
             try
                 stat.posclusterslabelmat = squeeze(stat.posclusterslabelmat);
+                
+            catch e
+
+            end
+            try
+                
                 stat.negclusterslabelmat = squeeze(stat.negclusterslabelmat);
             catch e
 

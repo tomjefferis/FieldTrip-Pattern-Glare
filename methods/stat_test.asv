@@ -3,7 +3,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
     randomizer = 5000;
 
     if testing
-        randomizer = 500;
+        randomizer = 1000;
     end
 
     %prepare neighbors so the test know what electrodes are where in space
@@ -67,8 +67,8 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             cfg.statistic = timefreq;
             cfg.design = new_design;
             cfg.clusterthreshold = 'nonparametric_individual';
-            cfg.parameter = 'fourierspctrm';
-            cfg.numrandomization = 1000; % cos its sl
+            cfg.parameter = 'powspctrm';
+            cfg.numrandomization = 1000; % cos its slow 
 
         end
         

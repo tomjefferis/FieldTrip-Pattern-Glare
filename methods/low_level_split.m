@@ -21,10 +21,10 @@ function [data] = low_level_split (data, label, freq)
             participant_data = rmfield(participant_data, "thick");
         end
 
-        if freq
-            participant_data.trial = participant_data.avg;
-            participant_data = rmfield(participant_data, "avg");
-        end
+        %if freq
+       %     participant_data.trial = participant_data.avg;
+       %     participant_data = rmfield(participant_data, "avg");
+        %end
 
         data{idx} = participant_data;
     end

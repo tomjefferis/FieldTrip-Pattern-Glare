@@ -6,19 +6,33 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
     %           freq_power_decomposition() or freq_fourier_decomposition()
     %
 
-    [thin, med, thick] = split_data({datas});
+    [thin, med, thick] = split_data(datas,true);
     if ~strcmp(output,'pow')
         thin = [];
         thick = [];
-        datas = med{1};
-        datas.avg = datas.avg(2:end);
+        datas = med;
+        for index = 1:numel(datas)
+            temp_datas = datas{index}.avg(2:end);
+            datas{index}.trial = permute(cat(3,temp_datas{:}),[3 1 2]);
+            datas{index} = rmfield(datas{index}, "avg");
+            datas{index} = rmfield(datas{index}, "dimord");
+        end
         med = [];    
     else
-        thin = thin{1};
-        thick = thick{1};
-        datas = med{1};
-        datas.avg = datas.avg{2:end};
-        med = med{1};   
+        for index = 1:numel(datas)
+            temp_thin = thin{index}.avg(2:end);
+            temp_med = med{index}.avg(2:end);
+            temp_thick = thick{index}.avg(2:end);
+            thin{index}.trial = permute(cat(3,temp_thin{:}),[3 1 2]);
+            med{index}.trial = permute(cat(3,temp_med{:}),[3 1 2]);
+            thick{index}.trial = permute(cat(3,temp_thick{:}),[3 1 2]);
+            thin{index} = rmfield(thin{index}, "avg");
+            thin{index} = rmfield(thin{index}, "dimord");
+            med{index} = rmfield(med{index}, "avg");
+            med{index} = rmfield(med{index}, "dimord");
+            thick{index} = rmfield(thick{index}, "avg");
+            thick{index} = rmfield(thick{index}, "dimord");
+        end
     end
 
     step = 1/512;
@@ -34,31 +48,32 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
     cfg.pad = 'nextpow2';
     cfg.channel = 'all';
     cfg.trials = 'all';
-    cfg.parameter = 'avg';
+    cfg.keeptrials = 'no';
+    %cfg.parameter = 'avg';
     
-
+for index = 1:numel(datas)
         if strcmp(cfg.output, 'pow')
-            thin = ft_freqanalysis(cfg, thin);
-            med = ft_freqanalysis(cfg, med);
-            thick = ft_freqanalysis(cfg, thick);
-            thin = baseline_freq(thin);
-            med = baseline_freq(med);
-            thick = baseline_freq(thick);
-            datas = med;
+            thin{index} = ft_freqanalysis(cfg, thin{index});
+            med{index} = ft_freqanalysis(cfg, med{index});
+            thick{index} = ft_freqanalysis(cfg, thick{index});
+            thin{index} = baseline_freq(thin{index});
+            med{index} = baseline_freq(med{index});
+            thick{index} = baseline_freq(thick{index});
+            datas{index} = med{index};
 
-            datas.thin_powspctrm = thin.powspctrm;
-            datas.med_powspctrm = med.powspctrm;
-            datas.thick_powspctrm = thick.powspctrm;
-            datas.powspctrm = datas.med_powspctrm - (datas.thin_powspctrm + datas.thick_powspctrm) / 2;
+            datas{index}.thin_powspctrm = thin{index}.powspctrm;
+            datas{index}.med_powspctrm = med{index}.powspctrm;
+            datas{index}.thick_powspctrm = thick{index}.powspctrm;
+            datas{index}.powspctrm = datas{index}.med_powspctrm - (datas{index}.thin_powspctrm + datas{index}.thick_powspctrm) / 2;
         else
             
-            datas = ft_freqanalysis(cfg, datas);
+            datas = ft_freqanalysis(cfg, datas{index});
             %datas.thin_fourierspctrm = thin.fourierspctrm;
             %datas.med_fourierspctrm = med.fourierspctrm;
             %datas.thick_fourierspctrm = thick.fourierspctrm;
 
         end
 
-    
+end
 
 end
