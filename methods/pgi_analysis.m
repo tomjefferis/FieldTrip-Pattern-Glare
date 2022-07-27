@@ -241,8 +241,17 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                 %% Median split
                 if median_split_plots && ~contains(factor, "none")
-                    Negative_Cluster = stat.negclusters.prob;
-                    Positive_Cluster = stat.posclusters.prob;
+                    try
+                        Negative_Cluster = stat.negclusters.prob;
+                    catch e
+                        Negative_Cluster = 1;
+                    end
+                    try
+                        Positive_Cluster = stat.posclusters.prob;
+                    catch e
+                        Positive_Cluster = 1;
+                    end
+                    
                     [low, high] = median_split(data, 1, design_matrix);
 
                     if Negative_Cluster <= 0.2
