@@ -74,6 +74,12 @@ for index = 1:numel(datas)
             mx = baseline_freq(med{index}, baseline_period);
             thx = baseline_freq(thick{index}, baseline_period);
 
+            tm = tx.time(idx:end);
+
+            thin{index}.time = tm;
+            med{index}.time = tm;
+            thick{index}.time = tm;
+
             thin{index}.powspctrm = tx.powspctrm(:,:,idx:end);
             med{index}.powspctrm = mx.powspctrm(:,:,idx:end);
             thick{index}.powspctrm = thx.powspctrm(:,:,idx:end);

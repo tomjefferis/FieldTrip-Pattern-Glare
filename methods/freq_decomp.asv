@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
+function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time, baseline_period)
 
     %%  Frequency decomposition function
     %   This is the main function for frequency decomposition
@@ -62,7 +62,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time)
     cfg.keeptrials = 'no';
     %cfg.parameter = 'avg';
     
-for index = 1:numel(datas)
+parfor index = 1:numel(datas)
         if strcmp(cfg.output, 'pow')
             thin{index} = ft_freqanalysis(cfg, thin{index});
             med{index} = ft_freqanalysis(cfg, med{index});
@@ -70,13 +70,19 @@ for index = 1:numel(datas)
 
             idx = interp1(thin{index}.time, 1:length(thin{index}.time), temp_time, 'nearest');
 
-            tx = baseline_freq(thin{index});
-            mx = baseline_freq(med{index});
-            thx = baseline_freq(thick{index});
+            tx = baseline_freq(thin{index}, baseline_period);
+            mx = baseline_freq(med{index}, baseline_period);
+            thx = baseline_freq(thick{index}, baseline_period);
 
-            thin.powspctrm{index} = tx.powspctrm(:,:,idx:end);
-            med.powspctrm{index} = mx.powspctrm(:,:,idx:end);
-            thick.powspctrm{index} = thx.powspctrm(:,:,idx:end);
+            tm = tx.time(idx:end);
+
+            thin{index}.time = tm;
+            med{index}.time = tm;
+            thick{index}.time = tm;
+
+            thin{index}.powspctrm = tx.powspctrm(:,:,idx:end);
+            med{index}.powspctrm = mx.powspctrm(:,:,idx:end);
+            thick{index}.powspctrm = thx.powspctrm(:,:,idx:end);
             
             datas{index} = med{index};
 
