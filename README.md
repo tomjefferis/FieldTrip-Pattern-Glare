@@ -5,12 +5,12 @@ Experiment  | Time Domain  | Frequency Domain
 ------------- | ------------- | -------------
 Average onsets statistics | ✅| ✅ Power & ❌ ITC
 Partitions statistics | ✅| ✅ Power & ❌ ITC
-Onsets 2,3 vs 4,5 vs 6,7 statistics | ✅| ✅ Power & ❌ ITC
+Onsets 2,3 vs 4,5 vs 6,7 statistics | ✅| ✴️ Power & ❌ ITC
 Three-way interaction statistics | ✅| ⬜️ Power & ❌ ITC
 Global Field Power window finder | ✅| ✴️ Untested
 Topographic map plotting | ✅| ✅ Power & ITC
 ERP Plotting | ✅| ✅ Power & ITC
-Cluster Volume Plots | ✅| ⬜️ Power & ITC
+Cluster Volume Plots | ✅| ✅ Power & ITC
 Frequency spectrum plots | ❌| ⬜️ Power & ITC
 
 ### To run:
