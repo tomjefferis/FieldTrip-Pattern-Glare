@@ -1,4 +1,4 @@
-function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time,frequency_range)
+function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time,frequency_range,baseline_period)
 
     if ~exist('time','var')
         time = [0,3.998];

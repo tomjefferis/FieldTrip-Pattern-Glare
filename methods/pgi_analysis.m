@@ -38,7 +38,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
         else
 
-            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-", "decomposed_dat.mat");
+            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-",onsets_part,"-", "decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -249,14 +249,22 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         significant_electrode = compute_best_electrode(stat, "negative");
                         plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
-                        plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                        if contains(time_freq,"time")
+                            plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                        else
+                            freq_power_median_split(data,orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
+                        end
                     end
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
                         plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
-                        plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                        if contains(time_freq,"time")
+                            plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                        else
+                            freq_power_median_split(data,orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
+                        end
                     else
                         fprintf("No significant clusters to plot");
                     end
