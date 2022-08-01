@@ -1,5 +1,5 @@
 function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
-        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range,power_itc, clust_volume, topograpic_map_plot, ...
+        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range,power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
         onsets_part, type_of_effect,three_way_type, orthoganilized_partitions, testing)
 
@@ -45,7 +45,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
-                save(filename_precomposed, "decomposed");
+                save(filename_precomposed, "decomposed",'-v7.3');
             else
                 data = load(filename_precomposed).decomposed;
                 datas = data.data;
@@ -53,8 +53,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 data = []; % clearing memory for this var
             end
 
-            %cfg = [];
-            %grandavg = ft_freqgrandaverage(cfg, datas{:});
+            
         end
 
         if sum(baseline_period == [2.8 3.0]) < 2
@@ -197,6 +196,35 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     if Positive_Cluster <= 0.2
                         plot_cluster_vol(stat, factor, start_time, end_time, "positive", results_dir);
                     else
+                        fprintf("No significant clusters to plot");
+                    end
+
+                end
+
+                %% TFR plots
+                if tfr_plots && contains(power_itc,"pow")
+               
+                    try
+                        Negative_Cluster = stat.negclusters.prob;
+                    catch
+                        Negative_Cluster = 1;
+                    end
+
+                    try
+                        Positive_Cluster = stat.posclusters.prob;
+                    catch
+                        Positive_Cluster = 1; median_split_plots
+                    end
+
+                    if Negative_Cluster <= 0.2
+                        significant_electrode = compute_best_electrode(stat, "negative");
+                        tfr_plotter(datas,significant_electrode,baseline_period);
+                        end
+
+                    if Positive_Cluster <= 0.2
+                        significant_electrode = compute_best_electrode(stat, "positive");
+                        tfr_plotter(datas,significant_electrode,baseline_period);
+                        else
                         fprintf("No significant clusters to plot");
                     end
 

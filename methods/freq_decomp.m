@@ -54,7 +54,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     cfg.output = output;
     cfg.method = 'wavelet';
     cfg.width = wavelet_width;
-    cfg.foi = frequency_range(1):1:frequency_range(2); %% 
+    cfg.foi = frequency_range(1):1:frequency_range(2); 
     cfg.toi = start:step:endt;
     cfg.pad = 'nextpow2';
     cfg.channel = 'all';
@@ -62,7 +62,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     cfg.keeptrials = 'no';
     %cfg.parameter = 'avg';
     
-for index = 1:numel(datas)
+parfor index = 1:numel(datas)
         if strcmp(cfg.output, 'pow')
             thin{index} = ft_freqanalysis(cfg, thin{index});
             med{index} = ft_freqanalysis(cfg, med{index});
@@ -92,7 +92,7 @@ for index = 1:numel(datas)
             datas{index}.powspctrm = datas{index}.med_powspctrm - (datas{index}.thin_powspctrm + datas{index}.thick_powspctrm) / 2;
         else
             
-            datas = ft_freqanalysis(cfg, datas{index});
+            %datas = ft_freqanalysis(cfg, datas{index});
             %datas.thin_fourierspctrm = thin.fourierspctrm;
             %datas.med_fourierspctrm = med.fourierspctrm;
             %datas.thick_fourierspctrm = thick.fourierspctrm;

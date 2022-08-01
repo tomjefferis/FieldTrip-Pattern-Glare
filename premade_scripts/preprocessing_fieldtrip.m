@@ -7,8 +7,8 @@ restoredefaultpath;
 
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
-to_preprocess = {'partitions'};
-type_of_analysis = 'time_domain'; % or time_domain
+to_preprocess = {'partitions'}; 
+type_of_analysis = 'time_domain'; % frequency_domain or time_domain
 onsets = [
     [2,3];
     [4,5];

@@ -78,8 +78,8 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
         if strcmp(factor, 'none')
             null_data = set_values_to_zero(data);
             cfg.avgoverfreq = 'yes';
-            cfg.ivar = 1; % the 1st row in cfg.design contains the independent variable
-            cfg.uvar = 2; % the 2nd row in cfg.design contains the subject number
+            cfg.ivar = 2; % the 1st row in cfg.design contains the independent variable
+            cfg.uvar = 1; % the 2nd row in cfg.design contains the subject number
             cfg.frequency = freqrange;
             stat = ft_freqstatistics(cfg, data{:}, null_data{:});
             stat.prob = squeeze(stat.prob);
