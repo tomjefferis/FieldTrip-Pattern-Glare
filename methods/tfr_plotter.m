@@ -1,33 +1,7 @@
-function tfr_plotter(datas, electrode, results,factor)
+function tfr_plotter(datas, electrode, factor,results)
     %TFR_PLOTTER Summary of this function goes here
     %   Detailed explanation goes here
 
-    cfg = [];
-    grandavg = ft_freqgrandaverage(cfg, datas{:});
-    
-    cfg = [];
-    cfg.baselinetype = 'db';
-    %cfg.maskstyle    = 'saturation';
-    %cfg.zlim         = [-2.5e-27 2.5e-27];
-    cfg.channel = get_electrode_index(grandavg, electrode);
-    subplot(2,1,1)
-    ft_singleplotTFR(cfg, grandavg);
-    title(strcat("TFR Plot at ", electrode, "PGI"))
-
-    cfg = [];
-    cfg.parameter = "med_powspctrm";
-    grandavg = ft_freqgrandaverage(cfg, datas{:});
-    grandavg.powspctrm = grandavg.med_powspctrm;
-
-    cfg = [];
-    cfg.baselinetype = 'db';
-    cfg.parameter = "med_powspctrm";
-    %cfg.maskstyle    = 'saturation';
-    %cfg.zlim         = [-2.5e-27 2.5e-27];
-    cfg.channel = get_electrode_index(grandavg, electrode);
-    subplot(2,1,2)
-    ft_singleplotTFR(cfg, grandavg);
-    title(strcat("TFR Plot at ", electrode, "Medium Stimulus"));
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
 
@@ -50,7 +24,31 @@ function tfr_plotter(datas, electrode, results,factor)
         imgname = strcat(factor, " onsets TFR Plot.png");
     end
 
+    cfg = [];
+    grandavg = ft_freqgrandaverage(cfg, datas{:});
+    
+    cfg = [];
+    cfg.baselinetype = 'db';
+    cfg.zlim         = [-1.5 1.5];
+    cfg.channel = get_electrode_index(grandavg, electrode);
+    ft_singleplotTFR(cfg, grandavg);
+    title(strcat("TFR Plot at ", string(electrode.electrode), "PGI"))
+    save_dir_full = strcat(results, "/", results_fact, "/","PGI ", imgname);
+    saveas(gcf, save_dir_full);
 
-    save_dir_full = strcat(results, "/", results_fact, "/", imgname);
+
+    cfg = [];
+    cfg.parameter = "med_powspctrm";
+    grandavg = ft_freqgrandaverage(cfg, datas{:});
+    grandavg.powspctrm = grandavg.med_powspctrm;
+
+    cfg = [];
+    cfg.baselinetype = 'db';
+    cfg.zlim         = [-1.5 1.5];
+    cfg.channel = get_electrode_index(grandavg, electrode);
+    ft_singleplotTFR(cfg, grandavg);
+    title(strcat("TFR Plot at ", string(electrode.electrode), "Medium Stimulus"));
+
+    save_dir_full = strcat(results, "/", results_fact, "/","Med ", imgname);
     saveas(gcf, save_dir_full);
 end

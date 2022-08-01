@@ -218,12 +218,12 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
-                        tfr_plotter(datas,significant_electrode,baseline_period);
+                        tfr_plotter(datas,significant_electrode,factor, results_dir);
                         end
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
-                        tfr_plotter(datas,significant_electrode,baseline_period);
+                        tfr_plotter(datas,significant_electrode,factor, results_dir);
                         else
                         fprintf("No significant clusters to plot");
                     end
