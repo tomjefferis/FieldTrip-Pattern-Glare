@@ -1,4 +1,4 @@
-function tfr_plotter(datas, electrode, factor,results)
+function tfr_plotter(datas, electrode, factor,results,posneg)
     %TFR_PLOTTER Summary of this function goes here
     %   Detailed explanation goes here
 
@@ -32,8 +32,8 @@ function tfr_plotter(datas, electrode, factor,results)
     cfg.zlim         = [-1.5 1.5];
     cfg.channel = get_electrode_index(grandavg, electrode);
     ft_singleplotTFR(cfg, grandavg);
-    title(strcat("TFR Plot at ", string(electrode.electrode), "PGI"))
-    save_dir_full = strcat(results, "/", results_fact, "/","PGI ", imgname);
+    title(strcat("TFR Plot at ", string(electrode.electrode), " PGI, ",posneg))
+    save_dir_full = strcat(results, "/", results_fact, "/",posneg," PGI ", imgname);
     saveas(gcf, save_dir_full);
 
 
@@ -47,8 +47,8 @@ function tfr_plotter(datas, electrode, factor,results)
     cfg.zlim         = [-1.5 1.5];
     cfg.channel = get_electrode_index(grandavg, electrode);
     ft_singleplotTFR(cfg, grandavg);
-    title(strcat("TFR Plot at ", string(electrode.electrode), "Medium Stimulus"));
+    title(strcat("TFR Plot at ", string(electrode.electrode), " Medium Stimulus, ",posneg));
 
-    save_dir_full = strcat(results, "/", results_fact, "/","Med ", imgname);
+    save_dir_full = strcat(results, "/", results_fact, "/",posneg," Med ", imgname);
     saveas(gcf, save_dir_full);
 end
