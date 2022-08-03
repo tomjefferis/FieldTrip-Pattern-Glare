@@ -1,6 +1,10 @@
-function tfr_plotter(datas, electrode, factor,results,posneg)
+function tfr_plotter(datas, electrode, factor,results,posneg,save)
     %TFR_PLOTTER Summary of this function goes here
     %   Detailed explanation goes here
+
+    if ~exist("save","var") 
+        save = false;
+    end
 
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
@@ -26,29 +30,25 @@ function tfr_plotter(datas, electrode, factor,results,posneg)
 
     cfg = [];
     grandavg = ft_freqgrandaverage(cfg, datas{:});
-    
-    cfg = [];
-    cfg.baselinetype = 'db';
-    cfg.zlim         = [-1.5 1.5];
-    cfg.channel = get_electrode_index(grandavg, electrode);
-    ft_singleplotTFR(cfg, grandavg);
+    subplot(2,1,1);
+    tfr_low(grandavg,electrode,grandavg.freq);
     title(strcat("TFR Plot at ", string(electrode.electrode), " PGI, ",posneg))
-    save_dir_full = strcat(results, "/", results_fact, "/",posneg," PGI ", imgname);
+    if save
+        save_dir_full = strcat(results, "/", results_fact, "/",posneg," PGI ", imgname);
     saveas(gcf, save_dir_full);
-
+    end
 
     cfg = [];
     cfg.parameter = "med_powspctrm";
     grandavg = ft_freqgrandaverage(cfg, datas{:});
     grandavg.powspctrm = grandavg.med_powspctrm;
 
-    cfg = [];
-    cfg.baselinetype = 'db';
-    cfg.zlim         = [-1.5 1.5];
-    cfg.channel = get_electrode_index(grandavg, electrode);
-    ft_singleplotTFR(cfg, grandavg);
+    subplot(2,1,2);
+    tfr_low(grandavg,electrode,grandavg.freq);
     title(strcat("TFR Plot at ", string(electrode.electrode), " Medium Stimulus, ",posneg));
 
-    save_dir_full = strcat(results, "/", results_fact, "/",posneg," Med ", imgname);
-    saveas(gcf, save_dir_full);
+    if save
+        save_dir_full = strcat(results, "/", results_fact, "/",posneg," Med ", imgname);
+        saveas(gcf, save_dir_full);
+    end
 end

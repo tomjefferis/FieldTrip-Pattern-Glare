@@ -11,7 +11,7 @@ Global Field Power window finder | ✅| ✴️ Untested
 Topographic map plotting | ✅| ✅ Power & ITC
 ERP Plotting | ✅| ✅ Power & ITC
 Cluster Volume Plots | ✅| ✅ Power & ITC
-Frequency spectrum plots | N/A| ⬜️ Power & ITC
+Frequency spectrum plots | N/A| ✅ Power & ❌ ITC
 
 ### To run:
 * Clone repository

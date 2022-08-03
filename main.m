@@ -32,8 +32,8 @@ posneg = false; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 5; 
-frequency_range = [8 80]; % start and end frequency for stat tests
+wavelet_width = 3; 
+frequency_range = [30 45]; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
 clust_volume = false; % cluter volume over time
