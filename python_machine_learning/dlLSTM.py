@@ -1,8 +1,11 @@
+from datetime import datetime
+from packaging import version
 import tensorflow as tf
 from keras.layers import LSTM, Dense
 from sklearn.model_selection import train_test_split
 from tensorflow import keras
 from tensorflow.keras import layers
+import tensorboard
 import mne
 from matplotlib import pyplot as plt
 import utils.time_series as ts
@@ -52,10 +55,12 @@ train_dataset = train_dataset.shuffle(SHUFFLE_BUFFER_SIZE).batch(BATCH_SIZE)
 test_dataset = test_dataset.batch(BATCH_SIZE)
 
 #print(x_train.shape, y_train.shape)
-
+# Define the Keras TensorBoard callback.
+logdir="logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
 model = keras.Sequential()
-model.add(layers.TimeDistributed(layers.Conv2D(32, (4, 4), activation='relu', input_shape=(2150,25, 128, 1))))
-model.add(layers.TimeDistributed(layers.MaxPooling2D((4, 4))))
+model.add(layers.TimeDistributed(layers.Conv2D(128, (4, 4), activation='relu', input_shape=(2150,25, 128, 1))))
+model.add(layers.TimeDistributed(layers.MaxPooling2D((32, 32))))
 model.add(layers.TimeDistributed(layers.Conv2D(32, (3, 3), activation='relu')))
 model.add(layers.TimeDistributed(layers.MaxPooling2D((2, 2))))
 model.add(layers.TimeDistributed(layers.Flatten()))
@@ -64,6 +69,6 @@ model.add(Dense(16))
 model.add(Dense(16))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(train_dataset, epochs=50)
+model.fit(train_dataset, epochs=50,callbacks=[tensorboard_callback])
 
 model.evaluate(test_dataset)
