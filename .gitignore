@@ -1,2 +1,8 @@
 
 *.asv
+*.v2
+*.pb
+*.gz
+*.profile-empty
+*.pyc
+*.pyc

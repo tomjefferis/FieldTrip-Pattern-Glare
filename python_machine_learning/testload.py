@@ -8,7 +8,7 @@ import numpy as np
 
 
 partition_data_name = "time_domain_partitions_partitioned_onsets_2_3_4_5_6_7_8_grand-average_partitions.mat"
-p1,p2,p3 = ft_load.get_partitions(partition_data_name, num_participants=40, baseline=(2.8,3.0))
+p1,p2,p3 = ft_load.get_partitions(partition_data_name, num_participants=20, baseline=(2.8,3.0))
 
 design = ft_load.get_design_matrix("stress_partitions")
 p1_low, p1_high = ft_load.get_median_split(design,p1)

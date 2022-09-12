@@ -6,7 +6,7 @@ from mne.channels import montage
 from numpy import median
 from utils.time_series import *
 from utils.get_elec_label import get_elec_label
-from mne.externals.pymatreader import read_mat
+from pymatreader import read_mat
 from utils.which_folder import which_folder
 import os
 
@@ -161,6 +161,7 @@ def get_partitions(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sf
 
 def get_trials(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sfreq=512):
     data = []
+    order = []
 
     folder = which_folder()
 
@@ -175,14 +176,17 @@ def get_trials(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sfreq=
     for i in range(1, num_participants + 1):
         folder_loc = folder + str(i)
         filename_loc = os.path.join(folder_loc, filename)
-        if exists(filename_loc):
-            file = read_mat(filename_loc)
-            markers, array = get_epoch_format(file)
-            item = mne.EpochsArray(
-                array, info, markers, event_id=label_dict, tmin=tmin, baseline=baseline)
-            item.set_montage(sensor_locs)
-            data.append(item)
-    return data
+        if i != 18:
+            if exists(filename_loc):
+                order.append(i-1) # files start at 1 but scores at 0
+                file = read_mat(filename_loc)
+                markers, array = get_epoch_format(file)
+                item = mne.EpochsArray(
+                    array, info, markers, event_id=label_dict, tmin=tmin, baseline=baseline)
+                item.set_montage(sensor_locs)
+                data.append(item)
+                print("Participant " + str(i) + " loaded")
+    return data, order
 
 # makes one series of all conditions
 # def combine_array(thin, med=None, thick=None)

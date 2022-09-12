@@ -1,4 +1,6 @@
 from datetime import datetime
+from os.path import exists
+
 from packaging import version
 import tensorflow as tf
 from keras.layers import LSTM, Dense
@@ -12,35 +14,32 @@ import utils.time_series as ts
 import utils.data as ft_load
 import pandas as pd
 import numpy as np
-
+from utils.scores import *
+from utils.classifier_gen import *
 
 participant_data_name = "time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level_onsets.mat"
-data = ft_load.get_trials(participant_data_name, num_participants=40)
-y = [
-        -0.264, 0.4459, -0.49781, 1.77666, -0.55638, 0.87174, -0.68504, 0.92835, -0.80581, -0.87505, 0.39111, -0.76054,
-        -0.68987, 1.60776, 1.13956, 1.53606, 0.12186, 0.08428, 0.61663, -1.47958, 2.28422, -0.80891, -0.55738, -0.93291,
-        0.3791, -0.63074, 2.14683, -1.49948, 1.21954, -0.79734, -1.0687, -1.02592, -0.87653, 0.444
-    ]
+data, order = ft_load.get_trials(participant_data_name, num_participants=39)
+y = matchscores(getscore('discomfort'),order)
 
-mean_y = np.median(y)
-for item in range(0,len(y)):
-    if y[item] > mean_y:
-        y[item] = 1
-    else:
-        y[item] = 0
+scores = []
 
 for index in range(0,len(data)):
     items = data[index].get_data()
     events = np.squeeze(np.delete(data[index].events,slice(2),1))
     items = items[events == 2]
-    data[index] = items[:25,:,:]
 
-x = np.reshape(data, (len(data),2150,25,128,1))
-data = []
+    #data[index] = items[:25,:,:]
+    scores.append(multiplyscores(y[index], items))
+    data[index] = items
+
+#x = np.reshape(data, (len(data),2150,25,128,1))
 
 
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+scores = np.concatenate(scores)
+data = np.concatenate(data)
+data = np.reshape(data, (len(data),128,2150,1))
+#data = np.reshape(data, (len(data),2150,1,128,1))
+x_train, x_test, y_train, y_test = train_test_split(data, scores, test_size=0.2)
 
 
 
@@ -48,8 +47,8 @@ train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
 test_dataset = tf.data.Dataset.from_tensor_slices((x_test, y_test))
 
 
-BATCH_SIZE = 1
-SHUFFLE_BUFFER_SIZE = 100
+BATCH_SIZE = 3
+SHUFFLE_BUFFER_SIZE = 50
 
 train_dataset = train_dataset.shuffle(SHUFFLE_BUFFER_SIZE).batch(BATCH_SIZE)
 test_dataset = test_dataset.batch(BATCH_SIZE)
@@ -58,17 +57,25 @@ test_dataset = test_dataset.batch(BATCH_SIZE)
 # Define the Keras TensorBoard callback.
 logdir="logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
-model = keras.Sequential()
-model.add(layers.TimeDistributed(layers.Conv2D(128, (4, 4), activation='relu', input_shape=(2150,25, 128, 1))))
-model.add(layers.TimeDistributed(layers.MaxPooling2D((32, 32))))
-model.add(layers.TimeDistributed(layers.Conv2D(32, (3, 3), activation='relu')))
-model.add(layers.TimeDistributed(layers.MaxPooling2D((2, 2))))
-model.add(layers.TimeDistributed(layers.Flatten()))
-model.add(LSTM(32))
-model.add(Dense(16))
-model.add(Dense(16))
-model.add(Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(train_dataset, epochs=50,callbacks=[tensorboard_callback])
+#model = keras.Sequential()
+#model.add(layers.ConvLSTM2D(filters=40, kernel_size=(3, 3),input_shape=(2150, 1, 128, 1),padding='same', return_sequences=True))
+#model.add(layers.BatchNormalization())
+##model.add(layers.ConvLSTM2D(filters=40, kernel_size=(3, 3),input_shape=(2150, 1, 128, 1),padding='same', return_sequences=True))
+#model.add(layers.BatchNormalization())
+#model.add(layers.Flatten())
+#model.add(layers.Dense(128))
+#model.add(layers.Dense(1))
+#model.compile(loss=tf.keras.losses.MeanSquaredError(), optimizer='adam', metrics=['accuracy'])
+#model.fit(x_train,y_train, epochs=50,callbacks=[tensorboard_callback])
 
-model.evaluate(test_dataset)
+#model.evaluate(x_test, y_test)
+#if model exists load it
+if exists("models/EEGNet_seq_pattern_glare_discomfort.h5"):
+    model = keras.models.load_model("models/EEGNet_seq_pattern_glare_discomfort.h5")
+else:
+    model = EEGNet_seq(8,128,2150)
+
+model.fit(x_train,y_train, epochs=5000,batch_size=100)
+#save model
+model.save('models/EEGNet_seq_pattern_glare_discomfort.h5')
+model.evaluate(x_test, y_test)
