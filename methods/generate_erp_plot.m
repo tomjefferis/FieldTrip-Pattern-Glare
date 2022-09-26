@@ -13,16 +13,16 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
         end_time = 3.1;
     end
     if contains(factor, "visual")
-            factor = "visual-stress";
+            factor = "Visual-Stress";
             
         elseif contains(factor, "headache")
-            factor = "headache";
+            factor = "Headache";
             
         elseif contains(factor, "discomfort")
-            factor = "discomfort";
+            factor = "Discomfort";
             
         else
-            factor = "none";
+            factor = "None";
             
         end
 
@@ -102,7 +102,7 @@ function generate_erp_plot(results_dir, start_time, end_time, data, significant_
     legend("Thin", "Medium", "Thick", "", "", "", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 900, 1400]);
+    set(gcf, 'Position', [100, 100, 800, 300]);
     grid on;
     saveas(gcf, save_dir);
     hold off;

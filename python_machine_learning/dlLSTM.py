@@ -18,7 +18,7 @@ from utils.scores import *
 from utils.classifier_gen import *
 
 participant_data_name = "time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level_onsets.mat"
-data, order = ft_load.get_trials(participant_data_name, num_participants=39)
+data, order = ft_load.get_trials(participant_data_name, num_participants=3)
 y = matchscores(getscore('discomfort'),order)
 
 scores = []
@@ -27,17 +27,23 @@ for index in range(0,len(data)):
     items = data[index].get_data()
     events = np.squeeze(np.delete(data[index].events,slice(2),1))
     items = items[events == 2]
+    #normalize data
+    #items = (items - np.mean(items)) / np.std(items)
 
     #data[index] = items[:25,:,:]
-    scores.append(multiplyscores(y[index], items))
+    scores.append(multiplyscores(y[index],items))
     data[index] = items
 
 #x = np.reshape(data, (len(data),2150,25,128,1))
 
 
 scores = np.concatenate(scores)
+#scores = np.reshape(scores, (len(scores),1))
 data = np.concatenate(data)
 data = np.reshape(data, (len(data),128,2150,1))
+# normalize data using sklearn
+
+
 #data = np.reshape(data, (len(data),2150,1,128,1))
 x_train, x_test, y_train, y_test = train_test_split(data, scores, test_size=0.2)
 
@@ -70,12 +76,12 @@ tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
 
 #model.evaluate(x_test, y_test)
 #if model exists load it
-if exists("models/EEGNet_seq_pattern_glare_discomfort.h5"):
-    model = keras.models.load_model("models/EEGNet_seq_pattern_glare_discomfort.h5")
+if exists("models/EEGNet_seq_pattern_glare_class.h5"):
+    model = keras.models.load_model("models/EEGNet_seq_pattern_glare_class.h5")
 else:
     model = EEGNet_seq(8,128,2150)
 
 model.fit(x_train,y_train, epochs=5000,batch_size=100)
 #save model
-model.save('models/EEGNet_seq_pattern_glare_discomfort.h5')
+model.save('models/EEGNet_seq_pattern_glare_class.h5')
 model.evaluate(x_test, y_test)

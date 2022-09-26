@@ -202,7 +202,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 end
 
                 %% TFR plots
-                if tfr_plots && contains(power_itc,"pow")
+                if tfr_plots && contains(power_itc,"pow") && ~contains(time_freq, "time")
                
                     try
                         Negative_Cluster = stat.negclusters.prob;
@@ -312,7 +312,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_Onsets_Stat_Results.xls");
+        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -601,7 +601,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_Stat_Results.xls");
+        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 

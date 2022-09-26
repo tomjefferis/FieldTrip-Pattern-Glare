@@ -83,7 +83,8 @@ function plot_partitions_regressor(dataone, datatwo, datathree, electrode, desig
     title(tit);
 
     titles = strcat("Interactions through partitions Partitions regressor");
-    f1.Position = f1.Position + [0 -300 0 300];
+    %f1.Position = f1.Position + [0 -300 0 300];
+    set(gcf, 'Position', [100, 100, 800, 500]);
     %sgtitle(titles);
     name = strcat(results, "/partitions/", factor, ' preg_erpcombined.png');
     saveas(gcf, name);

@@ -195,8 +195,98 @@ def EEGNet_seq(nb_classes, Chans=64, Samples=128,
         Flatten(name='flatten'),
         Dense(nb_classes, name='dense',
               kernel_constraint=max_norm(norm_rate),activation='ReLU'),
+        Dense(1, name='dense-output')
+    ])
+
+    optimizer = 'adam'
+    model.compile(loss=loss, optimizer=optimizer,metrics=['mean_squared_error'])
+    return model
+
+
+def EEGNet_seq_class(nb_classes, Chans=64, Samples=128,
+               dropoutRate=0.5, kernLength=64, F1=8,
+               D=2, F2=16, norm_rate=0.25, dropoutType='Dropout',
+               learning_rate=3e-3, loss="categorical_crossentropy"):
+    """Create a Sequential EEGNet model.
+
+      nb_classes      : int, number of classes to classify
+      Chans, Samples  : number of channels and time points in the EEG data
+      dropoutRate     : dropout fraction
+      kernLength      : length of temporal convolution in first layer. We found
+                        that setting this to be half the sampling rate worked
+                        well in practice. For the SMR dataset in particular
+                        since the data was high-passed at 4Hz we used a kernel
+                        length of 32.
+      F1, F2          : number of temporal filters (F1) and number of pointwise
+                        filters (F2) to learn. Default: F1 = 8, F2 = F1 * D.
+      D               : number of spatial filters to learn within each temporal
+                        convolution. Default: D = 2
+      dropoutType     : Either SpatialDropout2D or Dropout, passed as a string.
+
+    :param nb_classes: int, number of classes to classify
+    :param Chans: Number of channels in the EEG data
+    :param Samples: Number of time poitns in EEG data
+    :param dropoutRate: dropout fraction
+    :param kernLength: Length of temporal convolution in first layer
+    :param F1: Number of temporal features to learn
+    :param D: Number of spatial filters to learn within each temporal
+    convolution
+    :param F2: Number of pointwise filters to learn
+    :param norm_rate: Normalisation rate
+    :param dropoutType: Dropout method to use
+    :param learning_rate: Learning rate of classifier
+    :param loss: Loss function of classifier
+    :returns: Keras Sequential model
+
+    """
+    from tensorflow.keras.models import Model
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense, Activation, Dropout
+    from tensorflow.keras.layers import Conv2D, AveragePooling2D
+    from tensorflow.keras.layers import SeparableConv2D, DepthwiseConv2D
+    from tensorflow.keras.layers import BatchNormalization
+    from tensorflow.keras.layers import SpatialDropout2D
+    from tensorflow.keras.layers import Input, Flatten
+    from tensorflow.keras.constraints import max_norm
+    from tensorflow import keras
+
+    if dropoutType == 'SpatialDropout2D':
+        dropoutType = SpatialDropout2D
+    elif dropoutType == 'Dropout':
+        dropoutType = Dropout
+    else:
+        raise ValueError('dropoutType must be one of SpatialDropout2D '
+                         'or Dropout, passed as a string.')
+
+    model = Sequential([
+        # Input(shape = (Chans, Samples, 1)),
+
+        # Block 1
+        Conv2D(F1, (1, kernLength), padding='same',
+               input_shape=(Chans, Samples, 1),
+               use_bias=False),
+        BatchNormalization(),
+        DepthwiseConv2D((Chans, 1), use_bias=False,
+                        depth_multiplier=D,
+                        depthwise_constraint=max_norm(1.)),
+        BatchNormalization(),
+        Activation('elu'),
+        AveragePooling2D((1, 4)),
+        dropoutType(dropoutRate),
+
+        # Block 2
+        SeparableConv2D(F2, (1, 16), use_bias=False, padding='same'),
+        BatchNormalization(),
+        Activation('elu'),
+        AveragePooling2D((1, 8)),
+        dropoutType(dropoutRate),
+
+        Flatten(name='flatten'),
+        Dense(nb_classes, name='dense',
+              kernel_constraint=max_norm(norm_rate)),
+        Activation('softmax', name='softmax')
     ])
 
     optimizer = keras.optimizers.SGD(lr=learning_rate)
-    model.compile(loss=loss, optimizer=optimizer,metrics=['mean_squared_error'])
+    model.compile(loss=loss, optimizer=optimizer, metrics=["accuracy"])
     return model

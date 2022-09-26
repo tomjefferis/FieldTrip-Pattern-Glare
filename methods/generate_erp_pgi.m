@@ -86,7 +86,7 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     legend(gfp, "Duration of Effect","",'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 900, 300]);
+    set(gcf, 'Position', [100, 100, 800, 300]);
     grid on;
     saveas(gcf, save_dir);
     hold off;

@@ -7,7 +7,11 @@ function plot_design(design_matrix1, design_matrix2, design_matrix3, results, fa
     hold on;
     plot(design_matrix2, 'LineWidth', 3);
     plot(design_matrix3, 'LineWidth', 3);
-    title(factor);
+    tit = strrep(factor, '-',' ');
+    expression = '(^|[\. ])\s*.';
+    replace = '${upper($0)}';
+    tit = regexprep(tit,expression,replace);
+    title(tit);
 
     if length(design_matrix1) > 34
 
