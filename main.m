@@ -44,11 +44,11 @@ tfr_plots = false; % frequency spectrum plots
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
 plot_designs = true; %plots design matrix for partitions ONLY
 plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
-generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
+generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign 
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'sensitization'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
