@@ -1,4 +1,4 @@
-function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
+function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename,single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
         aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range,power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
         onsets_part, type_of_effect,three_way_type, orthoganilized_partitions, testing)
@@ -41,12 +41,14 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-",onsets_part,"-", "decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
-                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
+                disp("Decomposed File Not Found");
+                [datas, orders] = load_data(main_path, single_trial_freq_filename, n_participants, onsets_part);
                 [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
                 save(filename_precomposed, "decomposed",'-v7.3');
             else
+                disp("Loaded Decomposed File");
                 data = load(filename_precomposed).decomposed;
                 datas = data.data;
                 orders = data.order;
@@ -312,7 +314,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        if contains(time_freq,"time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        else
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        end
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -339,19 +345,22 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     else
 
                         if strcmp(onsets_part, 'partitions')
-                            filename_precomposed = strcat(results_dir, "/", onsets_part, "/decomposed_dat.mat");
+                            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-",onsets_part,"-", "decomposed_dat.mat");
 
-                            if ~exist(filename_precomposed, 'file')
-                                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
-
-                                [datas, orders] = freq_decopmosition(datas, orders, wavelet_width, filename_precomposed);
-
-                            else
-                                data = load(filename_precomposed).decomposed;
-                                datas = data.data;
-                                orders = data.order;
-                                data = []; % clearing memory for this var
-                            end
+                           if ~exist(filename_precomposed, 'file')
+                disp("Decomposed File Not Found");
+                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
+                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
+                decomposed.data = datas;
+                decomposed.order = orders;
+                save(filename_precomposed, "decomposed",'-v7.3');
+            else
+                disp("Loaded Decomposed File");
+                data = load(filename_precomposed).decomposed;
+                datas = data.data;
+                orders = data.order;
+                data = []; % clearing memory for this var
+            end
 
                         else
                             [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -601,7 +610,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+       if contains(time_freq,"time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), type_of_effect,"_Stat_Results.xls");
+        else
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),type_of_effect, onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+        end
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -631,16 +644,19 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             filename_precomposed = strcat(results_dir, "/", onsets_part, "/decomposed_dat.mat");
 
                             if ~exist(filename_precomposed, 'file')
-                                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
-
-                                [datas, orders] = freq_decopmosition(datas, orders, wavelet_width, filename_precomposed);
-
-                            else
-                                data = load(filename_precomposed).decomposed;
-                                datas = data.data;
-                                orders = data.order;
-                                data = []; % clearing memory for this var
-                            end
+                disp("Decomposed File Not Found");
+                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
+                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
+                decomposed.data = datas;
+                decomposed.order = orders;
+                save(filename_precomposed, "decomposed",'-v7.3');
+            else
+                disp("Loaded Decomposed File");
+                data = load(filename_precomposed).decomposed;
+                datas = data.data;
+                orders = data.order;
+                data = []; % clearing memory for this var
+            end
 
                         else
                             [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -882,7 +898,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_Stat_Results.xls");
+        if contains(time_freq,"time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+        else
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+        end
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
