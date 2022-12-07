@@ -558,7 +558,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                                 if contains(time_freq,"time")
                                 plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                                 else
-                                    plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime)
+                                    plot_partitions_freq_power(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time)
                                 end
                             end
 
@@ -574,7 +574,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                                 if contains(time_freq,"time")
                                     plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                                 else
-                                    plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime)
+                                    plot_partitions_freq_power(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time)
                                 end
                             end
 

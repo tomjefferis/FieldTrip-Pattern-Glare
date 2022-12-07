@@ -25,7 +25,7 @@ function [high, low] = ylimit_finder(data,electrode)
         cfg.parameter = ['avg'];
     elseif (isfield(unit, 'thin_powspctrm'))
         time = false;
-        cfg.parameter = ['powspctrm','thin_powspctrm','med_powspctrm','thick_powspctrm'];
+        cfg.parameter = ['powspctrm'];
     else
         time = false;
         cfg.parameter = ['powspctrm'];
@@ -60,22 +60,24 @@ function [high, low] = ylimit_finder(data,electrode)
     else
         if ~isstruct(data)
         for index = 1:length(data)
-            temp = ft_freqgrandaverage(cfg, data(index));
+            temp = ft_freqgrandaverage(cfg, data{index});
+            temp.powspctrm = squeeze(mean(temp.powspctrm(:, :, :), 2));
+              
 
             tempseries = []
             for item = 1:length(cfg.parameter)
-                tempseries(item,:) = get_timeseries_data_electrode(temp,elec_index,cfg.parameter(item));
+                tempseries(item,:) = get_timeseries_data_electrode(temp,elec_index,cfg.parameter);
             end
 
             nums(index,:) = [max(max(tempseries)), min(min(tempseries))];
 
         end
         else
-            temp = ft_freqgrandaverage(cfg, data(index));
+            temp = ft_freqgrandaverage(cfg, data);
 
             tempseries = []
             for item = 1:length(cfg.parameter)
-                tempseries(item,:) = get_timeseries_data_electrode(temp,elec_index,cfg.parameter(item));
+                tempseries(item,:) = get_timeseries_data_electrode(temp,elec_index,cfg.parameter);
             end
 
             nums(index,:) = [max(max(tempseries)), min(min(tempseries))];

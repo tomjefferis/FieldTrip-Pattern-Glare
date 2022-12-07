@@ -45,7 +45,7 @@ median_split_plots = false; % plots the median split across time window for fact
 tfr_plots = false; % frequency spectrum plots
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
 plot_designs = false; %plots design matrix for partitions ONLY
-plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
+plot_partitions_erps = true; % 10x2 figure of median split partitions for factor
 generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
@@ -55,7 +55,7 @@ type_of_effects = {'habituation', 'sensitization'}; % habituation or sensitizati
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = false;
+testing = true;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts

@@ -85,7 +85,15 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     title_main = strcat("Topographic map of significant clusters ", results_fact);
     sgtitle(title_main);
     imgname = strcat(polarity, " ", imgname);
-    save_dir_full = strcat(results, "/", results_fact, "/", imgname);
+    if isfield(stat,"freq")
+        freq = round(stat.freq);
+        save_dir_full = strcat(results, "/", results_fact, "/",string(freq),"Hz ", imgname);
+    else
+        save_dir_full = strcat(results, "/", results_fact, "/", imgname);
+    end
+
+    
+
     saveas(gcf, save_dir_full);
     hold off;
 end
