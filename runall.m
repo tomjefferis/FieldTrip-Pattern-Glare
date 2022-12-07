@@ -19,7 +19,6 @@ single_trial_freq_partitions_filename = 'frequency_domain_partitions_partitioned
 
 grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.mat';
 
-
 %% Experiment parameters
 % ROI window
 time_window = [3.08, 3.99];
@@ -35,72 +34,72 @@ posneg = false; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 3; 
-frequency_ranges = {[8 13],[20 35],[30 45],[45 60],[60 80]}; % start and end frequency for stat tests
+wavelet_width = 3;
+frequency_ranges = {[8 13], [20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
-clust_volume = true; % cluter volume over time
-topograpic_map_plot = true; % make topographic maps
-plot_erps = true; % plotting ERPs for each condition and PGI
-median_split_plots = true; % plots the median split across time window for factors
-tfr_plots = true; % frequency spectrum plots
+clust_volume = false; % cluter volume over time
+topograpic_map_plot = false; % make topographic maps
+plot_erps = false; % plotting ERPs for each condition and PGI
+median_split_plots = false; % plots the median split across time window for factors
+tfr_plots = false; % frequency spectrum plots
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
-plot_designs = true; %plots design matrix for partitions ONLY
-plot_partitions_erps = true; % 10x2 figure of median split partitions for factor
-generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
-%% generate experiment dsign 
+plot_designs = false; %plots design matrix for partitions ONLY
+plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
+generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
+%% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
 onsets_parts = {'partitions'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
+type_of_effects = {'habituation', 'sensitization'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = false;
-%% End of config   
+%% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
 
-if contains(time_freq,"time")
+if contains(time_freq, "time")
+
     for j = 1:numel(partitionss)
-    partitions = partitionss{j};
+        partitions = partitionss{j};
 
-    parfor i = 1:numel(onsets_parts)
+        parfor i = 1:numel(onsets_parts)
 
-        onsets_part = onsets_parts{i};
+            onsets_part = onsets_parts{i};
 
-    tab = pgi_analysis(grand_avg_filename,single_trial_freq_filename,grand_avg_partitions_filename,time_window,n_participants,baseline_period, ...
-    aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,power_itc,tfr_plots,clust_volume, topograpic_map_plot, ...
-    plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,time_freq,factor_scores, ...
-    onsets_part, type_of_effect, three_way_type,partitions, testing);
+            tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
+                aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+                plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
+                onsets_part, type_of_effect, three_way_type, partitions, testing);
 
-   
+        end
 
     end
-end
-    
-else 
-        for j = 1:numel(type_of_effects)
-        type_of_effect = type_of_effects{j};
 
-        for i = 1:numel(onsets_parts)
+else
+
+    for i = 1:numel(onsets_parts)
 
         onsets_part = onsets_parts{i};
 
         for k = 1:numel(frequency_ranges)
 
-            frequency_range = frequency_ranges{i};
+            frequency_range = frequency_ranges{k};
 
-        tab = pgi_analysis(grand_avg_filename,single_trial_freq_filename,grand_avg_partitions_filename,single_trial_freq_partitions_filename,time_window,n_participants,baseline_period, ...
-aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,power_itc,tfr_plots,clust_volume, topograpic_map_plot, ...
-plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,time_freq,factor_scores, ...
-onsets_part, type_of_effect, three_way_type,partitions, testing);
+            for j = 1:numel(type_of_effects)
+                type_of_effect = type_of_effects(j);
+
+                tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
+                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+                    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
+                    onsets_part, type_of_effect, three_way_type, partitions, testing);
+
+            end
 
         end
 
-   
+    end
 
-        end
-        end
 end
-        

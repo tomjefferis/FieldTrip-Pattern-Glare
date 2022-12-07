@@ -1,12 +1,12 @@
-function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename,single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range,power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
+        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-        onsets_part, type_of_effect,three_way_type, orthoganilized_partitions, testing)
+        onsets_part, type_of_effect, three_way_type, orthoganilized_partitions, testing)
 
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
     % If the factors are all then it sets all the factors
-    if strcmp(factor_scores{1}, 'all') && ~contains(orthoganilized_partitions, 'orthog') 
+    if strcmp(factor_scores{1}, 'all') && ~contains(orthoganilized_partitions, 'orthog')
         factor_scores = {'none', 'headache', 'visual-stress', 'discomfort'};
     elseif strcmp(factor_scores{1}, 'all') && contains(orthoganilized_partitions, 'orthog')
         factor_scores = {'headache', 'visual-stress', 'discomfort'};
@@ -38,15 +38,15 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
         else
 
-            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-",onsets_part,"-", "decomposed_dat.mat");
+            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), "-", string(time_window(1)), "-", string(time_window(2)), "-", onsets_part, "-", "decomposed_dat.mat");
 
             if ~exist(filename_precomposed, 'file')
                 disp("Decomposed File Not Found");
                 [datas, orders] = load_data(main_path, single_trial_freq_filename, n_participants, onsets_part);
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
+                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
-                save(filename_precomposed, "decomposed",'-v7.3');
+                save(filename_precomposed, "decomposed", '-v7.3');
             else
                 disp("Loaded Decomposed File");
                 data = load(filename_precomposed).decomposed;
@@ -55,7 +55,6 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 data = []; % clearing memory for this var
             end
 
-            
         end
 
         if sum(baseline_period == [2.8 3.0]) < 2
@@ -204,8 +203,8 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 end
 
                 %% TFR plots
-                if tfr_plots && contains(power_itc,"pow") && ~contains(time_freq, "time")
-               
+                if tfr_plots && contains(power_itc, "pow") && ~contains(time_freq, "time")
+
                     try
                         Negative_Cluster = stat.negclusters.prob;
                     catch
@@ -220,13 +219,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
-                        tfr_plotter(datas,significant_electrode,factor, results_dir,"Negative",true);
-                        end
+                        tfr_plotter(datas, significant_electrode, factor, results_dir, "Negative", true);
+                    end
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
-                        tfr_plotter(datas,significant_electrode,factor, results_dir,"Positive",true);
-                        else
+                        tfr_plotter(datas, significant_electrode, factor, results_dir, "Positive", true);
+                    else
                         fprintf("No significant clusters to plot");
                     end
 
@@ -271,39 +270,45 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                 %% Median split
                 if median_split_plots && ~contains(factor, "none")
+
                     try
                         Negative_Cluster = stat.negclusters.prob;
                     catch e
                         Negative_Cluster = 1;
                     end
+
                     try
                         Positive_Cluster = stat.posclusters.prob;
                     catch e
                         Positive_Cluster = 1;
                     end
-                    
+
                     [low, high] = median_split(data, 1, design_matrix);
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
                         plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
-                        if contains(time_freq,"time")
+
+                        if contains(time_freq, "time")
                             plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
                         else
-                            freq_power_median_split(data,orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
+                            freq_power_median_split(data, orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
                         end
+
                     end
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
                         plot_peak_electrode(stat, significant_electrode, results_dir);
                         clf;
-                        if contains(time_freq,"time")
+
+                        if contains(time_freq, "time")
                             plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
                         else
-                            freq_power_median_split(data,orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
+                            freq_power_median_split(data, orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
                         end
+
                     else
                         fprintf("No significant clusters to plot");
                     end
@@ -314,11 +319,12 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        if contains(time_freq,"time")
-            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        if contains(time_freq, "time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         else
-            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         end
+
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -345,22 +351,22 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     else
 
                         if strcmp(onsets_part, 'partitions')
-                            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),"-",string(time_window(1)),"-",string(time_window(2)),"-",onsets_part,"-", "decomposed_dat.mat");
+                            filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), "-", string(time_window(1)), "-", string(time_window(2)), "-", onsets_part, "-", "decomposed_dat.mat");
 
-                           if ~exist(filename_precomposed, 'file')
-                disp("Decomposed File Not Found");
-                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
-                decomposed.data = datas;
-                decomposed.order = orders;
-                save(filename_precomposed, "decomposed",'-v7.3');
-            else
-                disp("Loaded Decomposed File");
-                data = load(filename_precomposed).decomposed;
-                datas = data.data;
-                orders = data.order;
-                data = []; % clearing memory for this var
-            end
+                            if ~exist(filename_precomposed, 'file')
+                                disp("Decomposed File Not Found");
+                                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
+                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                decomposed.data = datas;
+                                decomposed.order = orders;
+                                save(filename_precomposed, "decomposed", '-v7.3');
+                            else
+                                disp("Loaded Decomposed File");
+                                data = load(filename_precomposed).decomposed;
+                                datas = data.data;
+                                orders = data.order;
+                                data = []; % clearing memory for this var
+                            end
 
                         else
                             [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -549,7 +555,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                             else
+                                if contains(time_freq,"time")
                                 plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
+                                else
+                                    plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime)
+                                end
                             end
 
                         end
@@ -561,7 +571,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             if contains(factors, "none")
                                 plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
                             else
-                                plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
+                                if contains(time_freq,"time")
+                                    plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci);
+                                else
+                                    plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime)
+                                end
                             end
 
                         else
@@ -610,11 +624,12 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-       if contains(time_freq,"time")
-            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), type_of_effect,"_Stat_Results.xls");
+        if contains(time_freq, "time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), type_of_effect, "_Stat_Results.xls");
         else
-            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)),type_of_effect, onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), type_of_effect, onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Stat_Results.xls");
         end
+
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
@@ -644,19 +659,19 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             filename_precomposed = strcat(results_dir, "/", onsets_part, "/decomposed_dat.mat");
 
                             if ~exist(filename_precomposed, 'file')
-                disp("Decomposed File Not Found");
-                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed,time_window,frequency_range, baseline_period);
-                decomposed.data = datas;
-                decomposed.order = orders;
-                save(filename_precomposed, "decomposed",'-v7.3');
-            else
-                disp("Loaded Decomposed File");
-                data = load(filename_precomposed).decomposed;
-                datas = data.data;
-                orders = data.order;
-                data = []; % clearing memory for this var
-            end
+                                disp("Decomposed File Not Found");
+                                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
+                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                decomposed.data = datas;
+                                decomposed.order = orders;
+                                save(filename_precomposed, "decomposed", '-v7.3');
+                            else
+                                disp("Loaded Decomposed File");
+                                data = load(filename_precomposed).decomposed;
+                                datas = data.data;
+                                orders = data.order;
+                                data = []; % clearing memory for this var
+                            end
 
                         else
                             [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -665,7 +680,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     end
 
                     % sets up the factor for partitions
-                    factors = strcat(three_way_type,'-',factor, '-', onsets_part, '-', orthoganilized_partitions, '-', effect);
+                    factors = strcat(three_way_type, '-', factor, '-', onsets_part, '-', orthoganilized_partitions, '-', effect);
                     % gets the design matrix
                     [design_matrix, data] = get_design_matrix(factors, datas, orders);
                     % splitting the data to seperate vars
@@ -898,11 +913,12 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        if contains(time_freq,"time")
-            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+        if contains(time_freq, "time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Stat_Results.xls");
         else
-            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-",power_itc,"-",string(frequency_range(1)),"-",string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time),"_",string(orthoganilized_partitions), "_Stat_Results.xls");
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Stat_Results.xls");
         end
+
         tab = struct2table(stat_scores)
         writetable(tab, savedir);
 
