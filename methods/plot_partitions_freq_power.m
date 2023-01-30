@@ -57,6 +57,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     ylabel("Power db");
     grid on;
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     legend(legend1, 'location', 'eastoutside');
     tit = strcat("Low Group PGI ", title4, " @ ", electrode.electrode);
     title(tit);
@@ -71,6 +72,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     ylabel("Power db");
     grid on;
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     legend(legend1, 'location', 'eastoutside');
     tit = strcat("High Group PGI ", title4, " @ ", electrode.electrode);
     title(tit);
@@ -83,6 +85,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("Low group power spectrum ", title1, " @ ", electrode.electrode);
     title(tit);
 
@@ -94,6 +97,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("High group power spectrum ", title1, " @ ", electrode.electrode);
     title(tit);
 
@@ -105,6 +109,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("Low group power spectrum ", title2, " @ ", electrode.electrode);
     title(tit);
 
@@ -116,6 +121,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("High group power spectrum ", title2, " @ ", electrode.electrode);
     title(tit);
 
@@ -127,6 +133,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("Low group power spectrum ", title3, " @ ", electrode.electrode);
     title(tit);
 
@@ -138,6 +145,7 @@ function plot_partitions_freq_power(dataone, datatwo, datathree, electrode, desi
     xlabel("Time S");
     ylabel("Power db");
     hold on;
+    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
     tit = strcat("High group power spectrum ", title3, " @ ", electrode.electrode);
     title(tit);
 

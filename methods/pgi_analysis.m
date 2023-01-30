@@ -42,7 +42,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
             if ~exist(filename_precomposed, 'file')
                 disp("Decomposed File Not Found");
-                [datas, orders] = load_data(main_path, single_trial_freq_filename, n_participants, onsets_part);
+                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
                 [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
@@ -57,7 +57,8 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        if sum(baseline_period == [2.8 3.0]) < 2
+        % do if baseline isnt [2.8 3.0] and time data
+        if (sum(baseline_period == [2.8 3.0]) < 2) && strcmp(time_freq, 'time')
             datas = rebaseline_data(datas, baseline_period);
         end
 

@@ -51,7 +51,7 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
         imgname = strcat(factor, " ", string(start_time), " onsets cluster volume.png");
     end
 
-    save_dir = strcat(save_dir, "/", results_fact, "/", polarity, " ", imgname);
+    
     figure;
     hold on;
     xlim([start_time, end_time]);
@@ -76,6 +76,12 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     legend(cluster_leg);
     set(gcf, 'Position', [100, 100, 800, 350]);
     grid on;
+    if isfield(stat,"freq")
+        freq = round(stat.freq);
+        save_dir = strcat(save_dir, "/", results_fact, "/", polarity, " ",string(freq),"Hz ", imgname);
+    else
+        save_dir = strcat(save_dir, "/", results_fact, "/", polarity, " ", imgname);
+    end
     saveas(gcf, save_dir);
     hold off;
 
