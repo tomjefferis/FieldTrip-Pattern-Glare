@@ -18,7 +18,7 @@ onsets = [
 number_of_onsets = size(onsets);
 number_of_onsets = number_of_onsets(1);
 n_participants = 40;
-filter_freq = [0.1, 80];
+filter_freq = [1, 85];
 baseline_window = [-0.2 0];
 
 %% main preprocessing loop
@@ -30,7 +30,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
 
-        parfor participant = 1:n_participants
+        for participant = 1:n_participants
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);

@@ -22,7 +22,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 % ROI window
 %time_window = [3.08, 3.99; 3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
 time_window = [0.5, 3];
-n_participants = 40;
+n_participants = 2;
 baseline_period = [-0.2 0];
 %baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -33,7 +33,7 @@ posneg = false; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = true;
 %% frequency config
-wavelet_width = 5;
+wavelet_width = 3;
 frequency_range = [8 13]; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
@@ -48,7 +48,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
 onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison

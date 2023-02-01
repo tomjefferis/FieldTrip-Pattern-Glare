@@ -384,7 +384,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     data2 = data.two;
                     data3 = data.three;
 
-                    if sum(baseline_period == [2.8 3.0]) < 2
+                    if (sum(baseline_period == [2.8 3.0]) < 2) && strcmp(time_freq,'time')
                         data1 = rebaseline_data(data1, baseline_period);
                         data2 = rebaseline_data(data2, baseline_period);
                         data3 = rebaseline_data(data3, baseline_period);

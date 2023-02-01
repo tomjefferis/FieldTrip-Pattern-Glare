@@ -35,7 +35,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = true;
 %% frequency config
 wavelet_width = 5;
-frequency_ranges = {[8 13], [20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
+frequency_ranges = {[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
 clust_volume = false; % cluter volume over time
@@ -49,11 +49,11 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'none','all'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
+onsets_parts = {'partitions'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation', 'sensitization'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
-partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
 %% End of config
@@ -62,17 +62,30 @@ testing = true;
 
 if contains(time_freq, "time")
 
-    for j = 1:numel(partitionss)
-        partitions = partitionss{j};
+   for i = 1:numel(onsets_parts)
 
-        parfor i = 1:numel(onsets_parts)
+        onsets_part = onsets_parts{i};
 
-            onsets_part = onsets_parts{i};
+        for m = 1:numel(partitionss)
+                partitions = partitionss{m};
 
-            tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, time_window, n_participants, baseline_period, ...
-                aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-                plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-                onsets_part, type_of_effect, three_way_type, partitions, testing);
+            if strcmp(onsets_part,'onsets')
+                    b = 1;
+            else 
+                b = numel(type_of_effects);
+            end
+
+            for j = 1:b
+                type_of_effect = type_of_effects(j);
+
+           tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
+                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_ranges{1}, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+                    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
+                    onsets_part, type_of_effect, three_way_type, partitions, testing);
+
+
+       
+            end
 
         end
 
@@ -88,9 +101,11 @@ else
 
             frequency_range = frequency_ranges{k};
 
+            for m = 1:numel(partitionss)
+                partitions = partitionss{m};
+
             if strcmp(onsets_part,'onsets')
                     b = 1;
-            
             else 
                 b = numel(type_of_effects);
             end
@@ -105,6 +120,7 @@ else
 
             end
 
+            end
         end
 
     end
