@@ -15,6 +15,8 @@ def which_folder():
         return "/Users/tomjefferis/Documents/PhD/EEG Data/participant_"
     elif system == "Windows":
         return "W:\PhD\PatternGlareData\participants\participant_"
+    elif system == "Linux":
+        return "./PatternGlareData/participant_"
     else:
         return "Not Valid System"
 

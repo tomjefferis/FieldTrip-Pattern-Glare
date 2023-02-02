@@ -202,6 +202,20 @@ def multiplyscores(score, data):
         sc.append(round(score * val,4))
     return sc
 
+def getPartitionsScores(order, factor, type):
+
+    if type == 'habituation':
+        fits = [2.72, 2.65, 1]
+    else:
+        fits = [1, 2.65, 2.72]
+
+    # get scores corresponding to factor
+    scores = getscore(factor)
+    # match scores to order
+    scores = matchscores(scores, order)
+    return(orthogonolize([scores*fits[0], scores*fits[1], scores*fits[2]]))
+
+
 
 def orthogonolize(scores):
     # orthogonalize scores

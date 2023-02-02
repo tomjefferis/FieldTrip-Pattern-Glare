@@ -130,6 +130,7 @@ def get_partitions(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sf
     part1 = []
     part2 = []
     part3 = []
+    order = []
 
     folder = which_folder()
 
@@ -145,6 +146,7 @@ def get_partitions(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sf
         filename_loc = os.path.join(folder_loc, filename)
         # just cos 36 doesnt have a score for some reason so excluded for ease
         if exists(filename_loc) and i != 36:
+            order.append(i)
             file = read_mat(filename_loc)
             p1_file = mne.EvokedArray(
                 file["data"]["p1_pgi"], info, tmin=tmin, baseline=baseline).set_montage(sensor_locs)
@@ -156,7 +158,7 @@ def get_partitions(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sf
             part1.append(p1_file)
             part2.append(p2_file)
             part3.append(p3_file)
-    return part1, part2, part3
+    return part1, part2, part3, order
 
 
 def get_trials(filename, num_participants, baseline=(-0.2, 0), tmin=-0.2, sfreq=512):
