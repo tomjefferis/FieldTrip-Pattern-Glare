@@ -20,4 +20,3 @@ for index in range(0,len(data)):
     cycles = 5
     data[index] = mne.time_frequency.tfr_morlet(data[index], freqs, cycles, return_itc=False, average=True, n_jobs=1, use_fft=True, decim=4).data
     
-

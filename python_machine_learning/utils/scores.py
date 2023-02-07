@@ -213,7 +213,15 @@ def getPartitionsScores(order, factor, type):
     scores = getscore(factor)
     # match scores to order
     scores = matchscores(scores, order)
-    return(orthogonolize([scores*fits[0], scores*fits[1], scores*fits[2]]))
+    sc1 = []
+    sc2 = []
+    sc3 = []
+
+    for score in scores:
+        sc1.append(score * fits[0])
+        sc2.append(score * fits[1])
+        sc3.append(score * fits[2])
+    return(orthogonolize([sc1, sc2, sc3]))
 
 
 
