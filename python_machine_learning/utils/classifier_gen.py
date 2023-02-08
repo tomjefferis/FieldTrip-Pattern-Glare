@@ -194,19 +194,19 @@ def EEGNet_seq(nb_classes, Chans=64, Samples=128,
 
         Flatten(name='flatten'),
         Dense(nb_classes, name='dense',
-              kernel_constraint=max_norm(norm_rate),activation='ReLU'),
-        Dense(1, name='dense-output')
+              kernel_constraint=max_norm(norm_rate)),
+        Activation('softmax', name='softmax')
     ])
 
-    optimizer = 'adam'
-    model.compile(loss=loss, optimizer=optimizer,metrics=['mean_squared_error'])
+    optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
+    model.compile(loss=loss, optimizer=optimizer, metrics=["accuracy"])
     return model
 
 
-def EEGNet_seq_class(nb_classes, Chans=64, Samples=128,
+def EEGNet_seq_attention(nb_classes, Chans=64, Samples=128,
                dropoutRate=0.5, kernLength=64, F1=8,
                D=2, F2=16, norm_rate=0.25, dropoutType='Dropout',
-               learning_rate=3e-3, loss="categorical_crossentropy"):
+               learning_rate=3e-3, loss="mse"):
     """Create a Sequential EEGNet model.
 
       nb_classes      : int, number of classes to classify
@@ -249,6 +249,7 @@ def EEGNet_seq_class(nb_classes, Chans=64, Samples=128,
     from tensorflow.keras.layers import Input, Flatten
     from tensorflow.keras.constraints import max_norm
     from tensorflow import keras
+    from cbam import CBAM
 
     if dropoutType == 'SpatialDropout2D':
         dropoutType = SpatialDropout2D
@@ -265,6 +266,7 @@ def EEGNet_seq_class(nb_classes, Chans=64, Samples=128,
         Conv2D(F1, (1, kernLength), padding='same',
                input_shape=(Chans, Samples, 1),
                use_bias=False),
+        CBAM(),
         BatchNormalization(),
         DepthwiseConv2D((Chans, 1), use_bias=False,
                         depth_multiplier=D,
@@ -287,6 +289,6 @@ def EEGNet_seq_class(nb_classes, Chans=64, Samples=128,
         Activation('softmax', name='softmax')
     ])
 
-    optimizer = keras.optimizers.SGD(lr=learning_rate)
+    optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(loss=loss, optimizer=optimizer, metrics=["accuracy"])
     return model
