@@ -10,3 +10,4 @@ python_machine_learning/ml_data.csv
 python_machine_learning/ml_scores.csv
 python_machine_learning/ml_scores.csv
 python_machine_learning/ml_data.csv
+*.pyc
