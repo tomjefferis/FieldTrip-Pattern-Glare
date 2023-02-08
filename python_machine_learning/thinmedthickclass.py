@@ -28,3 +28,4 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 history = model.fit(X_train, Y_train, epochs=500, validation_split=0.1)
 #save model
 model.save("eegnet.h5")
+
