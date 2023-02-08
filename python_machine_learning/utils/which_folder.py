@@ -12,7 +12,7 @@ import platform
 def which_folder():
     system = platform.system()
     if system == "Darwin":
-        return "/Users/tomjefferis/Documents/PhD/EEG Data/participant_"
+        return "/Users/tomjefferis/Documents/PhD/Pattern-Glare-Data/participant_"
     elif system == "Windows":
         return "W:\PhD\PatternGlareData\participants\participant_"
     elif system == "Linux":
