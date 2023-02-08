@@ -16,8 +16,10 @@ for item in data:
 
 X = np.concatenate(X)
 scores = np.concatenate(scores)
-
 X = np.reshape(X, (X.shape[0], X.shape[1], X.shape[2], 1))
+mask = np.isnan(X).any(axis=(1, 2, 3))
+X = X[~mask]
+scores = scores[~mask]
 
 X -= np.min(X)
 X /= np.max(X)
