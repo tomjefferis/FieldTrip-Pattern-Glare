@@ -370,7 +370,20 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             end
 
                         else
-                            [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
+                            if ~exist(filename_precomposed, 'file')
+                                disp("Decomposed File Not Found");
+                                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
+                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                decomposed.data = datas;
+                                decomposed.order = orders;
+                                save(filename_precomposed, "decomposed", '-v7.3');
+                            else
+                                disp("Loaded Decomposed File");
+                                data = load(filename_precomposed).decomposed;
+                                datas = data.data;
+                                orders = data.order;
+                                data = []; % clearing memory for this var
+                            end
                         end
 
                     end

@@ -144,7 +144,21 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 part1.med = data.med;
                 part1.thick = data.thick;
 
-                part1.avg = data.med - (data.thin + data.thick) / 2;
+                if ~iscell(data.med)
+                    part1.avg = data.med - (data.thin + data.thick) / 2;
+                else
+                    data.med = data.med(2:end);
+                    data.thin = data.thin(2:end);
+                    data.thick = data.thick(2:end);
+                    pgi = {};
+                    mindat = min([length(data.med), length(data.thin), length(data.thick)]);
+
+                    for i = 1:mindat
+                        pgi{i} = data.med{i} - (data.thin{i} + data.thick{i}) / 2;
+                    end
+
+                    part1.avg = pgi;
+                end
 
                 data2 = load(filename2).data;
 
@@ -157,7 +171,21 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 part2.med = data2.med;
                 part2.thick = data2.thick;
 
-                part2.avg = data2.med - (data2.thin + data2.thick) / 2;
+                if ~iscell(data2.med)
+                    part2.avg = data2.med - (data2.thin + data2.thick) / 2;
+                else
+                    data2.med = data2.med(2:end);
+                    data2.thin = data2.thin(2:end);
+                    data2.thick = data2.thick(2:end);
+                    pgi = {};
+                    mindat = min([length(data2.med), length(data2.thin), length(data2.thick)]);
+
+                    for i = 1:mindat
+                        pgi{i} = data2.med{i} - (data2.thin{i} + data2.thick{i}) / 2;
+                    end
+
+                    part2.avg = pgi;
+                end
 
                 data3 = load(filename3).data;
 
@@ -170,7 +198,21 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 part3.med = data3.med;
                 part3.thick = data3.thick;
 
-                part3.avg = data3.med - (data3.thin + data3.thick) / 2;
+                if ~iscell(data3.med)
+                    part3.avg = data3.med - (data3.thin + data3.thick) / 2;
+                else
+                    data3.med = data3.med(2:end);
+                    data3.thin = data3.thin(2:end);
+                    data3.thick = data3.thick(2:end);
+                    pgi = {};
+                    mindat = min([length(data3.med), length(data3.thin), length(data3.thick)]);
+
+                    for i = 1:mindat
+                        pgi{i} = data3.med{i} - (data3.thin{i} + data3.thick{i}) / 2;
+                    end
+
+                    part3.avg = pgi;
+                end
 
                 p1_data{idx_used_for_saving_data} = part1;
                 p2_data{idx_used_for_saving_data} = part2;

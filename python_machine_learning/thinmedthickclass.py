@@ -21,8 +21,8 @@ mask = np.isnan(X).any(axis=(1, 2, 3))
 X = X[~mask]
 scores = scores[~mask]
 
-#X -= np.min(X)
-#X /= np.max(X)
+X -= np.min(X)
+X /= np.max(X)
 scores -= 1
 X_train, X_test, Y_train, Y_test = train_test_split(X, scores, test_size=0.2, random_state=42)
 
