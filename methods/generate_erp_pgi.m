@@ -1,4 +1,4 @@
-function generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity)
+function plot = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
     % Generating erp plots for no factor (similar to previous method, just for PGI instead of individual factors)
 
@@ -68,8 +68,7 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
 
     xline(end_window_time, '-', {"Window End"});
     xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
-    title(graph_title);
-    subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));
+    
     hold on;
 
     if generate_ci
@@ -88,6 +87,11 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 800, 300]);
     grid on;
-    saveas(gcf, save_dir);
+    if ~paper_plot
+        title(graph_title);
+        subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));
+        saveas(gcf, save_dir);
+    end
     hold off;
+    plot = gcf;
 end

@@ -871,7 +871,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             electrode = compute_best_electrode(stat, "negative");
                             [~] = plot_peak_electrode(stat, electrode, results_dir,false);
 
-                            plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
+                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
 
                         end
 
@@ -879,7 +879,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             electrode = compute_best_electrode(stat, "positive");
                             [~] = plot_peak_electrode(stat, electrode, results_dir,false);
 
-                            plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
+                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci)
 
                         else
                             fprintf("No significant clusters to plot");
@@ -897,14 +897,14 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             significant_electrode = compute_best_electrode(stat, "negative");
                             [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false);
-                            [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false)
+                            [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false);
                         end
 
                         if Positive_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "positive");
                             [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false);
-                            [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false)
+                            [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false);
                         else
                             fprintf("No significant clusters to plot");
                         end

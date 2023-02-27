@@ -1,12 +1,31 @@
-function generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity)
+function plot = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
     % Generating erp plots for no factor (similar to previous method, just for PGI instead of individual factors)
 
     start_window_time = start_time;
     end_window_time = end_time;
 
-    start_time = 2.8;
-    end_time = 3.99;
+  
+    if start_time >= 2.8
+        start_time = 2.8;
+        end_time = 3.99;
+    else
+        start_time = -0.2;
+        end_time = 3.1;
+    end
+    if contains(factor, "visual")
+            factor = "visual-stress";
+            
+        elseif contains(factor, "headache")
+            factor = "headache";
+            
+        elseif contains(factor, "discomfort")
+            factor = "discomfort";
+            
+        else
+            factor = "none";
+            
+        end
 
     save_dir = strcat(results_dir, "\", factor, "\");
     plotting_window = [start_time, end_time];
@@ -29,9 +48,15 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
     time = data{1}.time;
     y1 = grandavg.avg(electrode_index, :);
 
-    plot(time, y1, 'g', 'LineWidth', 1.4);
+    temp = data{1};
+    temp.PGI = true;
+    data{1} = temp;
+    [high, low] = ylimit_finder(data, significant_electrode);
+    plot(time, y1, 'g', 'LineWidth', 1.6);
+    hold on;
+    plot([significant_electrode.sig_start,significant_electrode.sig_end],[0,0] ,'b','LineWidth', 1.4);
     xlim(plotting_window);
-    ylim([-6, 6]);
+    ylim([low high]);
     yline(0, '--');
 
     if ~(start_window_time == 3)
@@ -55,13 +80,16 @@ function generate_erp_pgi(results_dir, start_time, end_time, data, significant_e
 
     end
 
-    plot([significant_electrode.,],[0,0]);
+    
 
-    legend(gfp, "", 'location', 'northwest');
+
+    legend(gfp, "Duration of Effect","",'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 1200, 600]);
+    set(gcf, 'Position', [100, 100, 800, 300]);
     grid on;
+    
     saveas(gcf, save_dir);
     hold off;
+    plot = gcf;
 end

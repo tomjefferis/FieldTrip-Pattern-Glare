@@ -1,4 +1,4 @@
-function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir)
+function plot = plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir, paper_plot)
     % looking at positive or negative clusters
     if strcmp(polarity, "positive")
         cluster_prob = {stat.posclusters(:).prob};
@@ -64,7 +64,7 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     ylim([0, ymax]);
     xlabel('Time (S)');
     ylabel('Volume');
-    title(strcat(polarity, " clusters as % volume"));
+    
     cluster_leg = strings([1, size(plotted_clust, 1)]);
 
     for index = 1:size(plotted_clust, 1)
@@ -82,7 +82,11 @@ function plot_cluster_vol(stat, factor, start_time, end_time, polarity, save_dir
     else
         save_dir = strcat(save_dir, "/", results_fact, "/", polarity, " ", imgname);
     end
-    saveas(gcf, save_dir);
+    plot = gcf;
+    if ~paper_plot
+        title(strcat(polarity, " clusters as % volume"));
+        saveas(gcf, save_dir);
+    end
     hold off;
 
 end

@@ -1,4 +1,4 @@
-function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis)
+function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
 
     [low1, high1] = median_split(dataone, 1, design2);
     [low2, high2] = median_split(datatwo, 1, design2);
@@ -206,8 +206,11 @@ function plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, fa
 
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
-    set(gcf, 'Position', [100, 100, 1300, 800]);
-    %sgtitle(titles);
-    name = strcat(results, "/partitions/", factor,electrode.electrode, '_erpcombined.png');
-    saveas(gcf, name);
+     if ~paper_plot
+        set(gcf, 'Position', [100, 100, 1300, 800]);
+        %sgtitle(titles);
+        name = strcat(results, "/partitions/", factor,electrode.electrode, '_erpcombined.png');
+        saveas(gcf, name);
+     end
+    plot = gcf;
 end

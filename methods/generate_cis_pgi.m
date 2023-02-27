@@ -2,7 +2,7 @@ function [lower_bound, upper_bound] = generate_cis_pgi(data, electrode, samples)
 
     data = get_timeseries_data_electrode(data, electrode);
 
-    avg_samples = 4000;
+    avg_samples = samples*100;
     %samples = 40;
 
     sampled_data = [];

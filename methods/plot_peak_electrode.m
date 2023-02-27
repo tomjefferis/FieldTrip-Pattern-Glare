@@ -1,5 +1,5 @@
 %% creates a topographic map highlighting the peak electrode
-function plot_peak_electrode(stat, peak_electrode, save_dir)
+function plot = plot_peak_electrode(stat, peak_electrode, save_dir, paper_plot)
     
     if ~isstring(peak_electrode)
         pos_peak_level_stats = peak_electrode;
@@ -28,7 +28,9 @@ function plot_peak_electrode(stat, peak_electrode, save_dir)
     ft_topoplotER(cfg, stat);
     b = gca; legend(b,'off');
     set(gcf,'Position',[100 100 250 250])
-    exportgraphics(gcf,save_dir,'Resolution',500);
-    close;
-
+    if ~paper_plot
+        exportgraphics(gcf,save_dir,'Resolution',500);
+        close;
+    end
+    plot = gcf;
 end

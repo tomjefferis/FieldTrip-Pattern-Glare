@@ -1,4 +1,4 @@
-function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis)
+function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
 
     %splitting design matrix into each batch of onsets
     design2 = reshape(design2, 3, []);
@@ -297,7 +297,10 @@ function plot_three_way(dataone, datatwo, datathree, electrode, design2, factor,
     titles = strcat("Interactions through Partitions vs Onsets, Low vs High group ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
     set(gcf, 'Position', [100, 100, 1300, 1000]);
-    %sgtitle(titles);
-    name = strcat(results, "/partitions/", factor, electrode.electrode, '_erpcombined.png');
-    saveas(gcf, name);
+    if ~paper_plot
+        %sgtitle(titles);
+        name = strcat(results, "/partitions/", factor, electrode.electrode, '_erpcombined.png');
+        saveas(gcf, name);
+    end
+    plot = gcf;
 end

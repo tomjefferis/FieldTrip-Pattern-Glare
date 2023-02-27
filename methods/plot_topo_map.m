@@ -1,4 +1,4 @@
-function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
+function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, results, paper_plot)
 
     difference = linspace(start_time, end_time, 9); %amount of subplots in this
 
@@ -83,7 +83,7 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     end
 
     title_main = strcat("Topographic map of significant clusters ", results_fact);
-    sgtitle(title_main);
+    
     imgname = strcat(polarity, " ", imgname);
     if isfield(stat,"freq")
         freq = round(stat.freq);
@@ -93,7 +93,11 @@ function plot_topo_map(stat, start_time, end_time, polarity, factor, results)
     end
 
     
+    plot = gcf;
+    if ~paper_plot
+        sgtitle(title_main);
+        saveas(gcf, save_dir_full);
+    end
 
-    saveas(gcf, save_dir_full);
     hold off;
 end
