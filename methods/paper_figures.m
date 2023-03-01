@@ -31,6 +31,8 @@ function paper_figures(data, stat, design, figname, start_time, end_time)
     Elec_View = print('-RGBImage');
     
 
+    
+
     if contains(figname, 'Onsets 2-8') || contains(figname, 'Onset 1') || contains(figname, 'Partition 1')
     elseif contains(figname, 'Partitions')
     elseif contains(figname, 'Onsets 2,3 vs 4,5 vs 6,7')
