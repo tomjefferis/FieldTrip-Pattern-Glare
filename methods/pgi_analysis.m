@@ -320,6 +320,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
+         if paper_figs
+            paper_figures(data,stat,design_matrix,factor,start_time,end_time);
+        end
+
         if contains(time_freq, "time")
             savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         else
@@ -626,6 +630,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
             end
 
+        end
+
+        if paper_figs
+            paper_figures(data,stat,design_matrix,factor,start_time,end_time);
         end
 
         if contains(factor, "visual")

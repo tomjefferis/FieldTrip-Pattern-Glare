@@ -18,6 +18,8 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
     figure;
     set(gcf, 'Position',  [100, 100, 1400, 300]);
 
+    tiledlayout(1,8)
+
     for i = 1:8
 
         %finding time window from the closest times in the series to the inputs
@@ -35,7 +37,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         highlight = round(mean(clustermark(:, lower:upper), 2));
         highlight = stat.label(highlight == 1);
 
-        subplot(1, 8, i);
+        nexttile;
         % cfg for plot
         cfg = [];
         cfg.xlim = [difference(i), difference(i + 1)];

@@ -29,14 +29,14 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
     xlim([start_time, end_time]);
 
     if ~(start_window_time == 3)
-        xline(3, '--o', {"Stimulus", "Off"});
-        xline(start_window_time, '-', {"Window Start"});
+        xline(3, '--o');
+        xline(start_window_time);
     else
-        xline(3, '--o', {"Stimulus Off", "Window Start"});
+        xline(3, '--o');
     end
 
-    xline(end_window_time, '-', {"Window End"});
-    xline(electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
+    xline(end_window_time, '-');
+    xline(electrode.time, '--r');
     title(tit);
     subtitle(strcat("Maximum T Value = ", string(electrode.t_value)));
     xlabel("Time in S");
@@ -53,7 +53,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
         set(h, 'facealpha', .1);
     end
 
-    legend("Low", "High", "", "", 'location', 'northwest');
+    legend("Low", "High", "Window Start", "Maximum Effect", 'location', 'northwest');
     hold off;
 
 end

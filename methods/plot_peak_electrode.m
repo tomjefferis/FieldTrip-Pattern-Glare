@@ -26,6 +26,7 @@ function plot = plot_peak_electrode(stat, peak_electrode, save_dir, paper_plot)
     cfg.style = 'blank';
     
     ft_topoplotER(cfg, stat);
+    set(gca,'XColor', 'none','YColor','none')
     b = gca; legend(b,'off');
     set(gcf,'Position',[100 100 250 250])
     if ~paper_plot
