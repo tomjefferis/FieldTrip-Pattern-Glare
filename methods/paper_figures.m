@@ -22,15 +22,13 @@ function paper_figures(data, stat, design, figname, start_time, end_time)
         Effect_direction = 'positive';
     end
 
+    cd (results + '\workspace')
     Cluster_vol = plot_cluster_vol(stat, factor, start_time, end_time, Effect_direction, '', true);
-    
+    Cluster_vol = print('-RGBImage');
     Topomap = plot_topo_map(stat, start_time, end_time, Effect_direction, factor, '', true);
-    Workspace_Image2 = print('-RGBImage');
-
-    
-    
+    Topomap = print('-RGBImage');
     Elec_View = plot_peak_electrode(stat, compute_best_electrode(stat, Effect_direction), '', true);
-
+    Elec_View = print('-RGBImage');
     
 
     if contains(figname, 'Onsets 2-8') || contains(figname, 'Onset 1') || contains(figname, 'Partition 1')
