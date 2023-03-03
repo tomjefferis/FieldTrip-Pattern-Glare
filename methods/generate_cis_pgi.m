@@ -6,7 +6,7 @@ data = get_timeseries_data_electrode(data, electrode);
 avg_samples = samples * 100;
 
 % Preallocate arrays
-sampled_data = zeros(avg_samples, length(data));
+sampled_data = zeros(avg_samples, length(data{1}));
 lower_bound = zeros(1, length(data));
 upper_bound = zeros(1, length(data));
 

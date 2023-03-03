@@ -1,4 +1,4 @@
-function paper_figures(data, stat, design, figname, start_time, end_time)
+function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
     figname = paper_figure_name(figname);
 
     factor = figname;
@@ -34,21 +34,27 @@ function paper_figures(data, stat, design, figname, start_time, end_time)
 
 
     
-    erpplot = [];
-    if contains(figname, 'Onsets 2-8') || contains(figname, 'Onset 1') || contains(figname, 'Partition 1')
+    
+    if contains(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')
         if ~contains(factor,'none')
             [low, high] = median_split(data, 1, design);
-            erpplot = plot_medium_split(high, low, electrode, factor, start_time, end_time, 'true', results_dir);
+            erpplot = plot_medium_split(high, low, electrode, factor, start_time, end_time, true, '',true);
+            erpplot = print('-RGBImage');
         else
             %subplots of pgi and erp
         end
-    elseif contains(figname, 'Partitions')
-    elseif contains(figname, 'Onsets 2,3 vs 4,5 vs 6,7')
-    elseif contains(figname, 'Partitions vs Onsets')
+    elseif contains(onsets_part, 'Partitions')
+    elseif contains(onsets_part, 'Onsets 2,3 vs 4,5 vs 6,7')
+    elseif contains(onsets_part, 'Partitions vs Onsets')
     end
+    
+    im1 = {Cluster_vol,Elec_View};
+    outpict = imstacker(im1,'dim',2,'padding',[255,255,255],'gravity','center');
 
-    images = {Cluster_vol,Topomap,erpplot};
+    images = {outpict,Topomap,erpplot};
 
-    finage = imtile(images,'BorderSize', 10,'GridSize',{1,4});
+    outpict = imstacker(images,'dim',1,'padding',[255,255,255],'gravity','center');
+    figure;
+    imshow(outpict)
 
 end

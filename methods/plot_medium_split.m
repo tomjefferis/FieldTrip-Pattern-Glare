@@ -1,4 +1,4 @@
-function plot_medium_split(high, low, electrode, factor, start_time, end_time, generate_cis, results)
+function plot = plot_medium_split(high, low, electrode, factor, start_time, end_time, generate_cis, results,paper_plot)
 
     
 % plots the PGI median split, as a 4x1 collection of subplots
@@ -66,7 +66,7 @@ function plot_medium_split(high, low, electrode, factor, start_time, end_time, g
     subtitle("");
 
     Ax = subplot(5, 1, 4);
-    generate_erp_plot(results, start_time, end_time, high.data, electrode, factor, generate_cis, "Negative");
+    generate_erp_plot(results, start_time, end_time, high.data, electrode, factor, generate_cis, "Negative",paper_plot);
     children = get(gca, 'children');
     %delete(children(4));
     delete(children(5));
@@ -80,7 +80,7 @@ function plot_medium_split(high, low, electrode, factor, start_time, end_time, g
     subtitle("");
 
     Ax = subplot(5, 1, 5);
-    generate_erp_plot(results, start_time, end_time, low.data, electrode, factor, generate_cis, "Negative");
+    generate_erp_plot(results, start_time, end_time, low.data, electrode, factor, generate_cis, "Negative",paper_plot);
     children = get(gca, 'children');
     %delete(children(4));
     delete(children(5));
@@ -95,7 +95,11 @@ function plot_medium_split(high, low, electrode, factor, start_time, end_time, g
 
     %titles = strcat(" Median split Low vs High group ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
+    
     set(gcf, 'Position', [100, 100, 1300, 800]);
+    if ~paper_plot
     name = strcat(results, "/", factor, "/", string(start_time), 'erpcombined.png');
     saveas(gcf, name);
+    end
+    plot = gcf;
 end

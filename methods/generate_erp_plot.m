@@ -1,4 +1,4 @@
-function plot = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
+function plots = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
 % Generating erp plots for no factor
 
@@ -109,5 +109,5 @@ function plot = generate_erp_plot(results_dir, start_time, end_time, data, signi
         saveas(gcf, save_dir);
     end
     hold off;
-    plot = gcf;
+    plots = gcf;
 end
