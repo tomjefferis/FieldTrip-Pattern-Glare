@@ -1,5 +1,5 @@
 function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
-    figname = paper_figure_name(figname);
+    figname = paper_figure_name(figname, onsets_part);
 
     factor = figname;
     Effect_direction = '';

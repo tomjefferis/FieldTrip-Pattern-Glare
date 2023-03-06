@@ -53,7 +53,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
         set(h, 'facealpha', .1);
     end
 
-    legend("Low", "High", "Window Start", "Maximum Effect", 'location', 'northwest');
+    legend("Low", "High", "Window Start", "", "Maximum Effect", 'location', 'northwest');
     hold off;
 
 end

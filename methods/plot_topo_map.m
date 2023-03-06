@@ -1,6 +1,6 @@
 function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, results, paper_plot)
 
-    difference = linspace(start_time, end_time, 9); %amount of subplots in this
+    difference = linspace(start_time, end_time, 10); %amount of subplots in this
 
     if strcmp(polarity, "positive")
         clustermark = stat.posclusterslabelmat;
@@ -20,7 +20,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
 
     tiledlayout(1,8)
 
-    for i = 1:8
+    for i = 1:9
 
         %finding time window from the closest times in the series to the inputs
         lower = interp1(stat.time, 1:length(stat.time), difference(i), 'nearest');
@@ -52,7 +52,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         cfg.parameter = 'stat';
         cfg.zlim = [-2 4];
 
-        if i == 4
+        if i == 5
             cfg.colorbar = 'South'; % adds to every plot usually disabled, uness need figure with bar
         end
 

@@ -633,7 +633,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         end
 
         if paper_figs
-            paper_figures(data,stat,design_matrix,factor,start_time,end_time);
+             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,results_dir);
         end
 
         if contains(factor, "visual")
@@ -933,6 +933,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "discomfort";
         else
             results_fact = "none";
+        end
+
+        if paper_figs
+             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,results_dir);
         end
 
         if contains(time_freq, "time")
