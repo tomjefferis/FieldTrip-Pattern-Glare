@@ -14,29 +14,39 @@ orthog = '';
 
 if contains(onsets_part, 'partitions-vs-onsets')
     isthreeway = true;
+    parts = [parts(2:end); parts(1)];
 end
 
 
-for i = 0:length(parts) 
-    if strcmp(parts(i),'discomfort')
-    elseif strcmp(parts(i),'headache')
-    elseif strcmp(parts(i),'visual')
-    elseif strcmp(parts(i),'onsets') && ~isthreeway
+if contains(parts{1},'visual')
+    parts{1} = 'Visual Stress';
+end
+
+
+temp = parts{1};
+temp(1) = upper(temp(1));
+factor = temp;
+
+
+if ~isthreeway
+for i = 1:length(parts) 
+    
+    if strcmp(parts(i),'onsets') && ~isthreeway
         if strcmp(parts(i),figname{1})
         else
         end
     elseif strcmp(parts(i),'partitions') && ~isthreeway
         ispart = true;
-    elseif strcmp(parts(i),'partitions') && isthreeway
     elseif strcmp(parts(i),'habituation')
     elseif strcmp(parts(i),'sensitization')
     end
 end
-    
+end
 
 if ispart
 elseif isthreeway
 else
+    retfigname = strcat("Onsets 2-8 For ",factor," Factor ",string(starttime),"-",string(endtime));
 end
 
 

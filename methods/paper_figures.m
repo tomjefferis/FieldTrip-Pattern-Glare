@@ -1,5 +1,5 @@
 function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
-    figname = paper_figure_name(figname, onsets_part);
+figname = paper_figure_name(figname, onsets_part,start_time, end_time);
 
     factor = figname;
     Effect_direction = '';
@@ -56,5 +56,6 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     outpict = imstacker(images,'dim',1,'padding',[255,255,255],'gravity','center');
     figure;
     imshow(outpict)
+    title(figname);
 
 end

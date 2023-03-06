@@ -18,7 +18,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
     figure;
     set(gcf, 'Position',  [100, 100, 1400, 300]);
 
-    tiledlayout(1,8)
+    tiledlayout(1,9)
 
     for i = 1:9
 
