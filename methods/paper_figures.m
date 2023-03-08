@@ -87,12 +87,28 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     im1 = {Cluster_vol, Elec_View};
     outpict = imstacker(im1, 'dim', 2, 'padding', [255, 255, 255], 'gravity', 'center');
-
     images = {outpict, Topomap, erpplot};
+
+    % Define the annotation text and spacing
+    text_str = {'a)', 'b)', 'c)'};
+    text_pos = [0.02, 0.1; 0.02, 0.3; 0.02, 0.6];
+    text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');
     figure;
-    imshow(outpict)
+    imshow(outpict);
+    % Add the annotations to the image
+    for i = 1:numel(text_str)
+        % Calculate the x and y positions for the annotation text
+        x_pos = text_pos(i, 1);
+        y_pos = text_pos(i, 2) + (i - 1) * text_gap(i);
+
+        % Add the text to the image
+        text(x_pos, y_pos, text_str{i}, 'FontSize', 14);
+    end
+
+    %set figure title and font size to 14
+    set(gca, 'FontSize', 14);
     title(figname);
 
     %save figure to results folder named after the figure
