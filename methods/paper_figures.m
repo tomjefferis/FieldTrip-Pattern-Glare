@@ -1,6 +1,13 @@
 function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
 figname = paper_figure_name(figname, onsets_part,start_time, end_time);
 
+    % if data is struct assign each element to a variable
+    if isstruct(data)
+        data1 = data.one;
+        data2 = data.two;
+        data3 = data.three;
+    end
+
     factor = figname;
     Effect_direction = '';
 
@@ -31,9 +38,6 @@ figname = paper_figure_name(figname, onsets_part,start_time, end_time);
     Elec_View = plot_peak_electrode(stat,electrode , '', true);
     Elec_View = print('-RGBImage');
     
-
-
-    
     
     if contains(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')
         if ~contains(factor,'none')
@@ -42,10 +46,31 @@ figname = paper_figure_name(figname, onsets_part,start_time, end_time);
             erpplot = print('-RGBImage');
         else
             %subplots of pgi and erp
+            erpplot = generate_erp_plot('', start_time, end_time, data, electrode, factor, true, Effect_direction, true);
+            erpplot = print('-RGBImage');
+            pgiplot = generate_erp_pgi('', start_time, end_time, data, electrode, factor, true, Effect_direction, true);
+            pgiplot = print('-RGBImage');
+            erpplot = imstacker({erpplot,pgiplot},'dim',1,'padding',[255,255,255],'gravity','center');
         end
     elseif contains(onsets_part, 'Partitions')
+        if ~contains(factor,'none')
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = print('-RGBImage');
+        else
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = print('-RGBImage');
+        end
     elseif contains(onsets_part, 'Onsets 2,3 vs 4,5 vs 6,7')
+        if ~contains(factor,'none')
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = print('-RGBImage');
+        else
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = print('-RGBImage');
+        end
     elseif contains(onsets_part, 'Partitions vs Onsets')
+        erpplot = plot_three_way(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+        erpplot = print('-RGBImage');
     end
     
     im1 = {Cluster_vol,Elec_View};
