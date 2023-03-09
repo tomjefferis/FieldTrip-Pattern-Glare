@@ -46,7 +46,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Topomap = print('-RGBImage');
     Elec_View = plot_peak_electrode(stat, electrode, '', true);
-    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+    %set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
     if contains(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')

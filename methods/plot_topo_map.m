@@ -48,7 +48,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         cfg.highlightsize = 8;
         cfg.contournum = 0;
         cfg.alpha = 0.05;
-        cfg.comment = 'xlim';
+        %cfg.comment = 'xlim';
         cfg.parameter = 'stat';
         cfg.zlim = [-2 4];
 
@@ -58,6 +58,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
 
         cfg.parameter = 'stat';
         ft_topoplotER(cfg, stat);
+        title(strcat(string(difference(i)), " - ", string(difference(i + 1)), "s"));
 
     end
 
