@@ -1,6 +1,6 @@
 function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, results, paper_plot)
 
-    difference = linspace(start_time, end_time, 10); %amount of subplots in this
+    difference = linspace(start_time, end_time, 8); %amount of subplots in this
 
     if strcmp(polarity, "positive")
         clustermark = stat.posclusterslabelmat;
@@ -16,11 +16,11 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
     %replacing nans with 0 to not break function
     stat.stat(isnan(stat.stat))=0;
     figure;
-    set(gcf, 'Position',  [100, 100, 1400, 300]);
+    set(gcf, 'Position',  [100, 100, 1600, 400]);
 
-    tiledlayout(1,9)
+    tiledlayout(1,7)
 
-    for i = 1:9
+    for i = 1:7
 
         %finding time window from the closest times in the series to the inputs
         lower = interp1(stat.time, 1:length(stat.time), difference(i), 'nearest');
@@ -48,19 +48,28 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         cfg.highlightsize = 8;
         cfg.contournum = 0;
         cfg.alpha = 0.05;
-        %cfg.comment = 'xlim';
+        cfg.comment = 'no';
         cfg.parameter = 'stat';
         cfg.zlim = [-2 4];
 
-        if i == 5
-            cfg.colorbar = 'South'; % adds to every plot usually disabled, uness need figure with bar
-        end
+        %if i == 5
+        %    cfg.colorbar = 'South'; % adds to every plot usually disabled, uness need figure with bar
+        %end
 
         cfg.parameter = 'stat';
         ft_topoplotER(cfg, stat);
-        title(strcat(string(difference(i)), " - ", string(difference(i + 1)), "s"));
+        t = title(strcat(string(difference(i)), " - ", string(difference(i + 1)), "s"));
+        t_pos = get(t,'position');
+        set(t,'position',[t_pos(1) t_pos(2)/2 t_pos(3)])
 
     end
+
+    cb = colorbar;
+    cb.Layout.Tile = 'east';
+    a=get(cb); %gets properties of colorbar
+    a =  a.Position; %gets the positon and size of the color bar
+    cb.Position = [a(1), a(2), a(3)/2, a(4)];
+    set(cb,'Position',[a(1), a(2), a(3)/2, a(4)])% To change size
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
 

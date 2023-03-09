@@ -96,7 +96,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [75, 250; 75, 750; 75, 1250];
+    text_pos = [75, 250; 75, 800; 75, 1500];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');
@@ -118,6 +118,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     %save figure to results folder named after the figure
     cd (results + "/figures");
-    saveas(gcf, figname, 'png');
+    save = strcat(figname,".png");
+    saveas(gcf, save, 'png');
 
 end
