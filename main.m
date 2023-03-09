@@ -55,7 +55,7 @@ type_of_effect = {'sensitization'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 %% End of config
 

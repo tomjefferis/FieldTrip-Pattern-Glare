@@ -1,6 +1,7 @@
 function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
 
     figname = paper_figure_name(figname, onsets_part, start_time, end_time);
+    font_size = 16;
 
     % if data is struct assign each element to a variable
     if isstruct(data)
@@ -39,10 +40,13 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     electrode = compute_best_electrode(stat, Effect_direction);
     cd (results + '\workspace')
     Cluster_vol = plot_cluster_vol(stat, factor, start_time, end_time, Effect_direction, '', true);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Cluster_vol = print('-RGBImage');
     Topomap = plot_topo_map(stat, start_time, end_time, Effect_direction, factor, '', true);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Topomap = print('-RGBImage');
     Elec_View = plot_peak_electrode(stat, electrode, '', true);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
     if contains(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')
@@ -50,6 +54,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
         if ~contains(factor, 'none')
             [low, high] = median_split(data, 1, design);
             erpplot = plot_medium_split(high, low, electrode, factor, start_time, end_time, true, '', true);
+            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
             %subplots of pgi and erp
@@ -91,7 +96,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [0.02, 0.1; 0.02, 0.3; 0.02, 0.6];
+    text_pos = [75, 250; 75, 750; 75, 1250];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');
