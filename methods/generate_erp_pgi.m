@@ -1,4 +1,4 @@
-function plot = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
+function plots = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
     % Generating erp plots for no factor (similar to previous method, just for PGI instead of individual factors)
 
@@ -59,15 +59,10 @@ function plot = generate_erp_pgi(results_dir, start_time, end_time, data, signif
     ylim([low high]);
     yline(0, '--');
 
-    if ~(start_window_time == 3)
-        xline(3, '--o', {"Stimulus", "Off"});
-        xline(start_window_time, '-', {"Window Start"});
-    else
-        xline(3, '--o', {"Stimulus Off", "Window Start"});
-    end
+    
 
-    xline(end_window_time, '-', {"Window End"});
-    xline(significant_electrode.time, '--r', {"Maximum Effect"}, 'LabelOrientation', 'horizontal','LabelVerticalAlignment','bottom','LabelHorizontalAlignment','right');
+    %xline(end_window_time, '-', {"Window End"});
+    xline(significant_electrode.time, '--r','LineWidth', 1.4);
     
     hold on;
 
@@ -82,10 +77,10 @@ function plot = generate_erp_pgi(results_dir, start_time, end_time, data, signif
     
 
 
-    legend(gfp, "Duration of Effect","",'location', 'northwestoutside');
+    legend(gfp, "Duration","","Max Effect",'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 800, 300]);
+    set(gcf, 'Position', [100, 100, 1600, 600]);
     grid on;
     if ~paper_plot
         title(graph_title);
@@ -93,5 +88,5 @@ function plot = generate_erp_pgi(results_dir, start_time, end_time, data, signif
         saveas(gcf, save_dir);
     end
     hold off;
-    plot = gcf;
+    plots = gcf;
 end

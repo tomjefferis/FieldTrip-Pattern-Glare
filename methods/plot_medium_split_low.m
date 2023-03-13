@@ -36,7 +36,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
     end
 
     xline(end_window_time, '-');
-    xline(electrode.time, '--r');
+    xline(electrode.time, '--r','LineWidth', 1.4);
     title(tit);
     subtitle(strcat("Maximum T Value = ", string(electrode.t_value)));
     xlabel("Time in S");
@@ -53,7 +53,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
         set(h, 'facealpha', .1);
     end
 
-    legend("Low", "High", "", "Maximum Effect", 'location', 'northwest');
+    legend("Low", "High", "", "","","","Max Effect", 'location', 'northwest');
     hold off;
 
 end

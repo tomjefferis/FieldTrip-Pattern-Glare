@@ -74,9 +74,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(low1.data, low2.data, low3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(7).Color = 'r';
-    h(6).Color = 'g';
-    h(5).Color = 'b';
+    h(6).Color = 'r';
+    h(5).Color = 'g';
+    h(4).Color = 'b';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
@@ -95,9 +95,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(high1.data, high2.data, high3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(7).Color = 'r';
-    h(6).Color = 'g';
-    h(5).Color = 'b';
+    h(6).Color = 'r';
+    h(5).Color = 'g';
+    h(4).Color = 'b';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));

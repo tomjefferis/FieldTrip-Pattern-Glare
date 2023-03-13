@@ -99,7 +99,7 @@ function plots = generate_erp_plot(results_dir, start_time, end_time, data, sign
     legend("Thin", "Medium", "Thick", "", "Max Effect", "","","","","", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
-    set(gcf, 'Position', [100, 100, 800, 300]);
+    set(gcf, 'Position', [100, 100, 1600, 600]);
     grid on;
     if ~paper_plot
         title(graph_title);
