@@ -54,7 +54,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     Ax = subplot(5, 1, 3);
     plot_medium_split_low(medhightemp, medlowtemp, electrode, start_time, end_time, generate_cis);
     children = get(gca, 'children');
-    %delete(children(3));
+    delete(children(3));
     delete(children(4));
     delete(children(5));
     delete(children(6));
@@ -69,12 +69,12 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     generate_erp_plot(results, start_time, end_time, high.data, electrode, factor, generate_cis, "Negative",paper_plot);
     children = get(gca, 'children');
     %delete(children(4));
-    delete(children(5));
-    delete(children(6));
-    delete(children(7));
+    %delete(children(5));
+    %delete(children(6));
+    %delete(children(7));
     ylim(ylimit);
     hold on;
-    legend('location', 'northwestoutside');
+    %legend('location', 'northwestoutside');
     tit = strcat("High Group ERP @ ", electrode.electrode);
     title(tit);
     subtitle("");

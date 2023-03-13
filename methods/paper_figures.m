@@ -1,20 +1,24 @@
-function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, results)
+function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, cis, results)
 
     figname = paper_figure_name(figname, onsets_part, start_time, end_time);
-    font_size = 16;
+    font_size = 18;
 
-    % if data is struct assign each element to a variable
-    if isstruct(data)
-        data1 = data.one;
-        data2 = data.two;
-        data3 = data.three;
+    % if data cells length greater than 40 split into 3 cells
+    if length(data) > 40
+        len = length(data);
+        data1 = data(1:len/3);
+        data2 = data(len/3+1:len/3*2);
+        data3 = data(len/3*2+1:len);
     end
 
-    if isstruct(design)
-        design1 = design.one;
-        design = design.two;
-        design3 = design.three;
+    % same for design
+    if length(design) > 40
+        len = length(design);
+        design1 = design(1:len/3);
+        design2 = design(len/3+1:len/3*2);
+        design3 = design(len/3*2+1:len);
     end
+
 
     factor = figname;
     Effect_direction = '';
@@ -53,40 +57,45 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
         if ~contains(factor, 'none')
             [low, high] = median_split(data, 1, design);
-            erpplot = plot_medium_split(high, low, electrode, factor, start_time, end_time, true, '', true);
+            erpplot = plot_medium_split(high, low, electrode, factor, start_time, end_time, cis, '', true);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
             %subplots of pgi and erp
-            erpplot = generate_erp_plot('', start_time, end_time, data, electrode, factor, true, Effect_direction, true);
+            erpplot = generate_erp_plot('', start_time, end_time, data, electrode, factor, cis, Effect_direction, true);
             erpplot = print('-RGBImage');
-            pgiplot = generate_erp_pgi('', start_time, end_time, data, electrode, factor, true, Effect_direction, true);
+            pgiplot = generate_erp_pgi('', start_time, end_time, data, electrode, factor, cis, Effect_direction, true);
             pgiplot = print('-RGBImage');
             erpplot = imstacker({erpplot, pgiplot}, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');
         end
 
-    elseif contains(onsets_part, 'Partitions')
+    elseif contains(onsets_part, 'partitions')
 
         if ~contains(factor, 'none')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
-            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         end
 
-    elseif contains(onsets_part, 'Onsets 2,3 vs 4,5 vs 6,7')
+    elseif contains(onsets_part, 'onsets-2,3-4,5-6,7')
 
         if ~contains(factor, 'none')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
-            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         end
 
-    elseif contains(onsets_part, 'Partitions vs Onsets')
-        erpplot = plot_three_way(data1, data2, data3, electrode, design, factor, '', start_time, end_time, true, true);
+    elseif contains(onsets_part, 'partitions-vs-onsets')
+        erpplot = plot_three_way(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+        set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
         erpplot = print('-RGBImage');
     end
 
@@ -96,7 +105,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [75, 250; 75, 800; 75, 1500];
+    text_pos = [50, 250; 50, 850; 50, 1400];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');

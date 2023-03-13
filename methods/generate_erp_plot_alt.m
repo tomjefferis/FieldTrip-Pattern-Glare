@@ -1,4 +1,4 @@
-function plots = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
+function plots = generate_erp_plot_alt(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
 % Generating erp plots for no factor
 
@@ -62,10 +62,10 @@ function plots = generate_erp_plot(results_dir, start_time, end_time, data, sign
     %high = 3;
     %low = -3;%ylimit_finder(data, significant_electrode);
 
-    plot(time, y1, 'Color', '#0072BD', 'LineWidth', 2);
+    plot(time, y1, 'Color', [0.8350 0.0780 0.1840], 'LineWidth', 2);
     hold on;
-    plot(time, y2, 'Color', '#D95319', 'LineWidth', 2);
-    plot(time, y3, 'Color', '#EDB120', 'LineWidth', 2);
+    plot(time, y2, 'Color', [0.4660 0.8740 0.1880], 'LineWidth', 2);
+    plot(time, y3, 'Color', [0.3010 0.7450 0.9330], 'LineWidth', 2);
     xlim(plotting_window);
     %ylim([low high]);
     yline(0, '--');
@@ -92,11 +92,12 @@ function plots = generate_erp_plot(results_dir, start_time, end_time, data, sign
     % more plotting details
     
     if ~(start_window_time == 3)
+        xline(3, '--o');
         xline(start_window_time, '-');
     else
         xline(3, '--o');
     end
-    legend("Thin", "Medium", "Thick", "", "Max Effect", "","","","","", 'location', 'northwestoutside');
+    legend("P1", "P2", "P3", "", "Max Effect", "","","","", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 800, 300]);

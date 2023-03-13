@@ -58,7 +58,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
 
         cfg.parameter = 'stat';
         ft_topoplotER(cfg, stat);
-        t = title(strcat(string(difference(i)), " - ", string(difference(i + 1)), "s"));
+        t = title(strcat(string(round(difference(i),2)), " - ", string(round(difference(i+1),2)), "s"));
         t_pos = get(t,'position');
         set(t,'position',[t_pos(1) t_pos(2)/2 t_pos(3)])
 

@@ -321,7 +321,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         end
 
          if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factor,start_time,end_time,results_dir);
+             paper_figures(data,stat,design_matrix,onsets_part,factor,start_time,end_time,generate_ci,results_dir);
         end
 
         if contains(time_freq, "time")
@@ -633,7 +633,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         end
 
         if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,results_dir);
+             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,generate_ci,results_dir);
         end
 
         if contains(factor, "visual")
@@ -936,7 +936,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         end
 
         if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,results_dir);
+             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,generate_ci,results_dir);
         end
 
         if contains(time_freq, "time")
