@@ -53,7 +53,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     %set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
-    if (contains(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
+    if (strmcp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
 
         if ~contains(factor, 'Intercept')
             [low, high] = median_split(data, 1, design);
