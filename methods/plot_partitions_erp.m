@@ -6,7 +6,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
 
 
     [highl, lowl] = ylimit_finder(high1,electrode);
-    ylimit = [lowl,highl];
+    
+    ylimit = [(lowl-0.5),(highl+0.5)];
+
     %start = 2.8;
     f1 = figure;
     tiledlayout(5,2);

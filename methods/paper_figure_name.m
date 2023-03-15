@@ -38,7 +38,7 @@ factor = temp;
 for i = 1:length(parts) 
     
     if strcmp(parts(i),'onsets') && ~isthreeway
-        if strcmp(parts(i+1), "23")
+        if strcmp(onsets_part, "onsets-23-45-67")
             isonestsvs = true;
         else
 

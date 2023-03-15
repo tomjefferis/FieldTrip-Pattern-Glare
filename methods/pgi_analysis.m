@@ -80,7 +80,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 [design_matrix, data] = get_design_matrix(factor, datas, orders);
 
                 % only runs the stat if spec
-                if clust_volume || topograpic_map_plot || stat_run || plot_erps
+                if clust_volume || topograpic_map_plot || stat_run || plot_erps || paper_figs
                     stat = stat_test(data, factor, start_time, end_time, design_matrix, time_freq, frequency_range, testing);
 
                     for cluster = 1:3
@@ -160,11 +160,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     end
 
                     if Negative_Cluster <= 0.2
-                       [~] = plot_topo_map(stat, start_time, end_time, "negative", factor, results_dir,false);
+                        [~] = plot_topo_map(stat, start_time, end_time, "negative", factor, results_dir, false);
                     end
 
                     if Positive_Cluster <= 0.2
-                        [~] = plot_topo_map(stat, start_time, end_time, "positive", factor, results_dir,false);
+                        [~] = plot_topo_map(stat, start_time, end_time, "positive", factor, results_dir, false);
                     else
                         fprintf("Nothing significant to plot on a topographic map");
                     end
@@ -192,11 +192,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     end
 
                     if Negative_Cluster <= 0.2
-                        [~] = plot_cluster_vol(stat, factor, start_time, end_time, "negative", results_dir,false);
+                        [~] = plot_cluster_vol(stat, factor, start_time, end_time, "negative", results_dir, false);
                     end
 
                     if Positive_Cluster <= 0.2
-                        [~] = plot_cluster_vol(stat, factor, start_time, end_time, "positive", results_dir,false);
+                        [~] = plot_cluster_vol(stat, factor, start_time, end_time, "positive", results_dir, false);
                     else
                         fprintf("No significant clusters to plot");
                     end
@@ -249,7 +249,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
-                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                         clf;
                         [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, "negative", false);
                         clf;
@@ -258,7 +258,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
-                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                         clf;
                         [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, "positive", false);
                         clf;
@@ -288,7 +288,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Negative_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "negative");
-                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                         clf;
 
                         if contains(time_freq, "time")
@@ -301,7 +301,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if Positive_Cluster <= 0.2
                         significant_electrode = compute_best_electrode(stat, "positive");
-                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                        [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                         clf;
 
                         if contains(time_freq, "time")
@@ -316,12 +316,29 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                 end
 
+                if paper_figs
+
+                    try
+                        Negative_Cluster = stat.negclusters.prob;
+                    catch e
+                        Negative_Cluster = 1;
+                    end
+
+                    try
+                        Positive_Cluster = stat.posclusters.prob;
+                    catch e
+                        Positive_Cluster = 1;
+                    end
+
+                    if Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
+
+                        paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                    end
+
+                end
+
             end
 
-        end
-
-         if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factor,start_time,end_time,generate_ci,results_dir);
         end
 
         if contains(time_freq, "time")
@@ -357,7 +374,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), "-", string(time_window(1)), "-", string(time_window(2)), "-", onsets_part, "-", "decomposed_dat.mat");
 
                         if strcmp(onsets_part, 'partitions')
-                            
+
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
                                 [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
@@ -374,6 +391,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             end
 
                         else
+
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
                                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
@@ -388,6 +406,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                                 orders = data.order;
                                 data = []; % clearing memory for this var
                             end
+
                         end
 
                     end
@@ -401,7 +420,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     data2 = data.two;
                     data3 = data.three;
 
-                    if (sum(baseline_period == [2.8 3.0]) < 2) && strcmp(time_freq,'time')
+                    if (sum(baseline_period == [2.8 3.0]) < 2) && strcmp(time_freq, 'time')
                         data1 = rebaseline_data(data1, baseline_period);
                         data2 = rebaseline_data(data2, baseline_period);
                         data3 = rebaseline_data(data3, baseline_period);
@@ -508,11 +527,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         end
 
                         if Negative_Cluster <= 0.1
-                            [~] = plot_topo_map(stat, start_time, end_time, "negative", factors, results_dir,false);
+                            [~] = plot_topo_map(stat, start_time, end_time, "negative", factors, results_dir, false);
                         end
 
                         if Positive_Cluster <= 0.1
-                            [~] = plot_topo_map(stat, start_time, end_time, "positive", factors, results_dir,false);
+                            [~] = plot_topo_map(stat, start_time, end_time, "positive", factors, results_dir, false);
                         else
                             fprintf("Nothing significant to plot on a topographic map");
                         end
@@ -535,11 +554,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         end
 
                         if Negative_Cluster <= 0.2
-                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir,false);
+                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir, false);
                         end
 
                         if Positive_Cluster <= 0.2
-                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir,false);
+                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir, false);
                         else
                             fprintf("No significant clusters to plot");
                         end
@@ -568,32 +587,36 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         if Negative_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "negative");
-                            [~] = plot_peak_electrode(stat, electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, electrode, results_dir, false);
 
                             if contains(factors, "none")
                                 [~] = plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci, false);
                             else
-                                if contains(time_freq,"time")
-                                [~] = plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci, false);
+
+                                if contains(time_freq, "time")
+                                    [~] = plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci, false);
                                 else
                                     plot_partitions_freq_power(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time)
                                 end
+
                             end
 
                         end
 
                         if Positive_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "positive");
-                            [~] = plot_peak_electrode(stat, electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, electrode, results_dir, false);
 
                             if contains(factors, "none")
                                 [~] = plot_partitions_regressor(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci, false);
                             else
-                                if contains(time_freq,"time")
+
+                                if contains(time_freq, "time")
                                     [~] = plot_partitions_erp(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time, generate_ci, false);
                                 else
                                     plot_partitions_freq_power(data1, data2, data3, electrode, design_matrix2, factors, results_dir, start_time, end_time)
                                 end
+
                             end
 
                         else
@@ -610,18 +633,39 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         if Negative_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "negative");
-                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false);
                             [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false)
                         end
 
                         if Positive_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "positive");
-                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false);
                             [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false)
                         else
                             fprintf("No significant clusters to plot");
+                        end
+
+                    end
+
+                    if paper_figs
+
+                        try
+                            Negative_Cluster = stat.negclusters.prob;
+                        catch e
+                            Negative_Cluster = 1;
+                        end
+
+                        try
+                            Positive_Cluster = stat.posclusters.prob;
+                        catch e
+                            Positive_Cluster = 1;
+                        end
+
+                        if Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
+
+                            paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                         end
 
                     end
@@ -632,8 +676,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,generate_ci,results_dir);
+        if contains(time_freq, "time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        else
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         end
 
         if contains(factor, "visual")
@@ -817,11 +863,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         end
 
                         if Negative_Cluster <= 0.1
-                            [~] = plot_topo_map(stat, start_time, end_time, "negative", factors, results_dir,false);
+                            [~] = plot_topo_map(stat, start_time, end_time, "negative", factors, results_dir, false);
                         end
 
                         if Positive_Cluster <= 0.1
-                            [~] = plot_topo_map(stat, start_time, end_time, "positive", factors, results_dir,false);
+                            [~] = plot_topo_map(stat, start_time, end_time, "positive", factors, results_dir, false);
                         else
                             fprintf("Nothing significant to plot on a topographic map");
                         end
@@ -844,11 +890,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         end
 
                         if Negative_Cluster <= 0.2
-                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir,false);
+                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir, false);
                         end
 
                         if Positive_Cluster <= 0.2
-                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir,false);
+                            [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir, false);
                         else
                             fprintf("No significant clusters to plot");
                         end
@@ -877,17 +923,17 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         if Negative_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "negative");
-                            [~] = plot_peak_electrode(stat, electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, electrode, results_dir, false);
 
-                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci,paper_figs)
+                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci, paper_figs)
 
                         end
 
                         if Positive_Cluster <= 0.08
                             electrode = compute_best_electrode(stat, "positive");
-                            [~] = plot_peak_electrode(stat, electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, electrode, results_dir, false);
 
-                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci,paper_figs)
+                            [~] = plot_three_way(data1, data2, data3, electrode, design_matrix2, factor, results_dir, start_time, end_time, generate_ci, paper_figs)
 
                         else
                             fprintf("No significant clusters to plot");
@@ -903,18 +949,39 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                         if Negative_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "negative");
-                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false);
                             [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "negative", false);
                         end
 
                         if Positive_Cluster <= 0.2
                             significant_electrode = compute_best_electrode(stat, "positive");
-                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir,false);
+                            [~] = plot_peak_electrode(stat, significant_electrode, results_dir, false);
                             [~] = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false);
                             [~] = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factors, generate_ci, "positive", false);
                         else
                             fprintf("No significant clusters to plot");
+                        end
+
+                    end
+
+                    if paper_figs
+
+                        try
+                            Negative_Cluster = stat.negclusters.prob;
+                        catch e
+                            Negative_Cluster = 1;
+                        end
+
+                        try
+                            Positive_Cluster = stat.posclusters.prob;
+                        catch e
+                            Positive_Cluster = 1;
+                        end
+
+                        if Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
+
+                            paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
                         end
 
                     end
@@ -935,8 +1002,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             results_fact = "none";
         end
 
-        if paper_figs
-             paper_figures(data,stat,design_matrix,onsets_part,factors,start_time,end_time,generate_ci,results_dir);
+        if contains(time_freq, "time")
+            savedir = strcat(results_dir, "/", "stat_results", "/", onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
+        else
+            savedir = strcat(results_dir, "/", "stat_results", "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), onsets_part, "_", factor, "_", string(start_time), "_", string(end_time), "_", string(orthoganilized_partitions), "_Onsets_Stat_Results.xls");
         end
 
         if contains(time_freq, "time")
@@ -1032,11 +1101,11 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                                 Positive_Cluster = stat.posclusters.prob;
 
                                 if Negative_Cluster <= 0.2
-                                    [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir,false);
+                                    [~] = plot_cluster_vol(stat, factors, start_time, end_time, "negative", results_dir, false);
                                 end
 
                                 if Positive_Cluster <= 0.2
-                                    [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir,false);
+                                    [~] = plot_cluster_vol(stat, factors, start_time, end_time, "positive", results_dir, false);
                                 else
                                     fprintf("No significant clusters to plot");
                                 end

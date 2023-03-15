@@ -1,21 +1,18 @@
 function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
     % partitions plot 5x2 grid
     [high,low] = ylimit_finder([dataone,datatwo,datathree],electrode);
-    ylimit = [low,high];
+    ylimit = [(low-0.5),(high+0.5)];
     start = 2.8;
     f1 = figure;
 
     % First subplot low PGI across partitions
     Ax = subplot(5, 1, 1);
     data = partitions_combine(dataone, datatwo, datathree, "PGI");
-    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
+    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(8).Color = [0.8350 0.0780 0.1840];
-    h(7).Color = [0.4660 0.8740 0.1880];
-    h(6).Color = [0.3010 0.7450 0.9330];
-    delete(h(2));
-    delete(h(3));
-    delete(h(4));
+    h(6).Color = [0.8350 0.0780 0.1840];
+    h(5).Color = [0.4660 0.8740 0.1880];
+    h(4).Color = [0.3010 0.7450 0.9330];
     ylim(ylimit);
     hold on;
     legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwestoutside');
@@ -24,15 +21,11 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
 
     Ax = subplot(5, 1, 2);
     data = partitions_combine(dataone, datatwo, datathree, "med");
-    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive");
+    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(8).Color = 'r';
-    h(7).Color = 'g';
-    h(6).Color = 'b';
-    delete(h(1));
-    delete(h(2));
-    delete(h(3));
-    delete(h(4));
+    h(6).Color = 'r';
+    h(5).Color = 'g';
+    h(4).Color = 'b';
     ylim(ylimit);
     hold on;
     legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwestoutside');
@@ -41,12 +34,8 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     title(tit);
 
     Ax = subplot(5, 1, 3);
-    generate_erp_plot(results, start, endtime, dataone, electrode, "none", cis, "positive");
+    generate_erp_plot(results, start, endtime, dataone, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    delete(h(4));
-    delete(h(5));
-    delete(h(6));
-    delete(h(7));
     ylim(ylimit);
     hold on;
     legend('location', 'northwestoutside');
@@ -55,12 +44,8 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     title(tit);
 
     Ax = subplot(5, 1, 4);
-    generate_erp_plot(results, start, endtime, datatwo, electrode, "none", cis, "positive");
+    generate_erp_plot(results, start, endtime, datatwo, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    delete(h(4));
-    delete(h(5));
-    delete(h(6));
-    delete(h(7));
     ylim(ylimit);
     hold on;
     tit = strcat("Partition 2 @ ", electrode.electrode);
@@ -69,12 +54,8 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     title(tit);
 
     Ax = subplot(5, 1, 5);
-    generate_erp_plot(results, start, endtime, datathree, electrode, "none", cis, "positive");
+    generate_erp_plot(results, start, endtime, datathree, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    delete(h(4));
-    delete(h(5));
-    delete(h(6));
-    delete(h(7));
     ylim(ylimit);
     hold on;
     tit = strcat("Partition 3 @ ", electrode.electrode);

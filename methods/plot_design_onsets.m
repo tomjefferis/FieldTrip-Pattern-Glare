@@ -3,6 +3,7 @@ function plot_design_onsets(design_matrix1, results, factor)
 
     if strcmp(factor, "none")
         design_matrix1 = design_matrix1(2, :);
+        factor = "Intercept";
     end
 
     maxm = max(design_matrix1) + 0.5;

@@ -53,7 +53,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     %set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
-    if (strmcp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
+    if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
 
         if ~contains(factor, 'Intercept')
             [low, high] = median_split(data, 1, design);
@@ -83,7 +83,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
             erpplot = print('-RGBImage');
         end
 
-    elseif contains(onsets_part, 'onsets-2,3-4,5-6,7')
+    elseif contains(onsets_part, 'onsets-23-45-67')
 
         if ~contains(factor, 'Intercept')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
