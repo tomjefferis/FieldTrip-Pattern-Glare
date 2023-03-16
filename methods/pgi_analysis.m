@@ -979,9 +979,9 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             Positive_Cluster = 1;
                         end
 
-                        if Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
+                        if Negative_Cluster <= 0.12 || Positive_Cluster <= 0.12
 
-                            paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                            paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                         end
 
                     end

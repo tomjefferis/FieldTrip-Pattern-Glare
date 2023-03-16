@@ -72,7 +72,7 @@ elseif ispart
 elseif isthreeway
     retfigname1 = strcat(orthog," Partitions vs Onsets for ",factor," factor with an ",direction1);
     retfigname2 = strcat(" in partitions and an ",direction2," in onsets ",string(starttime),"-",string(endtime),'s');
-    retfigname = {retfigname1,retfigname2};
+    retfigname = strcat(retfigname1,retfigname2);
 else
     retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 end
