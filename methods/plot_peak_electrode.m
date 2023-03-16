@@ -7,7 +7,7 @@ function plot = plot_peak_electrode(stat, peak_electrode, save_dir, paper_plot)
     end
 
     elecs = zeros(size(stat.elec.chanpos,1), 1);
-    e_idx = find(contains(stat.label,peak_electrode));
+    e_idx = find(strcmp(stat.label,peak_electrode));
     elecs(e_idx)=1;
     
     save_dir = save_dir + "/" + peak_electrode +"_highlighted_electrode.png";

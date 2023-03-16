@@ -20,7 +20,12 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     end
 
 
-    factor = figname;
+    if iscell(figname)
+        factor = figname{1};
+    else
+        factor = figname;
+    end
+    
     Effect_direction = '';
 
     try
@@ -40,7 +45,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     else
         Effect_direction = 'positive';
     end
-
+    figure;
     electrode = compute_best_electrode(stat, Effect_direction);
     cd (results + '\workspace')
     Cluster_vol = plot_cluster_vol(stat, factor, start_time, end_time, Effect_direction, '', true);
@@ -74,11 +79,11 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
 
         if ~contains(factor, 'Intercept')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
-            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         end
@@ -86,11 +91,11 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     elseif contains(onsets_part, 'onsets-23-45-67')
 
         if ~contains(factor, 'Intercept')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
-            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design, factor, '', start_time, end_time, cis, true);
+            erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         end

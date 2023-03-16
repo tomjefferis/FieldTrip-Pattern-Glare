@@ -40,8 +40,6 @@ for i = 1:length(parts)
     if strcmp(parts(i),'onsets') && ~isthreeway
         if strcmp(onsets_part, "onsets-23-45-67")
             isonestsvs = true;
-        else
-
         end
     elseif strcmp(parts(i),'partitions') && ~isthreeway
         ispart = true;
@@ -59,17 +57,24 @@ for i = 1:length(parts)
         else
             direction1 = 'increase';
         end
+    elseif strcmp(parts(i),'normal')
+        orthog = 'Unorthogonalaized';
+    elseif strcmp(parts(i),'orthog')
+        orthog = 'Orthogonalaized';
+    
     end
 end
 
 if isonestsvs
-    retfigname = strcat("Onsets 2,3 vs 4,5 vs 6,7 by ",factor," factor with an ",direction1," effect ",string(starttime),"-",string(endtime));
+    retfigname = strcat(orthog," Onsets 2,3 vs 4,5 vs 6,7 by ",factor," factor with an ",direction1," effect ",string(starttime),"-",string(endtime),'s');
 elseif ispart
-    retfigname = strcat("Partitions by ",factor," factor with a ",direction1," effect ",string(starttime),"-",string(endtime));
+    retfigname = strcat(orthog," Partitions by ",factor," factor with a ",direction1," effect ",string(starttime),"-",string(endtime),'s');
 elseif isthreeway
-    retfigname = strcat("Partitions vs Onsets for ",factor," factor with an ",direction1," in partitions and an ",direction2," in onsets ",string(starttime),"-",string(endtime));
+    retfigname1 = strcat(orthog," Partitions vs Onsets for ",factor," factor with an ",direction1);
+    retfigname2 = strcat(" in partitions and an ",direction2," in onsets ",string(starttime),"-",string(endtime),'s');
+    retfigname = {retfigname1,retfigname2};
 else
-    retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime));
+    retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 end
 
 
