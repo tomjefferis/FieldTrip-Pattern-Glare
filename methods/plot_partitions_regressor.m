@@ -1,68 +1,79 @@
 function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
     % partitions plot 5x2 grid
     [high,low] = ylimit_finder([dataone,datatwo,datathree],electrode);
-    ylimit = [(low-0.5),(high+0.5)];
+    
     start = 2.8;
     f1 = figure;
 
+    tiledlayout(5,1);
+
     % First subplot low PGI across partitions
-    Ax = subplot(5, 1, 1);
+    ax1 = nexttile
     data = partitions_combine(dataone, datatwo, datathree, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
     h(6).Color = [0.8350 0.0780 0.1840];
     h(5).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
-    ylim(ylimit);
+   
     hold on;
     legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwestoutside');
-    tit = strcat("Partitions regressor PGI through partitions @ ", electrode.electrode);
+    tit = strcat("");
     title(tit);
+    subtitle("");
+    ylabel(strcat("Partitions PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    Ax = subplot(5, 1, 2);
+    ax2 = nexttile
     data = partitions_combine(dataone, datatwo, datathree, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
     h(6).Color = 'r';
     h(5).Color = 'g';
     h(4).Color = 'b';
-    ylim(ylimit);
+   
     hold on;
     legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwestoutside');
-    tit = strcat("Low Group Medium through partitions @ ", electrode.electrode);
-    subtitle("");
+    tit = strcat("");
     title(tit);
+    subtitle("");
+    ylabel(strcat("Partitions Med"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    Ax = subplot(5, 1, 3);
+    ax3 = nexttile
     generate_erp_plot(results, start, endtime, dataone, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    ylim(ylimit);
+   
     hold on;
     legend('location', 'northwestoutside');
-    tit = strcat("Partition 1 @ ", electrode.electrode);
-    subtitle("");
+    tit = strcat("");
     title(tit);
+    subtitle("");
+    ylabel(strcat("Partition 1"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    Ax = subplot(5, 1, 4);
+    ax4 = nexttile
     generate_erp_plot(results, start, endtime, datatwo, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    ylim(ylimit);
+   
     hold on;
-    tit = strcat("Partition 2 @ ", electrode.electrode);
-    subtitle("");
     legend('location', 'northwestoutside');
+    tit = strcat("");
     title(tit);
+    subtitle("");
+    ylabel(strcat("Partition 2"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    Ax = subplot(5, 1, 5);
+    ax5 = nexttile
     generate_erp_plot(results, start, endtime, datathree, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    ylim(ylimit);
+   
     hold on;
-    tit = strcat("Partition 3 @ ", electrode.electrode);
-    subtitle("");
     legend('location', 'northwestoutside');
+    tit = strcat("");
     title(tit);
+    subtitle("");
+    ylabel(strcat("Partition 3"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
+    linkaxes([ax1 ax2 ax3 ax4 ax5],'y');
+    ax1.YLim = ax1.YLim * 1.1;
+    
     titles = strcat("Interactions through partitions Partitions regressor");
     %f1.Position = f1.Position + [0 -300 0 300];
     set(gcf, 'Position', [100, 100, 1900, 1600]);

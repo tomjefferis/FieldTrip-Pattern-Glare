@@ -112,7 +112,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [50, 250; 50, 850; 50, 1400];
+    text_pos = [50, 250; 50, 850; 50, 1350];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');

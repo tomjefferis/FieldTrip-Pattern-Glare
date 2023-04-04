@@ -10,8 +10,13 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
     start_window_time = start_time;
     end_window_time = end_time;
 
-    start_time = 2.8;
-    end_time = 3.99;
+    if start_time >= 2.8
+        start_time = 2.8;
+        end_time = 3.99;
+    else
+        start_time = -0.2;
+        end_time = 3.1;
+    end
 
     electrode_idx = get_electrode_index(high.data, electrode);
 

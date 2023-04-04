@@ -7,7 +7,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
 
     [highl, lowl] = ylimit_finder(high1,electrode);
     
-    ylimit = [(lowl-0.5),(highl+0.5)];
+
 
     %start = 2.8;
     f1 = figure;
@@ -35,7 +35,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
 
 
     % First subplot low PGI across partitions
-    nexttile;
+    ax1 = nexttile;
     data = partitions_combine(low1.data, low2.data, low3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -45,16 +45,16 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
     legend(legend1, 'location', 'eastoutside');
     %legend('hide');
-    tit = strcat("Low Group PGI through ", title4, " @ ", electrode.electrode);
+    tit = strcat("Low Group");
+    ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
+    subtitle("");
 
-    nexttile;
+    ax2 = nexttile;
     data = partitions_combine(high1.data, high2.data, high3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -64,15 +64,15 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
     legend('hide');
-    tit = strcat("High Group PGI through ", title4, " @ ", electrode.electrode);
+    tit = strcat("High Group");
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
+    subtitle("");
 
-    nexttile;
+    ax3 = nexttile;
     data = partitions_combine(low1.data, low2.data, low3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -83,17 +83,15 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
     legend(legend2, 'location', 'eastoutside');
     %legend('hide');
-    tit = strcat("Low Group Medium through ", title4, " @ ", electrode.electrode);
+    ylabel(strcat(title4," Med"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+    title("");
     subtitle("");
-    title(tit);
 
-    nexttile;
+    ax4 = nexttile;
     data = partitions_combine(high1.data, high2.data, high3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -104,115 +102,106 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
     legend('hide');
-    tit = strcat("High Group Medium through ", title4, " @ ", electrode.electrode);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+    title("");
     subtitle("");
-    title(tit);
 
-    nexttile;
+    ax5 = nexttile;
     generate_erp_plot(results, start, endtime, low1.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
-     
+   
     hold on;
-    tit = strcat("Low ", title1, " ERP @ ", electrode.electrode);
-    subtitle("");
     legend('location', 'eastoutside');
-    %legend('hide');
-    title(tit);
+    ylabel(strcat(title1,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+    title("");
+    subtitle("");
 
-    nexttile;
+    ax6 = nexttile;
     generate_erp_plot(results, start, endtime, high1.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
+    title("");
     hold on;
-    tit = strcat("High ", title1, " ERP @ ", electrode.electrode);
-    subtitle("");
     legend('hide')
-    title(tit);
+    subtitle("");
 
-    nexttile;
+    ax7 = nexttile;
     generate_erp_plot(results, start, endtime, low2.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
-    tit = strcat("Low ", title2, " ERP @ ", electrode.electrode);
     legend('location', 'eastoutside');
     %legend('hide');
+    ylabel(strcat(title2,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+    title("");
     subtitle("");
-    title(tit);
 
-    nexttile;
+    ax8 = nexttile;
     generate_erp_plot(results, start, endtime, high2.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
-    tit = strcat("High ", title2, " ERP @ ", electrode.electrode);
-    subtitle("");
     legend('hide');
-    title(tit);
-
-    nexttile;
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
+    title("");
+    
+    ax9 = nexttile;
     generate_erp_plot(results, start, endtime, low3.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+   
     hold on;
-    tit = strcat("Low ", title3, " ERP @ ", electrode.electrode);
     legend('location', 'eastoutside');
+    ylabel(strcat(title3,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     %legend('hide');
+    title("");
     subtitle("");
-    title(tit);
 
-    nexttile;
+    ax10 = nexttile;
     generate_erp_plot(results, start, endtime, high3.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
- 
-     
+       
     hold on;
-    tit = strcat("High ", title3, " ERP @ ", electrode.electrode);
     subtitle("");
     legend('hide');
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+    subtitle("");
+    title("");
 
+    linkaxes([ax1 ax2 ax3 ax4 ax5 ax6 ax7 ax8 ax9 ax10],'y');
+    ax1.YLim = ax1.YLim * 1.1;
+    
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
     set(gcf, 'Position', [100, 100, 1900, 1600]);
+
+
     %lg  = legend(["", "", "","", "Max Effect"], 'Orientation','horizontal'); 
     %lg.Layout.Tile = 'North';
     %f1.Position = f1.Position + [0 -300 0 300];

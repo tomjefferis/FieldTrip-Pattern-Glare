@@ -23,7 +23,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     [low32, high32] = median_split(datathree(2, :), 1, design2);
     [low33, high33] = median_split(datathree(3, :), 1, design2);
 
-    [highl, lowl] = ylimit_finder(high21, electrode);
+    
 
     if(highl > 5) && (lowl < -5)
         highl = 7;
@@ -38,9 +38,10 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %start = 2.8;
     f1 = figure;
 
+    tiledlayout(6,2);
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 1);
+    ax1 = nexttile
     data = partitions_combine(low11.data, low21.data, low31.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -50,19 +51,20 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partition 1 PGI ", " @ ", electrode.electrode);
+    tit = strcat("Low Group");
+    ylabel("P1 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
     subtitle("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 2);
+    ax2 = nexttile
     data = partitions_combine(high11.data, high21.data, high31.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -72,18 +74,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 1 PGI ", " @ ", electrode.electrode);
+    tit = strcat("High Group");
     title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
 
         % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 3);
+    ax3 = nexttile
     data = partitions_combine(low11.data, low21.data, low31.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -93,19 +96,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
+    ylabel("P1 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partition 1 Med ", " @ ", electrode.electrode);
-    title(tit);
     subtitle("");
+    title("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 4);
+    ax4 = nexttile
     data = partitions_combine(high11.data, high21.data, high31.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -115,18 +118,18 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 1 Med ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
     %% First subplot low PGI across P2 onsets
-    Ax = subplot(6, 2, 5);
+    ax5 = nexttile
     data = partitions_combine(low12.data, low22.data, low32.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -136,19 +139,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partition 2 PGI ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("P2 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 6);
+    ax6 = nexttile
     data = partitions_combine(high12.data, high22.data, high32.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -158,18 +161,18 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 2 PGI ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
         % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 7);
+    ax7 = nexttile
     data = partitions_combine(low12.data, low22.data, low32.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -179,19 +182,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partition 2 Med ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("P2 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 8);
+    ax8 = nexttile
     data = partitions_combine(high12.data, high22.data, high32.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -201,19 +204,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 2 Med ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
     %%P3
         % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 9);
+    ax9 = nexttile
     data = partitions_combine(low13.data, low23.data, low33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -223,19 +226,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partition 3 PGI ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("P3 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 10);
+    ax10 = nexttile
     data = partitions_combine(high13.data, high23.data, high33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -245,18 +248,18 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 3 PGI ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
         % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 11);
+    ax11 = nexttile
     data = partitions_combine(low13.data, low23.data, low33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -266,19 +269,19 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
     %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
+    ylabel("P3 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
-    tit = strcat("Low Group Partiton 3 Med ", " @ ", electrode.electrode);
-    title(tit);
     subtitle("");
+    title("");
 
 
 
     % First subplot low PGI across P1 onsets
-    Ax = subplot(6, 2, 12);
+    ax12 = nexttile
     data = partitions_combine(high13.data, high23.data, high33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -288,23 +291,25 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-    ylim(ylimit);
+   
     PosVec = Ax.Position;
     %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
     legend('hide');
-    tit = strcat("High Group Partition 3 Med ", " @ ", electrode.electrode);
-    title(tit);
+    ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
+    title("");
 
    
-
-    titles = strcat("Interactions through Partitions vs Onsets, Low vs High group ", factor);
+    linkaxes([ax1 ax2 ax3 ax4 ax5 ax6 ax7 ax8 ax9 ax10 ax11 ax12],'y');
+    ax1.YLim = ax1.YLim * 1.1;
+    
+    titles = strcat("Interactions through Partitions vs Onsets @",electrode.electrode, "for ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
-    set(gcf, 'Position', [100, 100, 2300, 1600]);
+    set(gcf, 'Position', [100, 100, 1800, 2000]);
+    sgtitle(titles);
     if ~paper_plot
-        %sgtitle(titles);
         name = strcat(results, "/partitions/", factor, electrode.electrode, '_erpcombined.png');
         saveas(gcf, name);
     end

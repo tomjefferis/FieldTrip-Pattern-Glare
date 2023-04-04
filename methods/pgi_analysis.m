@@ -292,7 +292,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         clf;
 
                         if contains(time_freq, "time")
-                            [~] = plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                            [~] = plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir,paper_figs)
                         else
                             freq_power_median_split(data, orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
                         end
@@ -305,7 +305,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         clf;
 
                         if contains(time_freq, "time")
-                            [~] = plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir)
+                            [~] = plot_medium_split(high, low, significant_electrode, factor, start_time, end_time, generate_ci, results_dir,paper_figs)
                         else
                             freq_power_median_split(data, orders, design_matrix, significant_electrode, frequency_range, [start_time end_time], factor, results_dir)
                         end

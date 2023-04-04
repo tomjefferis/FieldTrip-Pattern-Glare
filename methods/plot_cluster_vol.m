@@ -18,7 +18,7 @@ function plot = plot_cluster_vol(stat, factor, start_time, end_time, polarity, s
 
     for index = 1:numel(cluster_prob)
 
-        if cluster_prob{index} < 0.25 % plots clusters that are tending towards significance
+        if cluster_prob{index} < 0.185 % plots clusters that are tending towards significance
 
             for jndex = 1:numel(x)
                 plotted_clust(index, jndex) = sum(cluster(:, jndex) == index) / vol; % sums the column looking for cluster and then divides the occurences for % volume

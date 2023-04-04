@@ -45,15 +45,13 @@ for i = 1:length(parts)
         ispart = true;
     elseif strcmp(parts(i),'habituation')
         if isthreeway && i==length(parts)
-            direction2 = direction1;
-            direction1 = 'decrease';
+            direction2 = 'decrease';
         else
             direction1 = 'decrease';
         end
     elseif strcmp(parts(i),'sensitization')
         if isthreeway && i==length(parts)
-            direction2 = direction1;
-            direction1 = 'increase';
+            direction2 = 'increase';
         else
             direction1 = 'increase';
         end
@@ -70,9 +68,7 @@ if isonestsvs
 elseif ispart
     retfigname = strcat(orthog," Partitions by ",factor," factor with a ",direction1," effect ",string(starttime),"-",string(endtime),'s');
 elseif isthreeway
-    retfigname1 = strcat(orthog," Partitions vs Onsets for ",factor," factor with an ",direction1);
-    retfigname2 = strcat(" in partitions and an ",direction2," in onsets ",string(starttime),"-",string(endtime),'s');
-    retfigname = strcat(retfigname1,retfigname2);
+    retfigname = strcat(orthog," Partitions vs Onsets for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 else
     retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 end
