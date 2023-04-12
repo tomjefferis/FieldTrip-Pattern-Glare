@@ -55,7 +55,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Topomap = print('-RGBImage');
     Elec_View = plot_peak_electrode(stat, electrode, '', true);
-    %set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
     if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
@@ -112,7 +112,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [50, 250; 50, 850; 50, 1350];
+    text_pos = [10, 250; 10, 850; 10, 1300];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');

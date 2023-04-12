@@ -25,16 +25,9 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
 
     
 
-    if(highl > 5) && (lowl < -5)
-        highl = 7;
-        lowl = -7;
-    elseif (highl > 5)
-        highl = 7;
-    elseif (lowl < -5)
-        lowl = -7;
-    end
+   
 
-    ylimit = [lowl, highl];
+   
     %start = 2.8;
     f1 = figure;
 
@@ -52,10 +45,10 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     tit = strcat("Low Group");
     ylabel("P1 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
@@ -75,7 +68,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -97,11 +90,11 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     ylabel("P1 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     subtitle("");
     title("");
 
@@ -119,7 +112,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -140,10 +133,10 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     ylabel("P2 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
     title("");
@@ -162,7 +155,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -183,10 +176,10 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     ylabel("P2 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
     title("");
@@ -205,7 +198,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -227,10 +220,10 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     ylabel("P3 PGI","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     subtitle("");
     title("");
@@ -249,7 +242,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -270,11 +263,11 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
     %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     ylabel("P3 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
-    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
+    legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
     subtitle("");
     title("");
 
@@ -292,7 +285,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %delete(h(3));
     %delete(h(4));
    
-    PosVec = Ax.Position;
+     
     %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     legend("Onsets 2,3","Onsets 4,5","Onsets 6,7", 'location', 'eastoutside');
@@ -304,7 +297,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
    
     linkaxes([ax1 ax2 ax3 ax4 ax5 ax6 ax7 ax8 ax9 ax10 ax11 ax12],'y');
     ax1.YLim = ax1.YLim * 1.1;
-    
+
     titles = strcat("Interactions through Partitions vs Onsets @",electrode.electrode, "for ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
     set(gcf, 'Position', [100, 100, 1800, 2000]);

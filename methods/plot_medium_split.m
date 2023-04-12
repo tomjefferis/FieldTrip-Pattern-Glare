@@ -22,7 +22,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     delete(children(6));
     
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', ' eastoutside');
     tit = strcat("Median Split on PGI @ ", electrode.electrode);
     title(tit);
     subtitle("");
@@ -36,7 +36,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
    
     xlim([start_time, end_time]);
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', ' eastoutside');
     tit = strcat(" Median split on PGI @ ", electrode.electrode, " Cropped to window");
     title(tit);
     subtitle("");
@@ -55,7 +55,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     delete(children(6));
    
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', ' eastoutside');
     tit = strcat(" Median split on Medium @ ", electrode.electrode);
     title(tit);
     subtitle("");
@@ -63,6 +63,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     ax4 = nexttile;
     generate_erp_plot(results, start_time, end_time, high.data, electrode, factor, generate_cis, "Negative",paper_plot);
     children = get(gca, 'children');
+    legend('location', ' eastoutside');
     hold on;
     tit = strcat("High Group ERP @ ", electrode.electrode);
     title(tit);
@@ -72,7 +73,7 @@ function plot = plot_medium_split(high, low, electrode, factor, start_time, end_
     generate_erp_plot(results, start_time, end_time, low.data, electrode, factor, generate_cis, "Negative",paper_plot);
     children = get(gca, 'children');
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', ' eastoutside');
     tit = strcat("Low Group ERP @ ", electrode.electrode);
     title(tit);
     subtitle("");

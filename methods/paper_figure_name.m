@@ -45,28 +45,36 @@ for i = 1:length(parts)
         ispart = true;
     elseif strcmp(parts(i),'habituation')
         if isthreeway && i==length(parts)
-            direction2 = 'decrease';
+            direction2 = 'Decrease';
         else
-            direction1 = 'decrease';
+            direction1 = 'Decrease';
         end
     elseif strcmp(parts(i),'sensitization')
         if isthreeway && i==length(parts)
-            direction2 = 'increase';
+            direction2 = 'Increase';
         else
-            direction1 = 'increase';
+            direction1 = 'Increase';
         end
     elseif strcmp(parts(i),'normal')
-        orthog = 'Unorthogonalaized';
+        orthog = 'Unorthogonalized';
     elseif strcmp(parts(i),'orthog')
-        orthog = 'Orthogonalaized';
+        orthog = 'Orthogonalized';
     
     end
 end
 
 if isonestsvs
-    retfigname = strcat(orthog," Onsets 2,3 vs 4,5 vs 6,7 by ",factor," factor with an ",direction1," effect ",string(starttime),"-",string(endtime),'s');
+    if strcmp(factor,'none')
+        retfigname = strcat("Onsets Interaction x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+    else
+        retfigname = strcat(orthog," ",factor," x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+    end
 elseif ispart
-    retfigname = strcat(orthog," Partitions by ",factor," factor with a ",direction1," effect ",string(starttime),"-",string(endtime),'s');
+    if strcmp(factor,'none')
+        retfigname = strcat("Partitions Interaction x ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
+    else
+        retfigname = strcat(orthog," ",factor," x ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
+    end
 elseif isthreeway
     retfigname = strcat(orthog," Partitions vs Onsets for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 else

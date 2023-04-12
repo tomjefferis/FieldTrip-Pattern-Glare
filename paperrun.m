@@ -63,7 +63,6 @@ aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequ
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
-
 type_of_effect = {'sensitization'}; % habituation or sensitization
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -79,6 +78,7 @@ aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequ
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
+
 onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'sensitization'}; % habituation or sensitization
 
@@ -87,19 +87,12 @@ aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequ
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
-
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-factor_scores = {'headache'}; % options: none, headache, visual-stress, discomfort, all
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+time_window = [3.45 3.83];
+baseline_period = [2.8 3.0];
+partitions = 'normal';
+factor_scores = {'none'};
 type_of_effect = {'habituation'}; % habituation or sensitization
-three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-
+onsets_part = 'partitions';
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
 aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
@@ -108,90 +101,43 @@ aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequ
 
 time_window = [3.09 3.18];
 baseline_period = [2.8 3.0];
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+partitions = 'orthog';
+factor_scores = {'discomfort'};
 type_of_effect = {'habituation'}; % habituation or sensitization
-
+onsets_part = 'partitions';
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
 aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
-time_window = [3.45 3.83];
-factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets-23-45-67'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-type_of_effect = {'habituation'}; % habituation or sensitization
 time_window = [3.09 3.18];
-
+baseline_period = [2.8 3.0];
+partitions = 'orthog';
+factor_scores = {'discomfort'};
+type_of_effect = {'habituation'}; % habituation or sensitization
+onsets_part = 'onsets-23-45-67';
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
 aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
-factor_scores = {'visual-stress'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-time_window = [3.45 3.83];
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-
-partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
-time_window = [0 3.05];
+time_window = [0.5 3.05];
 baseline_period = [-0.2 0];
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-type_of_effect = {'sensitization'}; % habituation or sensitization
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-
-onsets_part = 'onsets-23-45-67'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+partitions = 'normal';
+factor_scores = {'discomfort'};
 type_of_effect = {'habituation'}; % habituation or sensitization
-
+onsets_part = 'onsets-23-45-67';
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
 aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
-
-partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 time_window = [3.45 3.83];
 baseline_period = [2.8 3.0];
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+partitions = 'normal';
+factor_scores = {'discomfort'};
 type_of_effect = {'habituation'}; % habituation or sensitization
-
-tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
-    plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
-    onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
-
-time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
-factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
-
+onsets_part = 'partitions';
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
 aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
