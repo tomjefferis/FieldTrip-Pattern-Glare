@@ -32,7 +32,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 3;
 frequency_range = [8 13]; % start and end frequency for stat tests
@@ -50,13 +50,13 @@ generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLO
 %% generate experiment dsign
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_part = 'partitions'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% There are a few ways you can run the analysis

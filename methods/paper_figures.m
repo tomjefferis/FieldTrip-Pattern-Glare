@@ -91,7 +91,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     elseif contains(onsets_part, 'onsets-23-45-67')
 
         if ~contains(factor, 'Intercept')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
@@ -101,8 +101,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
         end
 
     elseif contains(onsets_part, 'partitions-vs-onsets')
-        erpplot = plot_three_way(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
-        set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+        erpplot = plot_three_way(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
         erpplot = print('-RGBImage');
     end
 

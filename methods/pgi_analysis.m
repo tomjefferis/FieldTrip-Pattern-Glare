@@ -673,13 +673,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                     
                     elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                     end
 
                     end
@@ -996,13 +996,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                        if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                     
                     elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
                     end
 
                     end

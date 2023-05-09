@@ -1,4 +1,8 @@
-function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
+function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot, font_size)
+
+    if ~exist('font_size','var')
+        font_size = 12;
+    end
 
     [low1, high1] = median_split(dataone, 1, design2);
     [low2, high2] = median_split(datatwo, 1, design2);
@@ -200,7 +204,14 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ax1.YLim = ax1.YLim * 1.1;
     
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
-    set(gcf, 'Position', [100, 100, 1900, 1600]);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+
+    if font_size > 12
+        set(gcf, 'Position', [100, 100, 2600, 1600]);
+    else
+        set(gcf, 'Position', [100, 100, 1900, 1600]);
+    end
+
 
     legPos1 = get(leg1, 'Position');
     legPos2 = get(leg2, 'Position');

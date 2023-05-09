@@ -1,4 +1,8 @@
-function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
+function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot,font_size)
+
+    if ~exist('font_size','var')
+        font_size = 12;
+    end
 
     %splitting design matrix into each batch of onsets
     design2 = reshape(design2, 3, []);
@@ -292,7 +296,13 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
 
     titles = strcat("Interactions through Partitions vs Onsets @",electrode.electrode, " for ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
-    set(gcf, 'Position', [100, 100, 1800, 2000]);
+    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+    if font_size > 12
+        set(gcf, 'Position', [100, 100, 2600, 2000]);
+    else
+        set(gcf, 'Position', [100, 100, 1900, 2000]);
+    end
+
     sgtitle(titles);
 
     legPos1 = get(leg1, 'Position');
