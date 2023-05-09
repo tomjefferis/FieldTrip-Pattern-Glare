@@ -131,6 +131,9 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     %set figure title and font size to 14
     set(gca, 'FontSize', 14);
     title(figname);
+    figname = strrep(figname, '/', '');
+
+    figname = strcat(figname, " ", Effect_direction);
 
     %save figure to results folder named after the figure
     cd (results + "/figures");

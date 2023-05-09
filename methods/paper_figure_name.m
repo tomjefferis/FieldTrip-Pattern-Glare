@@ -78,8 +78,8 @@ elseif ispart
 elseif isthreeway
     retfigname = strcat(orthog," Partitions vs Onsets for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 else
-    if strcmp(factor,'none')
-        retfigname = strcat("Onsets 2-8 for ",factor,"  ",string(starttime),"-",string(endtime),'s');
+    if strcmp(factor,'none') || contains(factor,"Mean")
+        retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),'s');
     else
         retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
     end
