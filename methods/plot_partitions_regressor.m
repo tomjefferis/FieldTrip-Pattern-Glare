@@ -1,7 +1,25 @@
 function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode, design2, factor, results, start, endtime, cis, paper_plot)
     % partitions plot 5x2 grid
     [high,low] = ylimit_finder([dataone,datatwo,datathree],electrode);
-    
+
+     if contains(factor,"onsets")|| contains(factor,"Onsets")
+            legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "", "Max Effect", ""];
+            legend2 = ["Onsets 2,3 Med", "Onsets 4,5 Med", "Onsets 6,7 Med", "", "Max Effect", ""];
+
+            title1 = 'Onsets 2,3';
+            title2 = 'Onsets 4,5';
+            title3 = 'Onsets 6,7';
+            title4 = 'onsets';
+    else
+            legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "", "Max Effect", ""];
+            legend2 = ["Partition 1 Med", "Partition 2 Med", "Partition 3 Med", "", "Max Effect", ""];
+
+            title1 = 'Partition 1';
+            title2 = 'Partition 2';
+            title3 = 'Partition 3';
+            title4 = 'Partitions';
+     end
+
     start = 2.8;
     f1 = figure;
 

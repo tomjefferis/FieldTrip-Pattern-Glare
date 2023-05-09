@@ -23,7 +23,7 @@ if contains(parts{1},'discomfort')
 elseif contains(parts{1},'headache')
     parts{1} = 'Headache';
 elseif contains(parts{1},'none')
-    parts{1} = 'Intercept';
+    parts{1} = 'Mean/Intercept';
 elseif contains(parts{1},'visual')
     parts{1} = 'Visual Stress';
 end
@@ -78,7 +78,11 @@ elseif ispart
 elseif isthreeway
     retfigname = strcat(orthog," Partitions vs Onsets for ",factor," factor ",string(starttime),"-",string(endtime),'s');
 else
-    retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
+    if strcmp(factor,'none')
+        retfigname = strcat("Onsets 2-8 for ",factor,"  ",string(starttime),"-",string(endtime),'s');
+    else
+        retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
+    end
 end
 
 

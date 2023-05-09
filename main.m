@@ -32,7 +32,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 3;
 frequency_range = [8 13]; % start and end frequency for stat tests
@@ -46,17 +46,17 @@ tfr_plots = false; % frequency spectrum plots
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
 plot_designs = true; %plots design matrix for partitions ONLY
 plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
-generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
+generate_ci = false; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'time'; % time or frequency domain options: time or frequency
 factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_part = 'onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_part = 'partitions-vs-onsets'; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effect = {'habituation'}; % habituation or sensitization
-three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
-partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
+partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = false;
-paper_figs = true;
+testing = true;
+paper_figs = false;
 %% End of config
 
 %% There are a few ways you can run the analysis
@@ -68,23 +68,6 @@ paper_figs = true;
 %               aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,clust_volume, topograpic_map_plot, ...
 %               plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,time_freq,factor_scores, ...
 %               onsets_part, type_of_effect, testing)
-%
-%    Using time_analysis()
-%    Takes all but frequency related parameters as inputs
-%    Use as:
-%           time_analysis(grand_avg_filename,single_trial_filename,grand_avg_partitions_filename,time_window,n_participants,baseline_period, ...
-%               aggregated_roi,max_windows,spatial_roi,posneg,stat_run,clust_volume, topograpic_map_plot, ...
-%               plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,factor_scores, ...
-%               onsets_part, type_of_effect, testing)
-%
-%    Using frequency_analysis
-%    Takes all but time related parameters as inputs
-%    Use as:
-%           frequency_analysis(grand_avg_filename,single_trial_filename,grand_avg_partitions_filename,time_window,n_participants,baseline_period, ...
-%               aggregated_roi,max_windows,spatial_roi,posneg,stat_run,wavelet_width,frequency_range,clust_volume, topograpic_map_plot, ...
-%               plot_erps,median_split_plots,gfp_plot,plot_designs,plot_partitions_erps,generate_ci,factor_scores, ...
-%               onsets_part, type_of_effect, testing)
-%
 %
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
