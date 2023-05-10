@@ -74,7 +74,7 @@ function plot = plot_cluster_vol(stat, factor, start_time, end_time, polarity, s
     end
 
     legend(cluster_leg);
-    set(gcf, 'Position', [100, 100, 800, 350]);
+    set(gcf, 'Position', [100, 100, 1000, 550]);
     grid on;
     if isfield(stat,"freq")
         freq = round(stat.freq);

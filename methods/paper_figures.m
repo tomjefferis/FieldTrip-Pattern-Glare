@@ -79,8 +79,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
 
         if ~contains(factor, 'Intercept')
-            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
-            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
+            erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             erpplot = print('-RGBImage');
         else
             erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
@@ -92,7 +91,6 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
         if ~contains(factor, 'Intercept')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
-            set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
             erpplot = print('-RGBImage');
         else
             erpplot = plot_partitions_regressor(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true);
@@ -111,7 +109,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     % Define the annotation text and spacing
     text_str = {'a)', 'b)', 'c)'};
-    text_pos = [10, 250; 10, 850; 10, 1300];
+    text_pos = [10, 450; 10, 1170; 10, 1700];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');

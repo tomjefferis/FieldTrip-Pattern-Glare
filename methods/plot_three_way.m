@@ -297,13 +297,21 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     titles = strcat("Interactions through Partitions vs Onsets @",electrode.electrode, " for ", factor);
     %f1.Position = f1.Position + [0 -300 0 300];
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
-    if font_size > 12
-        set(gcf, 'Position', [100, 100, 2600, 2000]);
-    else
-        set(gcf, 'Position', [100, 100, 1900, 2000]);
-    end
-
-    sgtitle(titles);
+    
+    set(gcf, 'Position', [100, 100, 1900, 2000]);
+    
+    pos1 = get(ax1, 'Position');
+    pos2 = get(ax2, 'Position');
+    pos3 = get(ax3, 'Position');
+    pos4 = get(ax4, 'Position');
+    pos5 = get(ax5, 'Position');
+    pos6 = get(ax6, 'Position');
+    pos7 = get(ax7, 'Position');
+    pos8 = get(ax8, 'Position');
+    pos9 = get(ax9, 'Position');
+    pos10 = get(ax10, 'Position');
+    pos11 = get(ax11, 'Position');
+    pos12 = get(ax12, 'Position');
 
     legPos1 = get(leg1, 'Position');
     legPos2 = get(leg2, 'Position');
@@ -353,7 +361,62 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     set(leg11, 'Position', avgpos);
     set(leg12, 'Position', avgpos);
 
+    % get all positions of axes again
+    pos1_new = get(ax1, 'Position');
+    pos2_new = get(ax2, 'Position');
+    pos3_new = get(ax3, 'Position');
+    pos4_new = get(ax4, 'Position');
+    pos5_new = get(ax5, 'Position');
+    pos6_new = get(ax6, 'Position');
+    pos7_new = get(ax7, 'Position');
+    pos8_new = get(ax8, 'Position');
+    pos9_new = get(ax9, 'Position');
+    pos10_new = get(ax10, 'Position');
+    pos11_new = get(ax11, 'Position');
+    pos12_new = get(ax12, 'Position');
+
+    % set width of 2/3rds of the new width compared to old
+    pos1_new(3) = pos1(3) + (2/3)*(pos1_new(3) - pos1(3));
+    pos2_new(3) =  pos1_new(3);
+    pos3_new(3) =  pos1_new(3);
+    pos4_new(3) =  pos1_new(3);
+    pos5_new(3) =  pos1_new(3);
+    pos6_new(3) =  pos1_new(3);
+    pos7_new(3) =  pos1_new(3);
+    pos8_new(3) =  pos1_new(3);
+    pos9_new(3) =  pos1_new(3);
+    pos10_new(3) = pos1_new(3);
+    pos11_new(3) = pos1_new(3);
+    pos12_new(3) = pos1_new(3);
+
+      % set x position of 2/3rds of the new x position compared to old for even axes
+    pos2_new(1) = pos2(1) + (2/3)*(pos2_new(1) - pos2(1));
+    pos4_new(1) = pos2_new(1);
+    pos6_new(1) = pos2_new(1);
+    pos8_new(1) = pos2_new(1);
+    pos10_new(1) = pos2_new(1);
+    pos12_new(1) = pos2_new(1);
+
+    % set position of all axes
+    set(ax1, 'Position', pos1_new);
+    set(ax2, 'Position', pos2_new);
+    set(ax3, 'Position', pos3_new);
+    set(ax4, 'Position', pos4_new);
+    set(ax5, 'Position', pos5_new);
+    set(ax6, 'Position', pos6_new);
+    set(ax7, 'Position', pos7_new);
+    set(ax8, 'Position', pos8_new);
+    set(ax9, 'Position', pos9_new);
+    set(ax10, 'Position', pos10_new);
+    set(ax11, 'Position', pos11_new);
+    set(ax12, 'Position', pos12_new);
+
+    %if font_size > 12
+    %   set(gcf, 'Position', [100, 100, 2600, 2000]);
+    %end
+
     if ~paper_plot
+        sgtitle(titles);
         name = strcat(results, "/partitions/", factor, electrode.electrode, '_erpcombined.png');
         saveas(gcf, name);
     end
