@@ -1,6 +1,6 @@
-function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, cis, results)
+function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, cis, results, time_freq)
 
-    figname = paper_figure_name(figname, onsets_part, start_time, end_time);
+    figname = paper_figure_name(figname, onsets_part, start_time, end_time, time_freq);
     font_size = 18;
 
     % if data cells length greater than 40 split into 3 cells
@@ -58,7 +58,22 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Elec_View = print('-RGBImage');
 
-    if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
+    if ~contains(string(time_freq), "time")
+        if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
+            
+            erpplot = freq_power_median_split(data,1, design, electrode,time_freq, [start_time end_time], factor, results, true, font_size)
+            erpplot = print('-RGBImage');
+        elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+            erpplot = print('-RGBImage');
+        elseif contains(onsets_part, 'onsets-23-45-67')
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+            erpplot = print('-RGBImage');
+        elseif contains(onsets_part, 'partitions-vs-onsets')
+        end
+
+    else
+        if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
 
         if ~contains(factor, 'Intercept')
             [low, high] = median_split(data, 1, design);
@@ -78,7 +93,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
 
-        if ~contains(factor, 'Intercept')
+        if ~contains(factor, 'Intercept')&& ~contains(factor, 'Interaction')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             erpplot = print('-RGBImage');
         else
@@ -89,7 +104,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     elseif contains(onsets_part, 'onsets-23-45-67')
 
-        if ~contains(factor, 'Intercept')
+        if ~contains(factor, 'Intercept') && ~contains(factor, 'Interaction')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             erpplot = print('-RGBImage');
         else
@@ -101,6 +116,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     elseif contains(onsets_part, 'partitions-vs-onsets')
         erpplot = plot_three_way(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
         erpplot = print('-RGBImage');
+        end
     end
 
     im1 = {Cluster_vol, Elec_View};

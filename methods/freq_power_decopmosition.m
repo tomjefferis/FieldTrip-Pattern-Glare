@@ -11,7 +11,7 @@ function [datas] = freq_power_decopmosition(datas, wavelet_width, filename_preco
     end
 
 
-    if contains(filename_precomposed, 'onsets')
+    if contains(filename_precomposed, 'onsets') && ~contains(filename_precomposed, "partitions-vs-onsets")&& ~contains(filename_precomposed, "onsets-23-45-67")
         datas = freq_decomp(datas, wavelet_width, output,frequency_range,time, baseline_period);
     else
         datas.part1 = freq_decomp(datas.part1, wavelet_width,output,frequency_range,time, baseline_period);

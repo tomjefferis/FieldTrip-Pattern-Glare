@@ -1,4 +1,4 @@
-function retfigname = paper_figure_name(figname, onsets_part,starttime, endtime)
+function retfigname = paper_figure_name(figname, onsets_part,starttime, endtime, time_freq)
 
 delim = '-';
 parts = split(figname,delim);
@@ -63,14 +63,16 @@ for i = 1:length(parts)
     end
 end
 
+if contains(string(time_freq), "time")
+
 if isonestsvs
-    if strcmp(factor,'none')
+    if strcmp(factor,'none')|| contains(factor,"Mean")
         retfigname = strcat("Onsets Interaction x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
     else
         retfigname = strcat(orthog," ",factor," x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
     end
 elseif ispart
-    if strcmp(factor,'none')
+    if strcmp(factor,'none')|| contains(factor,"Mean")
         retfigname = strcat("Partitions Interaction x ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
     else
         retfigname = strcat(orthog," ",factor," x ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
@@ -83,6 +85,29 @@ else
     else
         retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
     end
+end
+else
+    if isonestsvs
+    if strcmp(factor,'none')|| contains(factor,"Mean")
+        retfigname = strcat("Onsets Interaction x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s ',string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    else
+        retfigname = strcat(orthog," ",factor," x ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s ',string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    end
+elseif ispart
+    if strcmp(factor,'none')|| contains(factor,"Mean")
+        retfigname = strcat("Partitions Interaction x ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    else
+        retfigname = strcat(orthog," ",factor," x ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    end
+elseif isthreeway
+    retfigname = strcat(orthog," Partitions vs Onsets for ",factor," factor ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+else
+    if strcmp(factor,'none') || contains(factor,"Mean")
+        retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    else
+        retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+    end
+end
 end
 
 

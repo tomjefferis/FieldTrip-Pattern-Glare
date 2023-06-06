@@ -47,14 +47,15 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 filename3 = filename3{1};
             end
 
-            if isfile(filename)
-                load(filename);
-                order(end + 1) = index;
-            else
-                continue;
-            end
+            
 
             if strcmp(onsets_part, 'onsets') || strcmp(onsets_part, 'eyes')
+                if isfile(filename)
+                    load(filename);
+                    order(end + 1) = index;
+                else
+                    continue;
+                end
                 ft.label = data.label;
                 ft.time = data.time{1};
                 ft.trialinfo = [1];
@@ -97,15 +98,19 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 ft.avg = data.p1_pgi;
 
                 ft_data{idx_used_for_saving_data} = ft;
-            elseif strcmp(onsets_part, 'partitions-vs-onsets')   
+            elseif strcmp(onsets_part, 'partitions-vs-onsets') 
+
+                if isfile(filename) && isfile(filename2) && isfile(filename3)
+                    load(filename);
+                    data2 = load(filename2).data;
+                    data3 = load(filename3).data;
+                    order(end + 1) = index;
+                else
+                    continue;
+                end
                 
                 [on_23_part1,on_23_part2,on_23_part3]  = low_level_load(data);
-
-                data2 = load(filename2).data;
                 [on_45_part1,on_45_part2,on_45_part3]  = low_level_load(data2);
-
-                
-                data3 = load(filename3).data;
                 [on_67_part1,on_67_part2,on_67_part3]  = low_level_load(data3);
 
                 
@@ -128,6 +133,13 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
 
 
             elseif strcmp(onsets_part, 'partitions')
+                if isfile(filename)
+                    load(filename);
+                    order(end + 1) = index;
+                else
+                    continue;
+                end
+                
                 [part1,part2,part3] = low_level_load(data);
 
                 p1_data{idx_used_for_saving_data} = part1;
@@ -135,6 +147,13 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 p3_data{idx_used_for_saving_data} = part3;
 
             else
+                if isfile(filename)
+                    load(filename);
+                    order(end + 1) = index;
+                else
+                    continue;
+                end
+
                 part1.label = data.label;
                 part1.time = data.time{1};
                 part1.trialinfo = [1];

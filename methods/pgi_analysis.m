@@ -317,6 +317,9 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                 end
 
                 if paper_figs
+                    if strcmp(time_freq,'time')
+                            frequency_range = 'time';
+                    end
 
                     try
                         Negative_Cluster = stat.negclusters.prob;
@@ -333,13 +336,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir,frequency_range);
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir,frequency_range);
                     
                     elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir,frequency_range);
                     end
 
                 end
@@ -658,6 +661,10 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     if paper_figs
 
+                        if strcmp(time_freq,'time')
+                            frequency_range = 'time';
+                        end
+
                         try
                             Negative_Cluster = stat.negclusters.prob;
                         catch e
@@ -673,13 +680,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range)
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range)
                     
                     elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range);
                     end
 
                     end
@@ -737,27 +744,30 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
                     else
 
-                        if strcmp(onsets_part, 'partitions')
-                            filename_precomposed = strcat(results_dir, "/", onsets_part, "/decomposed_dat.mat");
+                        
+                            filename_precomposed = strcat(results_dir, "/",string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), "-", string(time_window(1)), "-", string(time_window(2)), onsets_part, "-decomposed_dat.mat");
 
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
-                                [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
+                                [datas1] = freq_power_decopmosition(datas.part1, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas2] = freq_power_decopmosition(datas.part2, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas3] = freq_power_decopmosition(datas.part3, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                datas.part1 = datas1;
+                                datas.part2 = datas2;
+                                datas.part3 = datas3;
                                 decomposed.data = datas;
                                 decomposed.order = orders;
                                 save(filename_precomposed, "decomposed", '-v7.3');
                             else
-                                disp("Loaded Decomposed File");
+                               disp("Loaded Decomposed File");
                                 data = load(filename_precomposed).decomposed;
                                 datas = data.data;
                                 orders = data.order;
                                 data = []; % clearing memory for this var
                             end
 
-                        else
-                            [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                        end
+                        
 
                     end
 
@@ -770,7 +780,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     data2 = data.two;
                     data3 = data.three;
 
-                    if sum(baseline_period == [2.8 3.0]) < 2
+                    if sum(baseline_period == [2.8 3.0]) < 2 && strcmp(time_freq, 'time')
                         data1 = rebaseline_data(data1, baseline_period);
                         data2 = rebaseline_data(data2, baseline_period);
                         data3 = rebaseline_data(data3, baseline_period);
@@ -996,13 +1006,13 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                        if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, time_freq)
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, time_freq)
                     
                     elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir);
+                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, time_freq);
                     end
 
                     end

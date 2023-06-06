@@ -34,10 +34,10 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 3;
-frequency_ranges = {[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
+frequency_ranges = {[8 13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
 clust_volume = false; % cluter volume over time
@@ -46,16 +46,16 @@ plot_erps = false; % plotting ERPs for each condition and PGI
 median_split_plots = false; % plots the median split across time window for factors
 tfr_plots = false; % frequency spectrum plots
 gfp_plot = false; % plots GFP as well as GFP with windows of analysis. Only generated when aggregated_roi set to true
-plot_designs = true; %plots design matrix for partitions ONLY
+plot_designs = false; %plots design matrix for partitions ONLY
 plot_partitions_erps = false; % 10x2 figure of median split partitions for factor
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
-time_freq = 'time'; % time or frequency domain options: time or frequency
+time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets-23-45-67','onsets','partitions','partitions-vs-onsets'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_parts = {'onsets-23-45-67','onsets'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-partitionss = {'orthog', 'normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = false;
 paper_figs = false;

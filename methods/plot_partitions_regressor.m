@@ -35,7 +35,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     h(4).Color = [0.3010 0.7450 0.9330];
    
     hold on;
-    legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northwestoutside');
+    legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northeastoutside');
     tit = strcat("");
     title(tit);
     subtitle("");
@@ -50,7 +50,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     h(4).Color = 'b';
    
     hold on;
-    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northwestoutside');
+    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northeastoutside');
     tit = strcat("");
     title(tit);
     subtitle("");
@@ -61,7 +61,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     h = get(gca, 'Children');
    
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', 'northeastoutside');
     tit = strcat("");
     title(tit);
     subtitle("");
@@ -72,7 +72,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     h = get(gca, 'Children');
    
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', 'northeastoutside');
     tit = strcat("");
     title(tit);
     subtitle("");
@@ -83,7 +83,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     h = get(gca, 'Children');
    
     hold on;
-    legend('location', 'northwestoutside');
+    legend('location', 'northeastoutside');
     tit = strcat("");
     title(tit);
     subtitle("");
