@@ -24,8 +24,6 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     ylim([min(min(lowitpc,highitpc)) *1.2 ,max(max(lowitpc,highitpc))* 1.2])
     
 
-
-
     lowitlc = mean(squeeze(low.med_powspctrm(electrode_idx,:,:)),1);
     highitlc = mean(squeeze(high.med_powspctrm(electrode_idx,:,:)),1);
 

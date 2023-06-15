@@ -35,6 +35,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = true;
 %% frequency config
 wavelet_width = 3;
+decimate = 256; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 frequency_range = [20 35]; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 %% Plotting config
@@ -71,6 +72,6 @@ paper_figs = true;
 %
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, decimate, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);

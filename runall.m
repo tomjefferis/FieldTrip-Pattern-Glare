@@ -22,10 +22,10 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 
 %% Experiment parameters
 % ROI window
-%time_window = [3.08, 3.99];
+%time_window = [2.8 3.99];
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
-time_window = [0.5 3.0];
-n_participants = 40;
+time_window = [0.5 3.05];
+n_participants = 4;
 baseline_period = [-0.2 0];
 %baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -34,11 +34,12 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
-wavelet_width = 3;
-frequency_ranges = {[8 13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
+wavelet_width = 3; % mostly obselite now moving to type 
+frequency_ranges = {[8,13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
+decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 %% Plotting config
 clust_volume = false; % cluter volume over time
 topograpic_map_plot = false; % make topographic maps
@@ -51,13 +52,13 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets-23-45-67','onsets'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
+onsets_parts = {'onsets','partitions','onsets-23-45-67','partitions-vs-onsets'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = false;
+testing = true;
 paper_figs = false;
 %% End of config
 
@@ -82,7 +83,7 @@ if contains(time_freq, "time")
                 type_of_effect = type_of_effects(j);
 
            tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_ranges{1}, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_ranges{1},decimate, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
                     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
                     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 
@@ -117,7 +118,7 @@ else
                 type_of_effect = type_of_effects(j);
 
                 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+                    aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, decimate, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
                     plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
                     onsets_part, type_of_effect, three_way_type, partitions, testing, paper_figs);
 

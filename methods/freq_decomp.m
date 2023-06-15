@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time, baseline_period)
+function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time, baseline_period, step)
 
     %%  Frequency decomposition function
     %   This is the main function for frequency decomposition
@@ -9,12 +9,19 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     temp_time = time(1);
     if time(1) >= 3 
         time(1) = 2.8;
+    elseif time(1) == 0.5
+        time(1) = -0.2;
     else
         time(1) = datas{1}.time(1);
     end
 
-
+    step = 1/step;
+    pad_samp = 125;
     [thin, med, thick] = split_data(datas,true);
+    thin = pad_series(thin, pad_samp, step);
+    med = pad_series(med, pad_samp, step);
+    thick = pad_series(thick, pad_samp, step);
+
     if ~strcmp(output,'pow')
         thin = [];
         thick = [];
@@ -47,13 +54,17 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         end
     end
 
-    step = 1/512;
+    
     start = time(1);
     endt = time(2);
 
+
+    %cfg.parameter = 'avg';
+    
+for index = 1:numel(datas)
     cfg = [];
     cfg.output = output;
-    cfg.method = 'wavelet';
+    cfg.method = 'superlet';
     cfg.width = wavelet_width;
     cfg.foi = frequency_range(1):1:frequency_range(2); 
     cfg.toi = start:step:endt;
@@ -61,9 +72,9 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     cfg.channel = 'all';
     cfg.trials = 'all';
     cfg.keeptrials = 'yes';
-    %cfg.parameter = 'avg';
+    cfg.superlet.basewidth = wavelet_width;
+    cfg.superlet.gwidth = 3;
     
-parfor index = 1:numel(datas)
         if strcmp(cfg.output, 'pow')
             thin{index} = ft_freqanalysis(cfg, thin{index});
             med{index} = ft_freqanalysis(cfg, med{index});

@@ -1,5 +1,6 @@
 %% preprocessing pipeline for FieldTrip *** Author; Cihan Dogan, Edited by Tom Jefferis
 % Edits include reducing memory usage and making pipeline multi-threaded which reduces processing time greatly
+% 2023 Edit includes mirror padding of 1 second 
 clear all;
 restoredefaultpath;
 
@@ -7,12 +8,11 @@ restoredefaultpath;
 
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
-to_preprocess = {'partitions'}; 
+to_preprocess = {'mean_intercept'}; 
 type_of_analysis = 'frequency_domain'; % frequency_domain or time_domain
 onsets = [
-    [2,3];
-    [4,5];
     [6,7];
+
 %[2,3,4,5,6,7,8];
 ];
 number_of_onsets = size(onsets);
@@ -20,6 +20,7 @@ number_of_onsets = number_of_onsets(1);
 n_participants = 40;
 filter_freq = [0.1, 80];
 baseline_window = [2.8 3.0];
+decimate = 250;
 
 %% main preprocessing loop
 for k = to_preprocess
@@ -29,8 +30,8 @@ for k = to_preprocess
 
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
-
-        for participant = 1:n_participants
+        ft_defaults;
+        parfor participant = 1:n_participants
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);
@@ -82,6 +83,8 @@ for k = to_preprocess
                 cfg.bpfilter = 'yes';
                 cfg.bpfilttype = 'fir';
                 cfg.bpfreq = filter_freq;
+                cfg.padding = 5.5;
+                cfg.padtype = 'mirror';
 
                 data = ft_preprocessing(cfg, raw);
 
@@ -101,6 +104,8 @@ for k = to_preprocess
                 cfg.artfctdef.reject = 'complete';
                 cfg.artfctdef.zvalue.artifact = artifact;
                 postprocessed = ft_rejectartifact(cfg, data);
+
+
                 data = [];
                 % update with the proper trial names after artefact rejection
                 postprocessed = label_data_with_trials(raw, postprocessed);
@@ -108,6 +113,15 @@ for k = to_preprocess
                 filler = [];
                 % reject based on count of trials per condition
                 reject_participant = reject_particiapnt_based_on_bad_trials(postprocessed, raw);
+
+                                % resample
+                if decimate ~= 512
+                    cfg = [];
+                    cfg.resamplefs = decimate;
+                    sampinfo = postprocessed.sampleinfo;
+                    postprocessed = ft_resampledata(cfg, postprocessed);
+                    postprocessed.sampleinfo = sampinfo;
+                end
 
                 if reject_participant == 1
                     disp(strcat('REJECTED PARTICIPANT...', int2str(participant)));
@@ -139,6 +153,9 @@ end
 function [trial_level, grand_averages] = data_ready_for_analysis(postprocessed, data_type)
 
     postprocessed = remove_electrodes(postprocessed);
+
+    trial_level = struct([]);
+    grand_averages = struct([]);
 
     idx_used_for_saving_data = 1;
     trial_names_and_order = postprocessed.trial_order;
@@ -188,7 +205,7 @@ function [trial_level, grand_averages] = data_ready_for_analysis(postprocessed, 
 
         end
 
-        trial_level.p1_med = convert_to_fieldtrip_format(p1_med);
+        trial_level(1).p1_med = convert_to_fieldtrip_format(p1_med);
         trial_level.p2_med = convert_to_fieldtrip_format(p2_med);
         trial_level.p3_med = convert_to_fieldtrip_format(p3_med);
         trial_level.p1_thin = convert_to_fieldtrip_format(p1_thin);
@@ -213,7 +230,7 @@ function [trial_level, grand_averages] = data_ready_for_analysis(postprocessed, 
         p3_thick = mean(p3_thick, 3);
 
         % setup the data structure for analysis
-        grand_averages.p1_pgi = p1_med - (p1_thin + p1_thick) / 2;
+        grand_averages(1).p1_pgi = p1_med - (p1_thin + p1_thick) / 2;
         grand_averages.p2_pgi = p2_med - (p2_thin + p2_thick) / 2;
         grand_averages.p3_pgi = p3_med - (p3_thin + p3_thick) / 2;
 
@@ -258,7 +275,7 @@ function [trial_level, grand_averages] = data_ready_for_analysis(postprocessed, 
 
         end
 
-        trial_level.thin = convert_to_fieldtrip_format(thin);
+        trial_level(1).thin = convert_to_fieldtrip_format(thin);
         trial_level.med = convert_to_fieldtrip_format(medium);
         trial_level.thick = convert_to_fieldtrip_format(thick);
         trial_level.elec = postprocessed.elec;
@@ -270,7 +287,7 @@ function [trial_level, grand_averages] = data_ready_for_analysis(postprocessed, 
         thick = mean(thick, 3);
         medium = mean(medium, 3);
 
-        grand_averages.thin = thin;
+        grand_averages(1).thin = thin;
         grand_averages.thick = thick;
         grand_averages.med = medium;
         grand_averages.trialinfo = [1];

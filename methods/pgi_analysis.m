@@ -1,5 +1,5 @@
 function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
-        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
+        aggregated_roi, max_windows, spatial_roi, posneg, stat_run, wavelet_width, frequency_range, decimate, power_itc, tfr_plots, clust_volume, topograpic_map_plot, ...
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
         onsets_part, type_of_effect, three_way_type, orthoganilized_partitions, testing, paper_figs)
 
@@ -34,8 +34,16 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         % Loads Averaged data (1 timeseries per conditon per patricipant)
         if strcmp(time_freq, 'time') && ~strcmp(onsets_part, 'partition1')
             [datas, orders] = load_data(main_path, grand_avg_filename, n_participants, onsets_part);
+            % do if baseline isnt [2.8 3.0] and time data
+            if (sum(baseline_period == [2.8 3.0]) < 2)
+                datas = rebaseline_data(datas, baseline_period);
+            end
         elseif strcmp(time_freq, 'time') && strcmp(onsets_part, 'partition1')
             [datas, orders] = load_data(main_path, grand_avg_partitions_filename, n_participants, onsets_part);
+            % do if baseline isnt [2.8 3.0] and time data
+            if (sum(baseline_period == [2.8 3.0]) < 2)
+                datas = rebaseline_data(datas, baseline_period);
+            end
         else
 
             filename_precomposed = strcat(results_dir, "/", onsets_part, "/", string(wavelet_width), "-cyc-", power_itc, "-", string(frequency_range(1)), "-", string(frequency_range(2)), "-", string(time_window(1)), "-", string(time_window(2)), "-", onsets_part, "-", "decomposed_dat.mat");
@@ -43,7 +51,8 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
             if ~exist(filename_precomposed, 'file')
                 disp("Decomposed File Not Found");
                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                % do if baseline isnt [2.8 3.0] and time data
+                [datas] = freq_power_decopmosition(datas, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
                 decomposed.data = datas;
                 decomposed.order = orders;
                 save(filename_precomposed, "decomposed", '-v7.3');
@@ -57,10 +66,6 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
 
         end
 
-        % do if baseline isnt [2.8 3.0] and time data
-        if (sum(baseline_period == [2.8 3.0]) < 2) && strcmp(time_freq, 'time')
-            datas = rebaseline_data(datas, baseline_period);
-        end
 
         %for every time windows
         for index = 1:size(time, 1)
@@ -388,7 +393,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
                                 [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
-                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas] = freq_power_decopmosition(datas, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
                                 decomposed.data = datas;
                                 decomposed.order = orders;
                                 save(filename_precomposed, "decomposed", '-v7.3');
@@ -405,7 +410,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
                                 [datas, orders] = load_data(main_path, single_trial_filename, n_participants, onsets_part);
-                                [datas] = freq_power_decopmosition(datas, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas] = freq_power_decopmosition(datas, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
                                 decomposed.data = datas;
                                 decomposed.order = orders;
                                 save(filename_precomposed, "decomposed", '-v7.3');
@@ -750,9 +755,9 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                             if ~exist(filename_precomposed, 'file')
                                 disp("Decomposed File Not Found");
                                 [datas, orders] = load_data(main_path, single_trial_freq_partitions_filename, n_participants, onsets_part);
-                                [datas1] = freq_power_decopmosition(datas.part1, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
-                                [datas2] = freq_power_decopmosition(datas.part2, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
-                                [datas3] = freq_power_decopmosition(datas.part3, wavelet_width, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas1] = freq_power_decopmosition(datas.part1, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas2] = freq_power_decopmosition(datas.part2, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
+                                [datas3] = freq_power_decopmosition(datas.part3, wavelet_width, decimate, filename_precomposed, time_window, frequency_range, baseline_period);
                                 datas.part1 = datas1;
                                 datas.part2 = datas2;
                                 datas.part3 = datas3;
