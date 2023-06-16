@@ -25,7 +25,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %time_window = [2.8 3.99];
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
 time_window = [0.5 3.05];
-n_participants = 4;
+n_participants = 40;
 baseline_period = [-0.2 0];
 %baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -36,7 +36,7 @@ posneg = false; %true = positive side of roi false = negative
 % if need statistical test without plotting
 stat_run = false;
 %% frequency config
-wavelet_width = 3; % mostly obselite now moving to type 
+wavelet_width = 5; % mostly obselite now moving to type 
 frequency_ranges = {[8,13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 

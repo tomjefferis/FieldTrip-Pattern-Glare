@@ -1,4 +1,4 @@
-function plots = plot_median_split_power(low, high, electrode, time, factor, save_dir, paper_figs, font_size)
+function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, paper_figs, font_size)
 
     if ~exist('font_size','var')
         font_size = 12;
@@ -12,76 +12,61 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
 
     electrode_idx = get_electrode_index(low, electrode);
 
-    lowitpc = mean(squeeze(low.powspctrm(electrode_idx,:,:)),1);
-    highitpc = mean(squeeze(high.powspctrm(electrode_idx,:,:)),1);
+    data = average_power(data, data{1}.freq);
+
+    dataitpc = mean(squeeze(data.powspctrm(electrode_idx,:,:)),1);
+    meditpc = mean(squeeze(data.med_powspctrm(electrode_idx,:,:)),1);
+
+
 
     figure
 
-    subplot(4, 2, [1 2]);
-    ax1 = plot(low.time,lowitpc,'g',high.time,highitpc,'b','LineWidth', 1.4);
+    subplot(4, 1, 1);
+    ax1 = plot(data.time,dataitpc,'g','LineWidth', 1.4);
     xline(electrode.time, '--r');
-    title('Median split power PGI');
-    legend("Low PGI", "High PGI","Maximum Effect", 'location', 'eastoutside');
+    yline(0,'--o');
+    title('PGI Power');
+    legend("PGI","Maximum Effect", 'location', 'eastoutside');
     xl1 = xlabel("Time S");
     ylabel("Power db");
     grid on;
     xlim([time(1), time(end)])
-    ylim([min(min(lowitpc,highitpc)) *1.2 ,max(max(lowitpc,highitpc))* 1.2])
+    ylim([min(min(dataitpc)) *1.2 ,max(max(dataitpc))* 1.2])
     
 
-    lowitlc = mean(squeeze(low.med_powspctrm(electrode_idx,:,:)),1);
-    highitlc = mean(squeeze(high.med_powspctrm(electrode_idx,:,:)),1);
-
-
-    subplot(4, 2, [3 4]);
-    ax2 = plot(low.time,lowitlc,'g',high.time,highitlc,'b','LineWidth', 1.4);
+    subplot(4, 1, 2);
+    ax2 = plot(data.time,meditpc,'b','LineWidth', 1.4);
     xline(electrode.time, '--r');
-    title('Median split power Medium');
-    legend("Low Medium", "High Medium","Maximum Effect", 'location', 'eastoutside');
+    yline(0,'--o');
+    title('Medium Power');
+    legend("Medium","Maximum Effect", 'location', 'eastoutside');
     xl2 = xlabel("Time S");
     ylabel("Power db");
     grid on;
     xlim([time(1), time(end)])
-    ylim([min(min(lowitlc,highitlc)) *1.2 ,max(max(lowitlc,highitlc))* 1.2])
+    ylim([min(min(meditpc)) *1.2 ,max(max(meditpc))* 1.2])
 
-    subplot(4, 2, 5);
-    ax3 = imagesc(low.time, low.freq, squeeze(low.powspctrm(electrode_idx, :, :)));
+    subplot(4, 1, 3);
+    ax3 = imagesc(data.time, data.freq, squeeze(data.powspctrm(electrode_idx, :, :)));
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
-    tit = strcat("Low Group Power Spectrum PGI");
+    tit = strcat("PGI Power Spectrum");
     title(tit);
 
-    subplot(4, 2, 6);
-    ax4 = imagesc(high.time, high.freq, squeeze(high.powspctrm(electrode_idx, :, :)));
+    subplot(4, 1, 4);
+    ax4 = imagesc(data.time, data.freq, squeeze(data.med_powspctrm(electrode_idx, :, :)));
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
-    tit = strcat("High Group Power Spectrum PGI");
+    tit = strcat("Medium Power Spectrum");
     title(tit);
 
-    subplot(4, 2, 7);
-    ax5 = imagesc(low.time, low.freq, squeeze(low.med_powspctrm(electrode_idx, :, :)));
-    xlabel("Time S");
-    ylabel("Frequency Hz");
-    hold on;
-    xline(electrode.time, '--r');
-    tit = strcat("Low Group Power Spectrum Medium");
-    title(tit);
-
-    subplot(4, 2, 8);
-    ax6 = imagesc(high.time, high.freq, squeeze(high.med_powspctrm(electrode_idx, :, :)));
-    xlabel("Time S");
-    ylabel("Frequency Hz");
-    hold on;
-    xline(electrode.time, '--r');
-    tit = strcat("High Group Power Spectrum Medium");
-    title(tit);
 
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
-    set(gcf, 'Position', [100, 100, 1900, 1600]);
+    set(gcf, 'Position', [100, 100, 1900, 1000]);
 
     labPos1 = get(xl1, 'Position');
     labPos1(1) = labPos1(1)*1.13;
@@ -93,7 +78,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     labPos2(2) = labPos2(2)/1.17;
     set(xl2, 'Position', labPos2);
 
-    linkaxes([ax3,ax4,ax5,ax6],'z')
+    linkaxes([ax3,ax4],'z')
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
 

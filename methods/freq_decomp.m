@@ -61,10 +61,10 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
 
     %cfg.parameter = 'avg';
     
-for index = 1:numel(datas)
+parfor index = 1:numel(datas)
     cfg = [];
     cfg.output = output;
-    cfg.method = 'superlet';
+    cfg.method = 'wavelet';
     cfg.width = wavelet_width;
     cfg.foi = frequency_range(1):1:frequency_range(2); 
     cfg.toi = start:step:endt;
@@ -72,8 +72,6 @@ for index = 1:numel(datas)
     cfg.channel = 'all';
     cfg.trials = 'all';
     cfg.keeptrials = 'yes';
-    cfg.superlet.basewidth = wavelet_width;
-    cfg.superlet.gwidth = 3;
     
         if strcmp(cfg.output, 'pow')
             thin{index} = ft_freqanalysis(cfg, thin{index});
