@@ -10,7 +10,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
         time(2) = 2.8;
     end
 
-    electrode_idx = get_electrode_index(low, electrode);
+    electrode_idx = get_electrode_index(data, electrode);
 
     data = average_power(data, data{1}.freq);
 

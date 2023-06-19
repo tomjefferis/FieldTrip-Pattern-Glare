@@ -7,10 +7,12 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     %
 
     temp_time = time(1);
-    if time(1) >= 3 
+    if temp_time >= 3 
         time(1) = 2.8;
-    elseif time(1) == 0.5
+        temp_time = 2.8;
+    elseif temp_time == 0.5
         time(1) = -0.2;
+        temp_time = -0.2;
     else
         time(1) = datas{1}.time(1);
     end
@@ -96,6 +98,11 @@ parfor index = 1:numel(datas)
             tx = baseline_freq(thin{index}, baseline_period);
             mx = baseline_freq(med{index}, baseline_period);
             thx = baseline_freq(thick{index}, baseline_period);
+
+            if isnan(idx)
+                idx = 1;
+            end
+
 
             tm = tx.time(idx:end);
 

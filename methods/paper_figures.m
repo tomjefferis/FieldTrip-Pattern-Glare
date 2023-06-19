@@ -12,7 +12,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     end
 
     % same for design
-    if length(design) > 40
+    if length(design) > 40 
         len = length(design);
         design1 = design(1:len/3);
         design2 = design(len/3+1:len/3*2);
@@ -60,7 +60,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     if ~contains(string(time_freq), "time")
         if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
-            if ~contains(factor, 'Intercept') || ~contains(factor, 'none')
+            if ~contains(factor, 'Intercept') 
                 erpplot = freq_power_median_split(data,1, design, electrode,time_freq, [start_time end_time], factor, results, true, font_size)
                 erpplot = print('-RGBImage');
             else
@@ -68,7 +68,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
-            if ~contains(factor, 'Intercept') || ~contains(factor, 'none')
+            if ~contains(factor, 'Intercept') 
             erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
             erpplot = print('-RGBImage');
             else

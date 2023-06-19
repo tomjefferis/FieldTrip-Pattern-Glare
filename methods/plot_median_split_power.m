@@ -6,8 +6,12 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
 
     if time(1) == 0.5
         time(1) = -0.2;
+        window = 0.5;
+        baseline = 0;
     elseif time(1) == 3.0
         time(2) = 2.8;
+        window = 3;
+        baseline = 3;
     end
 
     electrode_idx = get_electrode_index(low, electrode);
@@ -19,11 +23,13 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
 
     subplot(4, 2, [1 2]);
     ax1 = plot(low.time,lowitpc,'g',high.time,highitpc,'b','LineWidth', 1.4);
-    xline(electrode.time, '--r');
     title('Median split power PGI');
-    legend("Low PGI", "High PGI","Maximum Effect", 'location', 'eastoutside');
     xl1 = xlabel("Time S");
     ylabel("Power db");
+    xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
+    legend("Low PGI", "High PGI","Maximum Effect","Baseline End", "Window Start", 'location', 'eastoutside');
     grid on;
     xlim([time(1), time(end)])
     ylim([min(min(lowitpc,highitpc)) *1.2 ,max(max(lowitpc,highitpc))* 1.2])
@@ -35,48 +41,70 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
 
     subplot(4, 2, [3 4]);
     ax2 = plot(low.time,lowitlc,'g',high.time,highitlc,'b','LineWidth', 1.4);
-    xline(electrode.time, '--r');
     title('Median split power Medium');
-    legend("Low Medium", "High Medium","Maximum Effect", 'location', 'eastoutside');
     xl2 = xlabel("Time S");
     ylabel("Power db");
+    xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
+    legend("Low Medium", "High Medium","Maximum Effect","Baseline End", "Window Start", 'location', 'eastoutside');
     grid on;
     xlim([time(1), time(end)])
     ylim([min(min(lowitlc,highitlc)) *1.2 ,max(max(lowitlc,highitlc))* 1.2])
 
+    pgimax = round(max(max(max(squeeze(low.powspctrm(electrode_idx, :, :)),squeeze(high.powspctrm(electrode_idx, :, :))))))
+    pgimin = round(min(min(min(squeeze(low.powspctrm(electrode_idx, :, :)),squeeze(high.powspctrm(electrode_idx, :, :))))))
+    pgirange = [pgimin,pgimax];
+
+    medmax = round(max(max(max(squeeze(low.med_powspctrm(electrode_idx, :, :)),squeeze(high.med_powspctrm(electrode_idx, :, :))))))
+    medmin = round(min(min(min(squeeze(low.med_powspctrm(electrode_idx, :, :)),squeeze(high.med_powspctrm(electrode_idx, :, :))))))
+    medrange = [medmin,medmax];
+
     subplot(4, 2, 5);
-    ax3 = imagesc(low.time, low.freq, squeeze(low.powspctrm(electrode_idx, :, :)));
+    ax3 = imagesc(low.time, low.freq, squeeze(low.powspctrm(electrode_idx, :, :)),pgirange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
     tit = strcat("Low Group Power Spectrum PGI");
     title(tit);
 
     subplot(4, 2, 6);
-    ax4 = imagesc(high.time, high.freq, squeeze(high.powspctrm(electrode_idx, :, :)));
+    ax4 = imagesc(high.time, high.freq, squeeze(high.powspctrm(electrode_idx, :, :)),pgirange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
     tit = strcat("High Group Power Spectrum PGI");
     title(tit);
 
     subplot(4, 2, 7);
-    ax5 = imagesc(low.time, low.freq, squeeze(low.med_powspctrm(electrode_idx, :, :)));
+    ax5 = imagesc(low.time, low.freq, squeeze(low.med_powspctrm(electrode_idx, :, :)),medrange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
     tit = strcat("Low Group Power Spectrum Medium");
     title(tit);
 
     subplot(4, 2, 8);
-    ax6 = imagesc(high.time, high.freq, squeeze(high.med_powspctrm(electrode_idx, :, :)));
+    ax6 = imagesc(high.time, high.freq, squeeze(high.med_powspctrm(electrode_idx, :, :)),medrange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
     xline(electrode.time, '--r');
+    xline(baseline,'-m','LineWidth',1);
+    xline(window,'-','LineWidth',1);
     tit = strcat("High Group Power Spectrum Medium");
     title(tit);
 
@@ -92,8 +120,6 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     labPos2(1) = labPos2(1)*1.13;
     labPos2(2) = labPos2(2)/1.17;
     set(xl2, 'Position', labPos2);
-
-    linkaxes([ax3,ax4,ax5,ax6],'z')
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
 

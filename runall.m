@@ -34,7 +34,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to type 
 frequency_ranges = {[8,13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
@@ -52,14 +52,14 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets','partitions','onsets-23-45-67','partitions-vs-onsets'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
+onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
