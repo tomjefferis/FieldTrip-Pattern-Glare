@@ -5,10 +5,14 @@ if ~exist('font_size','var')
 end
 
 if time(1) == 0.5
-        time(1) = -0.2;
- elseif time(1) == 3.0
-        time(1) = 2.8;
- end
+    time(1) = -0.2;
+    window = 0.5;
+    baseline = 0;
+elseif time(1) == 3.0
+    time(2) = 2.8;
+    window = 3;
+    baseline = 3;
+end
 
 [low1, high1] = median_split(dataone, 1, design2);
 [low2, high2] = median_split(datatwo, 1, design2);
@@ -37,7 +41,7 @@ lowitpc3 = mean(squeeze(low3.powspctrm(electrode_idx, :, :)), 1);
 highitpc3 = mean(squeeze(high3.powspctrm(electrode_idx, :, :)), 1);
 
 if contains(factor,"onsets") || contains(factor,"Onsets")
-    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "", "Max Effect", ""];
+    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End", "Max Effect", "Window Start"];
     legend2 = ["Onsets 2,3 Med", "Onsets 4,5 Med", "Onsets 6,7 Med", "", "Max Effect", ""];
     
     title1 = 'Onsets 2,3';
@@ -45,7 +49,7 @@ if contains(factor,"onsets") || contains(factor,"Onsets")
     title3 = 'Onsets 6,7';
     title4 = 'Onsets';
 else
-    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "", "Max Effect", ""];
+    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End", "Max Effect", "Window Start"];
     legend2 = ["Partition 1 Med", "Partition 2 Med", "Partition 3 Med", "", "Max Effect", ""];
     
     title1 = 'Partition 1';
@@ -59,13 +63,15 @@ end
 ax1 = subplot(4, 2, 1);
 plot(low1.time, lowitpc1, 'g', low1.time, lowitpc2, 'b', low1.time, lowitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o', ["Stimulus", "Off"]);
-xline(0, '--o', ["Stimulus", "On"]);
+xline(3, '--o');
+xline(0, '--o');
 xlabel("Time S");
 ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 grid on;
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
 leg1 = legend(legend1, 'location', 'eastoutside');
 tit = strcat("Low Group");
@@ -74,90 +80,124 @@ title(tit);
 ax2 = subplot(4, 2, 2);
 plot(high1.time, highitpc1, 'g', high1.time, highitpc2, 'b', high1.time, highitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o', ["Stimulus", "Off"]);
-xline(0, '--o', ["Stimulus", "On"]);
+xline(3, '--o');
+xline(0, '--o');
 xlabel("Time S");
 ylabel("Power db");
 grid on;
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
 leg2 = legend(legend1, 'location', 'westoutside');
 tit = strcat("High Group");
 title(tit);
 
+pgimax = round(max(max(max(max(max(squeeze(low1.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high1.powspctrm(electrode_idx, :, :))), ...
+    max(squeeze(low2.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high2.powspctrm(electrode_idx, :, :)))), ...
+    max(max(squeeze(low3.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high3.powspctrm(electrode_idx, :, :))))))));
+
+pgimin = round(min(min(min(min(min(squeeze(low1.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high1.powspctrm(electrode_idx, :, :))), ...
+    min(squeeze(low2.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high2.powspctrm(electrode_idx, :, :)))), ...
+    min(min(squeeze(low3.powspctrm(electrode_idx, :, :)), ...
+    squeeze(high3.powspctrm(electrode_idx, :, :))))))));
+pgirange = [pgimin,pgimax];
+
+
 ax3 = subplot(4, 2, 3);
-imagesc(low1.time, low1.freq, squeeze(low1.powspctrm(electrode_idx, :, :)));
+imagesc(low1.time, low1.freq, squeeze(low1.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
 ylabel(strcat(title1," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("Power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax4 = subplot(4, 2, 4);
-imagesc(high1.time, high1.freq, squeeze(high1.powspctrm(electrode_idx, :, :)));
+imagesc(high1.time, high1.freq, squeeze(high1.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("Power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax5 = subplot(4, 2, 5);
-imagesc(low2.time, low2.freq, squeeze(low2.powspctrm(electrode_idx, :, :)));
+imagesc(low2.time, low2.freq, squeeze(low2.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlim(xlimit);
 %ylim(ylimit);
 axis xy
 xlabel("Time S");
 ylabel(strcat(title2," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("Low group power spectrum ", title2, " @ ", electrode.electrode);
 %title(tit);
 
 ax6 = subplot(4, 2, 6);
-imagesc(high2.time, high2.freq, squeeze(high2.powspctrm(electrode_idx, :, :)));
+imagesc(high2.time, high2.freq, squeeze(high2.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlim(xlimit);
 %ylim(ylimit);
 axis xy
 xlabel("Time S");
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("High group power spectrum ", title2, " @ ", electrode.electrode);
 %title(tit);
 
 ax7 = subplot(4, 2, 7);
-imagesc(low3.time, low3.freq, squeeze(low3.powspctrm(electrode_idx, :, :)));
+imagesc(low3.time, low3.freq, squeeze(low3.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlim(xlimit);
 % ylim(ylimit);
 axis xy
 xlabel("Time S");
 ylabel(strcat(title3," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("Low group power spectrum ", title3, " @ ", electrode.electrode);
 %title(tit);
 
 ax8 = subplot(4, 2, 8);
-imagesc(high3.time, high3.freq, squeeze(high3.powspctrm(electrode_idx, :, :)));
+imagesc(high3.time, high3.freq, squeeze(high3.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlim(xlimit);
 %ylim(ylimit);
 axis xy
 xlabel("Time S");
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat("High group power spectrum ", title3, " @ ", electrode.electrode);
 %title(tit);
 
 linkaxes([ax1 ax2],'y');
 ax1.YLim = ax1.YLim * 1.1;
-
-linkaxes([ax3 ax4 ax5 ax6 ax7 ax8],'z');
 
 titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
 set(findall(gcf,'-property','FontSize'),'FontSize',font_size);

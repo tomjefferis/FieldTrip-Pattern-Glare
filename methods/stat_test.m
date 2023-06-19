@@ -98,6 +98,13 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
             stat.ref = squeeze(stat.ref);
 
         else
+            
+            freqs = data{1}.freq;
+
+            for i = 1:numel(data)
+                data{i}.freq = freqs;
+            end
+
             % if there is a condition a t-test is done with independant samples to find significance on factor
             cfg.avgoverfreq = 'yes';
             cfg.ivar = 1;

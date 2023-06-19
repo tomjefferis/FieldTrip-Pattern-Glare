@@ -69,7 +69,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
             end
         elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
             if ~contains(factor, 'Intercept') 
-            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, [start_time end_time],font_size)
             erpplot = print('-RGBImage');
             else
                 erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
@@ -77,7 +77,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
             end
         elseif contains(onsets_part, 'onsets-23-45-67')
             if ~contains(factor, 'Intercept') || ~contains(factor, 'none')
-            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size)
             erpplot = print('-RGBImage');
             else
                 erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
