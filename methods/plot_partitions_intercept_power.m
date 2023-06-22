@@ -5,10 +5,14 @@ if ~exist('font_size','var')
 end
 
 if time(1) == 0.5
-        time(1) = -0.2;
- elseif time(1) == 3.0
-        time(1) = 2.8;
- end
+    time(1) = -0.2;
+    window = 0.5;
+    baseline = 0;
+elseif time(1) == 3.0
+    time(1) = 2.8;
+    window = 3;
+    baseline = 3;
+end
 
 
 cfg = [];
@@ -31,8 +35,16 @@ datmed1 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
 datmed2 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
 datmed3 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
 
+
+pgimax = round(max(max(max(max(max(squeeze(datitpc1.powspctrm(electrode_idx, :, :)),squeeze(datitpc2.powspctrm(electrode_idx, :, :)),squeeze(datitpc3.powspctrm(electrode_idx, :, :))))))) + 0.5);
+
+pgimin = round(min(min(min(min(min(squeeze(datitpc1.powspctrm(electrode_idx, :, :)),squeeze(datitpc2.powspctrm(electrode_idx, :, :)),squeeze(datitpc3.powspctrm(electrode_idx, :, :))))))) - 0.5);
+pgirange = [pgimin,pgimax];
+
+
+
 if contains(factor,"onsets") || contains(factor,"Onsets")
-    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "", "Max Effect", ""];
+    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End", "Max Effect", "Window Start"];
     legend2 = ["Onsets 2,3 Med", "Onsets 4,5 Med", "Onsets 6,7 Med", "", "Max Effect", ""];
     
     title1 = 'Onsets 2,3';
@@ -40,7 +52,7 @@ if contains(factor,"onsets") || contains(factor,"Onsets")
     title3 = 'Onsets 6,7';
     title4 = 'Onsets';
 else
-    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "", "Max Effect", ""];
+    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End", "Max Effect", "Window Start"];
     legend2 = ["Partition 1 Med", "Partition 2 Med", "Partition 3 Med", "", "Max Effect", ""];
     
     title1 = 'Partition 1';
@@ -49,18 +61,17 @@ else
     title4 = 'Partitions';
 end
 
-
 % First subplot low PGI across partitions
 ax1 = subplot(5, 1, 1);
 plot(datitpc1.time, datitpc1, 'g', datitpc1.time, datitpc2, 'b', datitpc1.time, datitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o', ["Stimulus", "Off"]);
-xline(0, '--o', ["Stimulus", "On"]);
 xlabel("Time S");
 ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 grid on;
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
 leg1 = legend(legend1, 'location', 'eastoutside');
 tit = strcat("PGI through ", title4);
@@ -69,52 +80,60 @@ title(tit);
 ax2 = subplot(5, 1, 2);
 plot(datitpc1.time, datmed1, 'g', datitpc1.time, datmed2, 'b', datitpc1.time, datmed3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o', ["Stimulus", "Off"]);
-xline(0, '--o', ["Stimulus", "On"]);
 xlabel("Time S");
 ylabel("Power db");
 grid on;
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
 leg2 = legend(legend1, 'location', 'westoutside');
 tit = strcat("Medium through ", title4);
 title(tit);
 
 ax3 = subplot(5, 1, 3);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc1.powspctrm(electrode_idx, :, :)));
+imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc1.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat(title1, " power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax4 = subplot(5, 1, 4);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc2.powspctrm(electrode_idx, :, :)));
+imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc2.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat(title2," power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax5 = subplot(5, 1, 5);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc3.powspctrm(electrode_idx, :, :)));
+imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc3.powspctrm(electrode_idx, :, :)),pgirange);
+colorbar;
 xlim(xlimit);
 %ylim(ylimit);
 axis xy
 xlabel("Time S");
 ylabel("Frequency Hz");
 hold on;
+xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
+xline(window,'-','LineWidth',1);
 tit = strcat(title3," power spectrum @ ", electrode.electrode);
 %title(tit);
 
 
-linkaxes([ax3 ax4 ax5],'z');
 
 titles = strcat("Interactions through ", title4, " for ", factor);
 set(findall(gcf,'-property','FontSize'),'FontSize',font_size);

@@ -9,7 +9,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
         window = 0.5;
         baseline = 0;
     elseif time(1) == 3.0
-        time(2) = 2.8;
+        time(1) = 2.8;
         window = 3;
         baseline = 3;
     end

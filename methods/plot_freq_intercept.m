@@ -5,10 +5,14 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     end
 
     if time(1) == 0.5
-        time(1) = -0.2;
-    elseif time(1) == 3.0
-        time(2) = 2.8;
-    end
+    time(1) = -0.2;
+    window = 0.5;
+    baseline = 0;
+elseif time(1) == 3.0
+    time(1) = 2.8;
+    window = 3;
+    baseline = 3;
+end
 
     electrode_idx = get_electrode_index(data, electrode);
 
@@ -17,16 +21,25 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     dataitpc = mean(squeeze(data.powspctrm(electrode_idx,:,:)),1);
     meditpc = mean(squeeze(data.med_powspctrm(electrode_idx,:,:)),1);
 
+    minmed = round(min(min(min(min(squeeze(data.med_powspctrm(electrode_idx, :, :)))))) - 0.5);
+    maxmed = round(max(max(max(max(squeeze(data.med_powspctrm(electrode_idx, :, :)))))) + 0.5);
+    medrange = [minmed, maxmed];
+
+    minpgi = round(min(min(min(min(min(squeeze(data.med_powspctrm(electrode_idx, :, :)))))))- 0.5);
+    maxpgi = round(max(max(max(max(max(squeeze(data.med_powspctrm(electrode_idx, :, :))))))) + 0.5);
+    pgirange = [minpgi, maxpgi];
 
 
     figure
 
     subplot(4, 1, 1);
     ax1 = plot(data.time,dataitpc,'g','LineWidth', 1.4);
+    xline(baseline,'-m','LineWidth',1);
     xline(electrode.time, '--r');
+    xline(window,'-','LineWidth',1);
     yline(0,'--o');
     title('PGI Power');
-    legend("PGI","Maximum Effect", 'location', 'eastoutside');
+    legend("PGI","Baseline End", "Max Effect", "Window Start", 'location', 'eastoutside');
     xl1 = xlabel("Time S");
     ylabel("Power db");
     grid on;
@@ -36,10 +49,12 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
 
     subplot(4, 1, 2);
     ax2 = plot(data.time,meditpc,'b','LineWidth', 1.4);
+    xline(baseline,'-m','LineWidth',1);
     xline(electrode.time, '--r');
+    xline(window,'-','LineWidth',1);
     yline(0,'--o');
     title('Medium Power');
-    legend("Medium","Maximum Effect", 'location', 'eastoutside');
+    legend("Medium","Baseline End", "Max Effect", "Window Start", 'location', 'eastoutside');
     xl2 = xlabel("Time S");
     ylabel("Power db");
     grid on;
@@ -47,20 +62,26 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     ylim([min(min(meditpc)) *1.2 ,max(max(meditpc))* 1.2])
 
     subplot(4, 1, 3);
-    ax3 = imagesc(data.time, data.freq, squeeze(data.powspctrm(electrode_idx, :, :)));
+    ax3 = imagesc(data.time, data.freq, squeeze(data.powspctrm(electrode_idx, :, :)),pgirange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
+    xline(baseline,'-m','LineWidth',1);
     xline(electrode.time, '--r');
+    xline(window,'-','LineWidth',1);
     tit = strcat("PGI Power Spectrum");
     title(tit);
 
     subplot(4, 1, 4);
-    ax4 = imagesc(data.time, data.freq, squeeze(data.med_powspctrm(electrode_idx, :, :)));
+    ax4 = imagesc(data.time, data.freq, squeeze(data.med_powspctrm(electrode_idx, :, :)),medrange);
+    colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
+    xline(baseline,'-m','LineWidth',1);
     xline(electrode.time, '--r');
+    xline(window,'-','LineWidth',1);
     tit = strcat("Medium Power Spectrum");
     title(tit);
 
@@ -78,7 +99,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     labPos2(2) = labPos2(2)/1.17;
     set(xl2, 'Position', labPos2);
 
-    linkaxes([ax3,ax4],'z')
+    
 
     if contains(factor, "habituation") || contains(factor, "sensitization")
 

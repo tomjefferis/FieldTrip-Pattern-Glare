@@ -690,7 +690,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         stat1.posclusters(1).prob = 1;
                         paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range)
                     
-                    elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
+                    elseif Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
                         paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range);
                     end
 

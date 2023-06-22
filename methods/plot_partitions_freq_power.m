@@ -9,7 +9,7 @@ if time(1) == 0.5
     window = 0.5;
     baseline = 0;
 elseif time(1) == 3.0
-    time(2) = 2.8;
+    time(1) = 2.8;
     window = 3;
     baseline = 3;
 end
@@ -63,8 +63,6 @@ end
 ax1 = subplot(4, 2, 1);
 plot(low1.time, lowitpc1, 'g', low1.time, lowitpc2, 'b', low1.time, lowitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o');
-xline(0, '--o');
 xlabel("Time S");
 ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 grid on;
@@ -80,8 +78,6 @@ title(tit);
 ax2 = subplot(4, 2, 2);
 plot(high1.time, highitpc1, 'g', high1.time, highitpc2, 'b', high1.time, highitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
-xline(3, '--o');
-xline(0, '--o');
 xlabel("Time S");
 ylabel("Power db");
 grid on;
