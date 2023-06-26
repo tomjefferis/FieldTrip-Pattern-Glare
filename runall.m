@@ -34,9 +34,9 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
-wavelet_width = 5; % mostly obselite now moving to type 
+wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,13],[20 35], [30 45], [45 60], [60 80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
@@ -53,13 +53,13 @@ generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOT
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets-23-45-67','partitions'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_parts = {'onsets','onsets-23-45-67','partitions'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitionss = {'normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -105,10 +105,10 @@ else
 
             frequency_range = frequency_ranges{k};
 
-            if frequency_range(1) >= 40
-                wavelet_width = 10;
+            if baseline_period(1) == -0.2
+                wavelet_width = round(0.1447 * round((frequency_range(1)+frequency_range(2))/2)*pi);
             else
-                wavelet_width = 5;
+                wavelet_width = round(0.1 * round((frequency_range(1)+frequency_range(2))/2)*pi);
             end
 
             for m = 1:numel(partitionss)
