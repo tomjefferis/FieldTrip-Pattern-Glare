@@ -90,17 +90,17 @@ function plots = generate_erp_plot(results_dir, start_time, end_time, data, sign
     end
 
     % more plotting details
-    
-    if ~(start_window_time == 3)
-        xline(start_window_time, '-');
-    else
-        xline(3, '--o');
-    end
+    xline(start_window_time, '-', 'LineWidth', 2);
+    xline(3, '--', 'LineWidth', 2);
+    xline(0.5, '-', 'LineWidth', 2);
+  
+
     legend("Thin", "Medium", "Thick", "", "Max Effect", "","","","","", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 1600, 600]);
     grid on;
+    set(gca, 'LineWidth', 2);
     if ~paper_plot
         title(graph_title);
         subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));

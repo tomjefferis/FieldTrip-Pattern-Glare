@@ -95,7 +95,11 @@ function [significant_electrode] = compute_best_electrode(stat, type, cluster)
         end
     end
 significant_electrode.sig_start = stat.time(start_clus);
-significant_electrode.sig_end =  stat.time(end_clus);
+try
+    significant_electrode.sig_end =  stat.time(end_clus);
+catch
+    significant_electrode.sig_end =  stat.time(end);
+end
     
 
 end

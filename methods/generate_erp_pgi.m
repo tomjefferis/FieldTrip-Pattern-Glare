@@ -54,7 +54,7 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
     [high, low] = ylimit_finder(data, significant_electrode);
     plot(time, y1, 'g', 'LineWidth', 1.6);
     hold on;
-    plot([significant_electrode.sig_start,significant_electrode.sig_end],[0,0] ,'b','LineWidth', 1.4);
+    plot([significant_electrode.sig_start,significant_electrode.sig_end],[0,0] ,'b','LineWidth', 2);
     xlim(plotting_window);
     ylim([low high]);
     yline(0, '--');
@@ -62,7 +62,7 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
     
 
     %xline(end_window_time, '-', {"Window End"});
-    xline(significant_electrode.time, '--r','LineWidth', 1.4);
+    xline(significant_electrode.time, '--r','LineWidth', 2);
     
     hold on;
 
@@ -74,7 +74,10 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
 
     end
 
-    
+    xline(start_window_time, '-', 'LineWidth', 2);
+    xline(3, '--', 'LineWidth', 2);
+    xline(0.5, '-', 'LineWidth', 2);
+  
 
 
     legend(gfp, "Duration","","Max Effect",'location', 'northwestoutside');
@@ -82,6 +85,7 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 1600, 600]);
     grid on;
+    set(gca, 'LineWidth', 2);
     if ~paper_plot
         title(graph_title);
         subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));

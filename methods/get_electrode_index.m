@@ -24,4 +24,7 @@ function [elec_index] = get_electrode_index(data, electrode)
 
     end
 
+    elec_index = 24;
+    return;
+
 end

@@ -23,16 +23,16 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     start = 2.8;
     f1 = figure;
 
-    tiledlayout(5,1);
+    tiledlayout(3,2);
 
     % First subplot low PGI across partitions
     ax1 = nexttile
     data = partitions_combine(dataone, datatwo, datathree, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.8350 0.0780 0.1840];
+    h(7).Color = [0.4660 0.8740 0.1880];
+    h(6).Color = [0.3010 0.7450 0.9330];
    
     hold on;
     legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northeastoutside');
@@ -41,22 +41,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     subtitle("");
     ylabel(strcat("Partitions PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    ax2 = nexttile
-    data = partitions_combine(dataone, datatwo, datathree, "med");
-    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
-    h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
-    h(4).Color = 'b';
-   
-    hold on;
-    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northeastoutside');
-    tit = strcat("");
-    title(tit);
-    subtitle("");
-    ylabel(strcat("Partitions Med"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
-
-    ax3 = nexttile
+    ax5 = nexttile
     generate_erp_plot(results, start, endtime, dataone, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
    
@@ -67,7 +52,23 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     subtitle("");
     ylabel(strcat("Partition 1"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    ax4 = nexttile
+
+    ax3 = nexttile
+    data = partitions_combine(dataone, datatwo, datathree, "med");
+    generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
+    h = get(gca, 'Children');
+    h(8).Color = 'r';
+    h(7).Color = 'g';
+    h(6).Color = 'b';
+   
+    hold on;
+    legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northeastoutside');
+    tit = strcat("");
+    title(tit);
+    subtitle("");
+    ylabel(strcat("Partitions Med"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+
+    ax2 = nexttile
     generate_erp_plot(results, start, endtime, datatwo, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
    
@@ -78,7 +79,10 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     subtitle("");
     ylabel(strcat("Partition 2"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
 
-    ax5 = nexttile
+    nexttile
+    axis off
+    
+    ax4 = nexttile
     generate_erp_plot(results, start, endtime, datathree, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
    
@@ -88,6 +92,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     title(tit);
     subtitle("");
     ylabel(strcat("Partition 3"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+
 
     linkaxes([ax1 ax2 ax3 ax4 ax5],'y');
     ax1.YLim = ax1.YLim * 1.1;

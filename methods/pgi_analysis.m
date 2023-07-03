@@ -346,7 +346,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                         stat1.posclusters(1).prob = 1;
                         paper_figures(data, stat1, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir,frequency_range);
                     
-                    elseif Negative_Cluster || 0.1 && Positive_Cluster <= 0.1
+                    elseif Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
                         paper_figures(data, stat, design_matrix, onsets_part, factor, start_time, end_time, generate_ci, results_dir,frequency_range);
                     end
 
@@ -665,36 +665,35 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
                     end
 
                     if paper_figs
-
-                        if strcmp(time_freq,'time')
+                    if strcmp(time_freq,'time')
                             frequency_range = 'time';
-                        end
+                    end
 
-                        try
-                            Negative_Cluster = stat.negclusters.prob;
-                        catch e
-                            Negative_Cluster = 1;
-                        end
+                    try
+                        Negative_Cluster = stat.negclusters.prob;
+                    catch e
+                        Negative_Cluster = 1;
+                    end
 
-                        try
-                            Positive_Cluster = stat.posclusters.prob;
-                        catch e
-                            Positive_Cluster = 1;
-                        end
+                    try
+                        Positive_Cluster = stat.posclusters.prob;
+                    catch e
+                        Positive_Cluster = 1;
+                    end
 
-                        if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
+                    if Negative_Cluster <= 0.1 && Positive_Cluster <= 0.1
                         stat1 = stat;
                         stat1.negclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range)
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir,frequency_range);
                         stat1 = stat;
                         stat1.posclusters(1).prob = 1;
-                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range)
+                        paper_figures(data, stat1, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir,frequency_range);
                     
                     elseif Negative_Cluster <= 0.1 || Positive_Cluster <= 0.1
-                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir, frequency_range);
+                        paper_figures(data, stat, design_matrix, onsets_part, factors, start_time, end_time, generate_ci, results_dir,frequency_range);
                     end
 
-                    end
+                end
 
                 end
 

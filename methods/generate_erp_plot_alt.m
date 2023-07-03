@@ -71,7 +71,11 @@ function plots = generate_erp_plot_alt(results_dir, start_time, end_time, data, 
     yline(0, '--');
 
     xline(significant_electrode.time, '--r', 'DisplayName', 'Max Effect','LineWidth', 2);
-    
+    xline(start_window_time, '-', 'LineWidth', 2);
+    xline(3, '--', 'LineWidth', 2);
+    xline(0.5, '-', 'LineWidth', 2);
+
+
 
     hold on;
     % generating confidence intervals with bootstrapping method
@@ -91,17 +95,12 @@ function plots = generate_erp_plot_alt(results_dir, start_time, end_time, data, 
 
     % more plotting details
     
-    if ~(start_window_time == 3)
-        xline(3, '--o');
-        xline(start_window_time, '-');
-    else
-        xline(3, '--o');
-    end
     legend("P1", "P2", "P3", "", "Max Effect", "","","","", 'location', 'northwestoutside');
     xlabel("Time in S");
     ylabel("ERP voltage in µV");
     set(gcf, 'Position', [100, 100, 800, 300]);
     grid on;
+    set(gca, 'LineWidth', 2);
     if ~paper_plot
         title(graph_title);
         subtitle(strcat("Maximum T Value = ", string(significant_electrode.t_value)));

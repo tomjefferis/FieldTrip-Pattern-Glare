@@ -298,7 +298,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     %f1.Position = f1.Position + [0 -300 0 300];
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     
-    set(gcf, 'Position', [100, 100, 1900, 2000]);
+    set(gcf, 'Position', [100, 100, 1900, 2400]);
     
     pos1 = get(ax1, 'Position');
     pos2 = get(ax2, 'Position');

@@ -41,9 +41,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(low1.data, low2.data, low3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(7).Color = [0.8350 0.0780 0.1840];
-    h(6).Color = [0.4660 0.8740 0.1880];
-    h(5).Color = [0.3010 0.7450 0.9330];
+    %h(9).Color = [0.8350 0.0780 0.1840];
+    %h(8).Color = [0.4660 0.8740 0.1880];
+    %h(7).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -55,14 +55,15 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
     subtitle("");
+    xlabel("");
 
     ax2 = subplot(5,2,2);
     data = partitions_combine(high1.data, high2.data, high3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(7).Color = [0.8350 0.0780 0.1840];
-    h(6).Color = [0.4660 0.8740 0.1880];
-    h(5).Color = [0.3010 0.7450 0.9330];
+    %h(9).Color = [0.8350 0.0780 0.1840];
+    %h(8).Color = [0.4660 0.8740 0.1880];
+    %h(7).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -73,7 +74,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title(tit);
     subtitle("");
-
+    xlabel("");
 
     
 %%
@@ -81,9 +82,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(low1.data, low2.data, low3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
-    h(4).Color = 'b';
+    h(6).Color = 'b';
+    h(7).Color = 'g';
+    h(8).Color = 'r';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
@@ -95,14 +96,15 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ylabel(strcat(title4," Med"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title("");
     subtitle("");
+    xlabel("");
 
     ax4 = subplot(5,2,4);
     data = partitions_combine(high1.data, high2.data, high3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
-    h(4).Color = 'b';
+    h(6).Color = 'b';
+    h(7).Color = 'g';
+    h(8).Color = 'r';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
@@ -113,6 +115,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title("");
     subtitle("");
+    xlabel("");
 %%
     ax5 = subplot(5,2,5);
     generate_erp_plot(results, start, endtime, low1.data, electrode, "none", cis, "positive", paper_plot);
@@ -206,7 +209,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
 
-    set(gcf, 'Position', [100, 100, 1900, 1600]);
+    set(gcf, 'Position', [100, 100, 1900, 1900]);
     
     % get position of each axis
     pos1 = get(ax1, 'Position');
