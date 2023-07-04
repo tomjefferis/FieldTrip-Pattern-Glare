@@ -71,7 +71,6 @@ function plots = generate_erp_plot_alt(results_dir, start_time, end_time, data, 
     yline(0, '--');
 
     xline(significant_electrode.time, '--r', 'DisplayName', 'Max Effect','LineWidth', 2);
-    xline(start_window_time, '-', 'LineWidth', 2);
     xline(3, '--', 'LineWidth', 2);
     xline(0.5, '-', 'LineWidth', 2);
 
@@ -91,6 +90,16 @@ function plots = generate_erp_plot_alt(results_dir, start_time, end_time, data, 
         set(i, 'EdgeColor', [0.9290 0.6940 0.1250]);
         set(i, 'facealpha', .08);
 
+    end
+
+   if start_window_time > 3
+        xline(0, '-', 'LineWidth', 2);
+        xline(start_window_time, '--m','LineWidth', 2);
+        xline(end_window_time, '--m','LineWidth', 2);
+    else
+        xline(start_window_time, '-', 'LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
     end
 
     % more plotting details

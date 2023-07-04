@@ -40,14 +40,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low11.data, low21.data, low31.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg1 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
@@ -63,14 +63,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high11.data, high21.data, high31.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg2 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
@@ -84,14 +84,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low11.data, low21.data, low31.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     ylabel("P1 Med","Rotation",0,'HorizontalAlignment','right','fontweight','bold');
@@ -106,14 +106,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high11.data, high21.data, high31.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg4 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
@@ -126,14 +126,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low12.data, low22.data, low32.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg5 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
@@ -148,14 +148,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high12.data, high22.data, high32.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg6 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
@@ -168,14 +168,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low12.data, low22.data, low32.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg7 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
@@ -190,14 +190,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high12.data, high22.data, high32.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg8 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
@@ -211,14 +211,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low13.data, low23.data, low33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg9 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'eastoutside');
@@ -233,14 +233,14 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high13.data, high23.data, high33.data, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = [0.8350 0.0780 0.1840];
-    h(5).Color = [0.4660 0.8740 0.1880];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
     h(4).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
    
-     
+     xlabel("");
      %Ax.Position = PosVec + [0 -0.02 0 0.02];
     hold on;
     leg10 = legend("Onsets 2,3","Onsets 4,5","Onsets 6,7","","Max Effect", 'location', 'westoutside');
@@ -253,8 +253,8 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(low13.data, low23.data, low33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));
@@ -275,8 +275,8 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     data = partitions_combine(high13.data, high23.data, high33.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'r';
-    h(5).Color = 'g';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
     h(4).Color = 'b';
     %delete(h(2));
     %delete(h(3));

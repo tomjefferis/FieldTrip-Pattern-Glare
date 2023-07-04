@@ -20,7 +20,7 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
             title4 = 'Partitions';
      end
 
-    start = 2.8;
+    
     f1 = figure;
 
     tiledlayout(3,2);
@@ -30,9 +30,9 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     data = partitions_combine(dataone, datatwo, datathree, "PGI");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(8).Color = [0.8350 0.0780 0.1840];
-    h(7).Color = [0.4660 0.8740 0.1880];
-    h(6).Color = [0.3010 0.7450 0.9330];
+    h(10).Color = [0.8350 0.0780 0.1840];
+    h(9).Color = [0.4660 0.8740 0.1880];
+    h(8).Color = [0.3010 0.7450 0.9330];
    
     hold on;
     legend("P1 PGI", "P2 PGI", "P3 PGI", "", "", "", 'location', 'northeastoutside');
@@ -57,9 +57,9 @@ function plot = plot_partitions_regressor(dataone, datatwo, datathree, electrode
     data = partitions_combine(dataone, datatwo, datathree, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(8).Color = 'r';
-    h(7).Color = 'g';
-    h(6).Color = 'b';
+    h(10).Color = 'r';
+    h(9).Color = 'g';
+    h(8).Color = 'b';
    
     hold on;
     legend("P1 Med", "P2 Med", "P3 Med", "", "", "", 'location', 'northeastoutside');

@@ -90,10 +90,20 @@ function plots = generate_erp_plot(results_dir, start_time, end_time, data, sign
     end
 
     % more plotting details
-    xline(start_window_time, '-', 'LineWidth', 2);
+   
     xline(3, '--', 'LineWidth', 2);
     xline(0.5, '-', 'LineWidth', 2);
-  
+
+    if start_window_time > 3
+        xline(0, '-', 'LineWidth', 2);
+        xline(start_window_time, '--m','LineWidth', 2);
+        xline(end_window_time, '--m','LineWidth', 2);
+    else
+        xline(start_window_time, '-', 'LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+    end
+    
 
     legend("Thin", "Medium", "Thick", "", "Max Effect", "","","","","", 'location', 'northwestoutside');
     xlabel("Time in S");

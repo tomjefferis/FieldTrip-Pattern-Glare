@@ -13,6 +13,7 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
         start_time = -0.2;
         end_time = 3.1;
     end
+
     if contains(factor, "visual")
             factor = "visual-stress";
             
@@ -74,10 +75,19 @@ function plots = generate_erp_pgi(results_dir, start_time, end_time, data, signi
 
     end
 
-    xline(start_window_time, '-', 'LineWidth', 2);
+    
     xline(3, '--', 'LineWidth', 2);
     xline(0.5, '-', 'LineWidth', 2);
   
+    if start_window_time > 3
+        xline(0, '-', 'LineWidth', 2);
+        xline(start_window_time, '--m','LineWidth', 2);
+        xline(end_window_time, '--m','LineWidth', 2);
+    else
+        xline(start_window_time, '-', 'LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+    end
 
 
     legend(gfp, "Duration","","Max Effect",'location', 'northwestoutside');

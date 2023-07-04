@@ -68,15 +68,15 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
-            if ~contains(factor, 'Intercept') 
+            if ~contains(factor, 'Through Time') 
             erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, [start_time end_time],font_size)
             erpplot = print('-RGBImage');
             else
-                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size)
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'onsets-23-45-67')
-            if ~contains(factor, 'Intercept') || ~contains(factor, 'none')
+            if ~contains(factor, 'Through Time') || ~contains(factor, 'none')
             erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size)
             erpplot = print('-RGBImage');
             else
@@ -107,7 +107,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
 
-        if ~contains(factor, 'Intercept')&& ~contains(factor, 'Interaction')
+        if ~contains(factor, 'Intercept')&& ~contains(factor, 'Through Time')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             erpplot = print('-RGBImage');
         else
@@ -118,7 +118,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     elseif contains(onsets_part, 'onsets-23-45-67')
 
-        if ~contains(factor, 'Intercept') && ~contains(factor, 'Interaction')
+        if ~contains(factor, 'Intercept') && ~contains(factor, 'Through Time')
             erpplot = plot_partitions_erp(data1, data2, data3, electrode, design2, factor, '', start_time, end_time, cis, true, font_size);
             erpplot = print('-RGBImage');
         else

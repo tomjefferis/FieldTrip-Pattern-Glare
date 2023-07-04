@@ -16,31 +16,36 @@ end
 
 
 cfg = [];
-dat1 = ft_freqgrandaverage(cfg, dataone.data{:});
-dat2 = ft_freqgrandaverage(cfg, datatwo.data{:});
-dat3 = ft_freqgrandaverage(cfg, datathree.data{:});
+cfg.parameter = ["powspctrm","med_powspctrm"];
+dat1 = ft_freqgrandaverage(cfg, dataone{:});
+dat2 = ft_freqgrandaverage(cfg, datatwo{:});
+dat3 = ft_freqgrandaverage(cfg, datathree{:});
 
 
 xlimit = [time(1), time(end)];
 %start = 2.8;
 f1 = figure;
 
-electrode_idx = get_electrode_index(low1, electrode);
+electrode_idx = get_electrode_index(dat1, electrode);
 
 datitpc1 = mean(squeeze(dat1.powspctrm(electrode_idx, :, :)), 1);
 datitpc2 = mean(squeeze(dat2.powspctrm(electrode_idx, :, :)), 1);
 datitpc3 = mean(squeeze(dat3.powspctrm(electrode_idx, :, :)), 1);
 
 datmed1 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
-datmed2 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
-datmed3 = mean(squeeze(dat1.med_powspctrm(electrode_idx, :, :)), 1);
+datmed2 = mean(squeeze(dat2.med_powspctrm(electrode_idx, :, :)), 1);
+datmed3 = mean(squeeze(dat3.med_powspctrm(electrode_idx, :, :)), 1);
 
 
-pgimax = round(max(max(max(max(max(squeeze(datitpc1.powspctrm(electrode_idx, :, :)),squeeze(datitpc2.powspctrm(electrode_idx, :, :)),squeeze(datitpc3.powspctrm(electrode_idx, :, :))))))) + 0.5);
+pgimax = round(max(max(max(max(max(squeeze(datitpc1),squeeze(datitpc2)),squeeze(datitpc3))))) + 0.5);
 
-pgimin = round(min(min(min(min(min(squeeze(datitpc1.powspctrm(electrode_idx, :, :)),squeeze(datitpc2.powspctrm(electrode_idx, :, :)),squeeze(datitpc3.powspctrm(electrode_idx, :, :))))))) - 0.5);
+pgimin = round(min(min(min(min(min(squeeze(datitpc1),squeeze(datitpc2)),squeeze(datitpc3))))) - 0.5);
 pgirange = [pgimin,pgimax];
 
+
+medmax = round(max(max(max(max(max(squeeze(datmed1),squeeze(datmed2)),squeeze(datmed3))))) + 0.5);
+medmin = round(min(min(min(min(min(squeeze(datmed1),squeeze(datmed2)),squeeze(datmed3))))) - 0.5);
+medrange = [medmin, medmax];
 
 
 if contains(factor,"onsets") || contains(factor,"Onsets")
@@ -63,22 +68,23 @@ end
 
 % First subplot low PGI across partitions
 ax1 = subplot(5, 1, 1);
-plot(datitpc1.time, datitpc1, 'g', datitpc1.time, datitpc2, 'b', datitpc1.time, datitpc3, 'r', 'LineWidth', 1.4);
+plot(dat1.time, datitpc1, 'g', dat1.time, datitpc2, 'b', dat1.time, datitpc3, 'r', 'LineWidth', 1.4);
 title(title1);
 xlabel("Time S");
-ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
+ylabel("Power db");
 grid on;
 hold on;
 xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
-xlim([time(1), time(end)])
+xlim([time(1), time(end)]);
+ylim(pgirange);
 leg1 = legend(legend1, 'location', 'eastoutside');
 tit = strcat("PGI through ", title4);
 title(tit);
 
 ax2 = subplot(5, 1, 2);
-plot(datitpc1.time, datmed1, 'g', datitpc1.time, datmed2, 'b', datitpc1.time, datmed3, 'r', 'LineWidth', 1.4);
+plot(dat1.time, datmed1, 'g', dat1.time, datmed2, 'b', dat1.time, datmed3, 'r', 'LineWidth', 1.4);
 title(title1);
 xlabel("Time S");
 ylabel("Power db");
@@ -88,12 +94,13 @@ xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
-leg2 = legend(legend1, 'location', 'westoutside');
+ylim(medrange);
+leg2 = legend(legend1, 'location', 'eastoutside');
 tit = strcat("Medium through ", title4);
 title(tit);
 
 ax3 = subplot(5, 1, 3);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc1.powspctrm(electrode_idx, :, :)),pgirange);
+imagesc(dat1.time, dat1.freq, squeeze(dat1.powspctrm(electrode_idx, :, :)),pgirange);
 colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
@@ -106,7 +113,7 @@ tit = strcat(title1, " power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax4 = subplot(5, 1, 4);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc2.powspctrm(electrode_idx, :, :)),pgirange);
+imagesc(dat2.time, dat2.freq, squeeze(dat2.powspctrm(electrode_idx, :, :)),pgirange);
 colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
@@ -119,7 +126,7 @@ tit = strcat(title2," power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax5 = subplot(5, 1, 5);
-imagesc(datitpc1.time, datitpc1.freq, squeeze(datitpc3.powspctrm(electrode_idx, :, :)),pgirange);
+imagesc(dat1.time, dat1.freq, squeeze(dat3.powspctrm(electrode_idx, :, :)),pgirange);
 colorbar;
 xlim(xlimit);
 %ylim(ylimit);
@@ -138,31 +145,7 @@ tit = strcat(title3," power spectrum @ ", electrode.electrode);
 titles = strcat("Interactions through ", title4, " for ", factor);
 set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
 
-set(gcf, 'Position', [100, 100, 1900, 1000]);
-
-legPos1 = get(leg1, 'Position');
-
-avgpos = 0.5 - legPos1(3)/2.5;
-avgpos = [avgpos,legPos1(2),legPos1(3),legPos1(4)];
-set(leg1, 'Position', avgpos);
-set(leg2, 'Position', avgpos);
-
-pause(2);
-
-
-% get all positions of axes again
-pos1_new = get(ax1, 'Position');
-pos2_new = get(ax2, 'Position');
-pos3 = get(ax3, 'Position');
-
-pos1_new(3) = pos1_new(3) - avgpos(3)/4;
-pos2_new(1) = pos2_new(1) + avgpos(3)/3.5;
-pos2_new(3) = pos2_new(3) - avgpos(3)/3.5;
-
-
-% set position of all axes
-set(ax1, 'Position', pos1_new);
-set(ax2, 'Position', pos2_new);
+set(gcf, 'Position', [100, 100, 1900, 1800]);
 
 
 if ~paper_figs

@@ -56,7 +56,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -152,7 +152,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -266,7 +266,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -311,7 +311,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -356,7 +356,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'habituation'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -401,7 +401,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -445,7 +445,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...
@@ -490,7 +490,7 @@ type_of_effect = {'habituation'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitions = 'normal'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
-testing = true;
+testing = false;
 paper_figs = true;
 
 tab = pgi_analysis(grand_avg_filename, single_trial_freq_filename, grand_avg_partitions_filename, single_trial_freq_partitions_filename, time_window, n_participants, baseline_period, ...

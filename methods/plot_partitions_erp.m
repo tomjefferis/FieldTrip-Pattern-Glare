@@ -82,9 +82,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(low1.data, low2.data, low3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'b';
-    h(7).Color = 'g';
-    h(8).Color = 'r';
+    h(8).Color = 'b';
+    h(9).Color = 'g';
+    h(10).Color = 'r';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
@@ -102,9 +102,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(high1.data, high2.data, high3.data, "med");
     generate_erp_plot(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    h(6).Color = 'b';
-    h(7).Color = 'g';
-    h(8).Color = 'r';
+    h(8).Color = 'b';
+    h(9).Color = 'g';
+    h(10).Color = 'r';
     %delete(h(1));
     %delete(h(2));
     %delete(h(3));
@@ -124,6 +124,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
+    xlabel("");
    
     hold on;
     leg5 = legend('location', 'eastoutside');
@@ -138,7 +139,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
-   
+    xlabel("");
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
     title("");
     hold on;
@@ -159,7 +160,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ylabel(strcat(title2,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title("");
     subtitle("");
-
+    xlabel("");
     ax8 = subplot(5,2,8);
     generate_erp_plot(results, start, endtime, high2.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
@@ -172,6 +173,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     leg8 = legend('location', 'westoutside');
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
     title("");
+    xlabel("");
     %%
     ax9 = subplot(5,2,9);
     generate_erp_plot(results, start, endtime, low3.data, electrode, "none", cis, "positive", paper_plot);
