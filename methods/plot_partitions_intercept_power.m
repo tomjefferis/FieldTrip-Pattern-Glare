@@ -7,13 +7,12 @@ end
 if time(1) == 0.5
     time(1) = -0.2;
     window = 0.5;
-    baseline = 0;
+    baseline = -0.05;
 elseif time(1) == 3.0
     time(1) = 2.8;
     window = 3;
-    baseline = 3;
+    baseline = 2.95;
 end
-
 
 cfg = [];
 cfg.parameter = ["powspctrm","med_powspctrm"];

@@ -7,11 +7,11 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     if time(1) == 0.5
         time(1) = -0.2;
         window = 0.5;
-        baseline = 0;
+        baseline = -0.05;
     elseif time(1) == 3.0
         time(1) = 2.8;
         window = 3;
-        baseline = 3;
+        baseline = 2.95;
     end
 
     electrode_idx = get_electrode_index(low, electrode);
@@ -61,10 +61,15 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     medrange = [medmin,medmax];
 
     subplot(4, 2, 5);
-    ax3 = imagesc(low.time, low.freq, squeeze(low.powspctrm(electrode_idx, :, :)),pgirange);
+    ax3 = surf(low.time, low.freq, squeeze(low.powspctrm(electrode_idx, :, :)),'EdgeColor','none');
+    shading interp
     colorbar;
+    view(2);
+    xlim([time(1), time(end)])
+    ylim([low.freq(1), low.freq(end)])
     xlabel("Time S");
     ylabel("Frequency Hz");
+    caxis(pgirange);
     hold on;
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
@@ -73,8 +78,13 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     title(tit);
 
     subplot(4, 2, 6);
-    ax4 = imagesc(high.time, high.freq, squeeze(high.powspctrm(electrode_idx, :, :)),pgirange);
+    ax4 = surf(high.time, high.freq, squeeze(high.powspctrm(electrode_idx, :, :)),'EdgeColor','none');
+    shading interp
     colorbar;
+    view(2);
+    xlim([time(1), time(end)])
+    ylim([low.freq(1), low.freq(end)])
+    caxis(pgirange);
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
@@ -85,8 +95,13 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     title(tit);
 
     subplot(4, 2, 7);
-    ax5 = imagesc(low.time, low.freq, squeeze(low.med_powspctrm(electrode_idx, :, :)),medrange);
+    ax5 = surf(low.time, low.freq, squeeze(low.med_powspctrm(electrode_idx, :, :)),'EdgeColor','none');
+    shading interp
     colorbar;
+    view(2);
+    xlim([time(1), time(end)])
+    ylim([low.freq(1), low.freq(end)])
+    caxis(medrange);
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
@@ -97,8 +112,13 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     title(tit);
 
     subplot(4, 2, 8);
-    ax6 = imagesc(high.time, high.freq, squeeze(high.med_powspctrm(electrode_idx, :, :)),medrange);
+    ax6 = surf(high.time, high.freq, squeeze(high.med_powspctrm(electrode_idx, :, :)),'EdgeColor','none');
+    shading interp
     colorbar;
+    view(2);
+    xlim([time(1), time(end)])
+    ylim([low.freq(1), low.freq(end)])
+    caxis(medrange);
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;

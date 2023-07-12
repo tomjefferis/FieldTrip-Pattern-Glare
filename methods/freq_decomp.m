@@ -38,9 +38,9 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         med = [];    
     else
         for index = 1:numel(datas)
-            temp_thin = thin{index}.avg(2:end);
-            temp_med = med{index}.avg(2:end);
-            temp_thick = thick{index}.avg(2:end);
+            temp_thin = thin{index}.avg(1:end);
+            temp_med = med{index}.avg(1:end);
+            temp_thick = thick{index}.avg(1:end);
             thin{index}.trial = permute(cat(3,temp_thin{:}),[3 1 2]);
             med{index}.trial = permute(cat(3,temp_med{:}),[3 1 2]);
             thick{index}.trial = permute(cat(3,temp_thick{:}),[3 1 2]);

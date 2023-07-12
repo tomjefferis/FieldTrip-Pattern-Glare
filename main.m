@@ -23,8 +23,8 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 % ROI window
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83];
 time_window = [0.5 3.05];
-n_participants = 4 ;
-baseline_period = [-0.2 0];
+n_participants = 40;
+baseline_period = [-0.2 -0.05];
 %baseline_period = [2.8 3.0];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
 max_windows = 4; % maximum amount of windows the roi finder finds
@@ -32,7 +32,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 5;
 decimate = 256; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
@@ -57,7 +57,7 @@ three_way_type = {'habituation'}; % same as previous but only used when making t
 partitions = 'orthog'; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% There are a few ways you can run the analysis

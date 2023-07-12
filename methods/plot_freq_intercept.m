@@ -5,14 +5,14 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     end
 
     if time(1) == 0.5
-    time(1) = -0.2;
-    window = 0.5;
-    baseline = 0;
-elseif time(1) == 3.0
-    time(1) = 2.8;
-    window = 3;
-    baseline = 3;
-end
+        time(1) = -0.2;
+        window = 0.5;
+        baseline = -0.05;
+    elseif time(1) == 3.0
+        time(1) = 2.8;
+        window = 3;
+        baseline = 2.95;
+    end
 
     electrode_idx = get_electrode_index(data, electrode);
 
@@ -63,6 +63,7 @@ end
 
     subplot(4, 1, 3);
     ax3 = imagesc(data.time, data.freq, squeeze(data.powspctrm(electrode_idx, :, :)),pgirange);
+    set(gca,'YDir','normal');
     colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
@@ -75,6 +76,7 @@ end
 
     subplot(4, 1, 4);
     ax4 = imagesc(data.time, data.freq, squeeze(data.med_powspctrm(electrode_idx, :, :)),medrange);
+    set(gca,'YDir','normal');
     colorbar;
     xlabel("Time S");
     ylabel("Frequency Hz");
