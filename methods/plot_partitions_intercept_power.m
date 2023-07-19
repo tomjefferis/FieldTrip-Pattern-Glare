@@ -22,6 +22,7 @@ dat3 = ft_freqgrandaverage(cfg, datathree{:});
 
 
 xlimit = [time(1), time(end)];
+ylim = [dat1.freq(1), dat1.freq(end)];
 %start = 2.8;
 f1 = figure;
 
@@ -99,10 +100,14 @@ tit = strcat("Medium through ", title4);
 title(tit);
 
 ax3 = subplot(5, 1, 3);
-imagesc(dat1.time, dat1.freq, squeeze(dat1.powspctrm(electrode_idx, :, :)),pgirange);
+surf(dat1.time, dat1.freq, squeeze(dat1.powspctrm(electrode_idx, :, :)), 'EdgeColor', 'none');
+view(2);
+shading interp;
 colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
+caxis(pgirange);
+ylim(ylim)
 ylabel("Frequency Hz");
 hold on;
 xline(baseline,'-m','LineWidth',1);
@@ -112,9 +117,13 @@ tit = strcat(title1, " power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax4 = subplot(5, 1, 4);
-imagesc(dat2.time, dat2.freq, squeeze(dat2.powspctrm(electrode_idx, :, :)),pgirange);
+surf(dat2.time, dat2.freq, squeeze(dat2.powspctrm(electrode_idx, :, :)), 'EdgeColor', 'none');
+view(2);
+shading interp;
 colorbar;
 xlabel("Time S");
+caxis(pgirange);
+ylim(ylim)
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
@@ -125,9 +134,13 @@ tit = strcat(title2," power Spectrum @ ", electrode.electrode);
 title(tit);
 
 ax5 = subplot(5, 1, 5);
-imagesc(dat1.time, dat1.freq, squeeze(dat3.powspctrm(electrode_idx, :, :)),pgirange);
+surf(dat1.time, dat1.freq, squeeze(dat3.powspctrm(electrode_idx, :, :)), 'EdgeColor', 'none');
+view(2);
+shading interp;
 colorbar;
 xlim(xlimit);
+ylim(ylim);
+caxis(pgirange);
 %ylim(ylimit);
 axis xy
 xlabel("Time S");
@@ -137,7 +150,7 @@ xline(baseline,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 tit = strcat(title3," power spectrum @ ", electrode.electrode);
-%title(tit);
+title(tit);
 
 
 

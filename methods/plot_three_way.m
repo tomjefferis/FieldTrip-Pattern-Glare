@@ -65,7 +65,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = [0.8350 0.0780 0.1840];
     h(9).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -86,7 +86,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -108,7 +108,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -128,7 +128,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = [0.8350 0.0780 0.1840];
     h(9).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -150,7 +150,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = [0.8350 0.0780 0.1840];
     h(9).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -170,7 +170,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -192,7 +192,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -213,7 +213,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = [0.8350 0.0780 0.1840];
     h(9).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -235,7 +235,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = [0.8350 0.0780 0.1840];
     h(9).Color = [0.4660 0.8740 0.1880];
-    h(4).Color = [0.3010 0.7450 0.9330];
+    h(8).Color = [0.3010 0.7450 0.9330];
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -255,7 +255,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));
@@ -277,7 +277,7 @@ function plot = plot_three_way(dataone, datatwo, datathree, electrode, design2, 
     h = get(gca, 'Children');
     h(10).Color = 'r';
     h(9).Color = 'g';
-    h(4).Color = 'b';
+    h(8).Color = 'b';
     %delete(h(2));
     %delete(h(3));
     %delete(h(4));

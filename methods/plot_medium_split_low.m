@@ -33,11 +33,20 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
     tit = " Low vs High Median Split on PGI ";
     xlim([start_time, end_time]);
 
-    xline(start_window_time, '-', 'LineWidth', 2);
     xline(3, '--', 'LineWidth', 2);
     xline(0.5, '-', 'LineWidth', 2);
 
-    xline(electrode.time, '--r','LineWidth', 2);
+    if start_window_time > 3
+        xline(0, '-', 'LineWidth', 2);
+        xline(start_window_time, '--m','LineWidth', 2);
+        xline(end_window_time, '--m','LineWidth', 2);
+    else
+        xline(start_window_time, '-', 'LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+        xline(4, '--m','LineWidth', 2);
+    end
+
+    xline(electrode.time, '--r', 'DisplayName', 'Max Effect','LineWidth', 2);
     title(tit);
     subtitle(strcat("Maximum T Value = ", string(electrode.t_value)));
     xlabel("Time in S");
@@ -54,7 +63,7 @@ function plot_medium_split_low(high, low, electrode, start_time, end_time, gener
         set(h, 'facealpha', .1);
     end
 
-    legend("Low", "High", "", "","","","Max Effect", 'location', 'northwest');
+    legend("Low", "High", "", "","","","", 'location', 'northwest');
     hold off;
 
 end
