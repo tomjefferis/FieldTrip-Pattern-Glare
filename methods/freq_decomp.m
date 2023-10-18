@@ -11,15 +11,10 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         time(1) = 2.8;
         temp_time = 2.8;
     elseif temp_time == 0.5
-        time(1) = -0.2;
-        temp_time = -0.2;
+        time(1) = baseline_period(1);
+        temp_time = baseline_period(1);
     else
         time(1) = datas{1}.time(1);
-    end
-
-    if baseline_period(2) >= -0.1 
-        baseline_period(1) = -0.35;
-        baseline_period(2) = -0.24;
     end
 
     step = 1/step;
@@ -68,7 +63,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
 
     %cfg.parameter = 'avg';
     
-parfor index = 1:numel(datas)
+for index = 1:numel(datas)
     cfg = [];
     cfg.output = output;
     cfg.method = 'wavelet';

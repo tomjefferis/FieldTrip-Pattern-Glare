@@ -25,7 +25,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %time_window = [3.0 3.99];
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
 time_window = [0.5 3];
-n_participants = 40;
+n_participants = 1;
 baseline_period = [-0.35 -0.25];
 %baseline_period = [2.75 2.95];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -34,7 +34,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
