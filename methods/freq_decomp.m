@@ -17,6 +17,11 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         time(1) = datas{1}.time(1);
     end
 
+    if baseline_period(2) >= -0.1 
+        baseline_period(1) = -0.35;
+        baseline_period(2) = -0.24;
+
+
     step = 1/step;
     pad_samp = 125;
     [thin, med, thick] = split_data(datas,true);
