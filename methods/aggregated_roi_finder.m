@@ -1,3 +1,29 @@
+% This function finds the time windows of interest for a given dataset by
+% calculating the grand average of all conditions and then finding the
+% peaks in the global field power (GFP) of the flattened average. The
+% function then returns the time windows that contain the peaks. The
+% function also has an option to plot the GFP and the identified time
+% windows. 
+%
+% Inputs:
+%   - main_path: the path to the directory containing the data files
+%   - filename: the name of the data file
+%   - n_participants: the number of participants in the study
+%   - start_time: the start time of the time window of interest
+%   - end_time: the end time of the time window of interest
+%   - baseline_period: the baseline period for calculating the GFP
+%   - max_windows: the maximum number of time windows to identify
+%   - results_dir: the directory to save the plot of the GFP and identified
+%     time windows
+%   - plotter: a boolean indicating whether to plot the GFP and identified
+%     time windows
+%
+% Outputs:
+%   - window_time: a matrix containing the start and end times of the
+%     identified time windows
+%
+% Example usage:
+%   [window_time] = aggregated_roi_finder('w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\', 'data.mat', 10, 0.1, 0.5, [-0.2 -0.1], 3, 'results\', true);
 function [window_time] = aggregated_roi_finder(main_path, filename, n_participants, start_time, end_time, baseline_period, max_windows, results_dir, plotter)
     % loads trial data and prepares for aggregated avg merge
     [data, order] = load_data(main_path, filename, n_participants, 'onsets');

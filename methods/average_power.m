@@ -1,3 +1,20 @@
+% FILEPATH: w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\average_power.m
+%
+% average_power - function to compute the grand average of power spectra
+% across multiple trials and conditions.
+%
+% Usage:
+%   [data] = average_power(data,frequency_range)
+%
+% Inputs:
+%   data - a cell array of FieldTrip structures containing power spectra
+%   frequency_range - a 1x2 vector specifying the frequency range of interest
+%
+% Outputs:
+%   data - a FieldTrip structure containing the grand average of power spectra
+%
+% Author: GitHub Copilot
+% Repository: https://github.com/fieldtrip/fieldtrip/blob/master/ft_freqgrandaverage.m
 function [data] = average_power(data,frequency_range)
 
 

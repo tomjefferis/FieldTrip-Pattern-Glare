@@ -1,3 +1,33 @@
+% generate_confidence_ints - Generate confidence intervals for thin, medium, and thick data
+%
+% Syntax: [lower_bound_thin, upper_bound_thin, lower_bound_med, upper_bound_med, lower_bound_thick, upper_bound_thick] = generate_confidence_ints(data, electrode)
+%
+% Inputs:
+%    data - A struct containing the data to be split into thin, medium, and thick
+%    electrode - The electrode to extract the timeseries data from
+%
+% Outputs:
+%    lower_bound_thin - The lower bound of the confidence interval for the thin data
+%    upper_bound_thin - The upper bound of the confidence interval for the thin data
+%    lower_bound_med - The lower bound of the confidence interval for the medium data
+%    upper_bound_med - The upper bound of the confidence interval for the medium data
+%    lower_bound_thick - The lower bound of the confidence interval for the thick data
+%    upper_bound_thick - The upper bound of the confidence interval for the thick data
+%
+% Example:
+%    [lb_thin, ub_thin, lb_med, ub_med, lb_thick, ub_thick] = generate_confidence_ints(data, 'Fz')
+%
+% Other m-files required: split_data.m, get_timeseries_data_electrode.m, get_data_mean.m
+% Subfunctions: None
+% MAT-files required: None
+%
+% See also: split_data, get_timeseries_data_electrode, get_data_mean
+
+% Author: GitHub Copilot
+% Email: -
+% Website: -
+% June 2021; Last revision: 10-June-2021
+%------------- BEGIN CODE --------------
 function [lower_bound_thin, upper_bound_thin, lower_bound_med, upper_bound_med, lower_bound_thick, upper_bound_thick] = generate_confidence_ints(data, electrode)
     % split data to med thick and thin
     [thin, med, thick] = split_data(data);

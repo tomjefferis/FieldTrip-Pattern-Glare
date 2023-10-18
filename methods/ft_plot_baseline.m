@@ -1,3 +1,21 @@
+% FILEPATH: w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\ft_plot_baseline.m
+%
+% ft_plot_baseline - Plot two baselines of the given data and electrode.
+%
+% Usage:
+%   ft_plot_baseline(data, baseline_1, baseline_2, electrode)
+%
+% Inputs:
+%   data        - The data to plot the baselines for.
+%   baseline_1  - The first baseline to plot.
+%   baseline_2  - The second baseline to plot.
+%   electrode   - The electrode to plot the baselines for.
+%
+% Outputs:
+%   None
+%
+% See also:
+%   rebaseline_data, gradient_finder, ylimit_finder, plot_baseline
 function ft_plot_baseline(data, baseline_1,baseline_2, electrode)
 
     

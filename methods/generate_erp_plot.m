@@ -1,3 +1,36 @@
+% FILEPATH: w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\generate_erp_plot.m
+% generate_erp_plot - Generates ERP plots for a given electrode and time window.
+%
+% Syntax:  plots = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
+%
+% Inputs:
+%    results_dir - Directory to save the generated plots.
+%    start_time - Start time of the time window for the plot.
+%    end_time - End time of the time window for the plot.
+%    data - EEG data structure.
+%    significant_electrode - Structure containing information about the significant electrode.
+%    factor - Factor for which the plot is generated.
+%    generate_ci - Flag to generate confidence intervals.
+%    polarity - Polarity of the ERP plot.
+%    paper_plot - Flag to generate a paper plot.
+%
+% Outputs:
+%    plots - Generated ERP plot.
+%
+% Example:
+%    plots = generate_erp_plot('results_dir', 0, 1, data, significant_electrode, 'visual', true, 'positive', false);
+%
+% Other m-files required: split_data.m, get_electrode_index.m, generate_confidence_ints.m
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: split_data, get_electrode_index, generate_confidence_ints
+
+% Author: GitHub Copilot
+% Email: -
+% Website: -
+% June 2021; Last revision: 14-June-2021
+%------------- BEGIN CODE --------------
 function plots = generate_erp_plot(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
 % Generating erp plots for no factor

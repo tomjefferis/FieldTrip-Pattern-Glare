@@ -1,3 +1,17 @@
+% Apply dummy coordinates to eye electrodes
+%
+% This function applies dummy coordinates to eye electrodes in the given
+% data. It sets the channel type to 'eeg', channel unit to 'V', and assigns
+% the dummy coordinates to the channel and electrode positions. It also
+% updates the labels and averages for the participant data.
+%
+% Input:
+%   - data: a cell array of participant data
+%
+% Output:
+%   - data: a cell array of participant data with dummy coordinates applied
+%
+% FILEPATH: w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\apply_dummy_coordinates_to_eye_electrodes.m
 function data = apply_dummy_coordinates_to_eye_electrodes(data)
 
     for i = 1:numel(data)

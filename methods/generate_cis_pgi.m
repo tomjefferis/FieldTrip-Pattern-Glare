@@ -1,3 +1,21 @@
+% Generates confidence intervals for the mean of the timeseries data for a given electrode.
+% 
+% Syntax:
+% [lower_bound, upper_bound] = generate_cis_pgi(data, electrode, samples)
+%
+% Inputs:
+% data - A structure containing timeseries data for multiple electrodes.
+% electrode - The index of the electrode for which to generate confidence intervals.
+% samples - The number of samples to take for each mean calculation.
+%
+% Outputs:
+% lower_bound - The lower bound of the confidence interval.
+% upper_bound - The upper bound of the confidence interval.
+%
+% Example:
+% [lb, ub] = generate_cis_pgi(data, 3, 10);
+%
+% This function uses the datasample and prctile functions from the Statistics and Machine Learning Toolbox.
 function [lower_bound, upper_bound] = generate_cis_pgi(data, electrode, samples)
 % Get timeseries data for the electrode
 data = get_timeseries_data_electrode(data, electrode);

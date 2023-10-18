@@ -1,3 +1,27 @@
+% FILEPATH: w:\PhD\PatternGlareCode\FieldTrip-Pattern-Glare\methods\get_design_matrix.m
+%
+% get_design_matrix - Returns a design matrix and participant data based on a given factor and data.
+%
+% Syntax: [design_matrix, participant_data] = get_design_matrix(factor, data, order)
+%
+% Inputs:
+%   factor - A string representing the factor to use for the design matrix. If 'none', a default design matrix is returned.
+%   data - A struct containing participant data.
+%   order - An integer representing the order of the factor.
+%
+% Outputs:
+%   design_matrix - A matrix representing the design matrix.
+%   participant_data - A struct containing participant data.
+%
+% Example:
+%   [design_matrix, participant_data] = get_design_matrix('visual-stress', data, 1);
+%
+% Other m-files required: get_factor_scores.m
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: get_factor_scores
+
 function [design_matrix, participant_data] = get_design_matrix(factor, data, order)
     % if there is no factor it returns a design matrix of 64 len, 32 1's and 32 0's
     if strcmp(factor, 'none')

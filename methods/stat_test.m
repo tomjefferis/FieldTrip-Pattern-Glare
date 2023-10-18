@@ -25,6 +25,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
     cfg.computeprob = 'yes';
     cfg.alpha = 0.05;
     cfg.correcttail = 'alpha';
+    cfg.clusterthreshold = "nonparametric_common";
 
     if strcmp(timefreq, 'time')
         % no factor rins a t-test between the PGI and zero data to find significance between Medium and thick/thin

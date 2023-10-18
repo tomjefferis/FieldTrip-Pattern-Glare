@@ -1,3 +1,20 @@
+% Generates ERP plots for PGI (Pattern Glare Index) for a given electrode and time window.
+% 
+% plots = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
+%
+% INPUTS:
+% - results_dir: directory to save the generated plots
+% - start_time: start time of the time window for the plot
+% - end_time: end time of the time window for the plot
+% - data: cell array of FieldTrip data structures
+% - significant_electrode: structure containing information about the significant electrode
+% - factor: factor to plot the ERP for (can be "visual-stress", "headache", "discomfort", or "none")
+% - generate_ci: boolean indicating whether to generate confidence intervals for the plot
+% - polarity: string indicating the polarity of the ERP ("pos" or "neg")
+% - paper_plot: boolean indicating whether to generate a plot suitable for publication
+%
+% OUTPUTS:
+% - plots: handle to the generated plot
 function plots = generate_erp_pgi(results_dir, start_time, end_time, data, significant_electrode, factor, generate_ci, polarity, paper_plot)
 
     % Generating erp plots for no factor (similar to previous method, just for PGI instead of individual factors)
