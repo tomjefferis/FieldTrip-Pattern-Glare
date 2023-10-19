@@ -63,7 +63,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
 
     %cfg.parameter = 'avg';
     
-for index = 1:numel(datas)
+parfor index = 1:numel(datas)
     cfg = [];
     cfg.output = output;
     cfg.method = 'wavelet';
