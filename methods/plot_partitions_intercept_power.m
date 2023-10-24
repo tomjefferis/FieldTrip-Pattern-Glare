@@ -5,13 +5,15 @@ if ~exist('font_size','var')
 end
 
 if time(1) == 0.5
-    time(1) = -0.2;
+    time(1) = -0.6;
     window = 0.5;
-    baseline = -0.05;
+    baseline = -0.35;
+    baselineS = -0.45;
 elseif time(1) == 3.0
     time(1) = 2.8;
     window = 3;
     baseline = 2.95;
+    baselineS = 2.75;
 end
 
 cfg = [];
@@ -49,7 +51,7 @@ medrange = [medmin, medmax];
 
 
 if contains(factor,"onsets") || contains(factor,"Onsets")
-    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End", "Max Effect", "Window Start"];
+    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End","Baseline Start", "Max Effect", "Window Start"];
     legend2 = ["Onsets 2,3 Med", "Onsets 4,5 Med", "Onsets 6,7 Med", "", "Max Effect", ""];
     
     title1 = 'Onsets 2,3';
@@ -57,13 +59,13 @@ if contains(factor,"onsets") || contains(factor,"Onsets")
     title3 = 'Onsets 6,7';
     title4 = 'Onsets';
 else
-    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End", "Max Effect", "Window Start"];
+    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End","Baseline Start", "Max Effect", "Window Start"];
     legend2 = ["Partition 1 Med", "Partition 2 Med", "Partition 3 Med", "", "Max Effect", ""];
     
     title1 = 'Partition 1';
     title2 = 'Partition 2';
     title3 = 'Partition 3';
-    title4 = 'Partitions';
+        title4 = 'Partitions';
 end
 
 % First subplot low PGI across partitions
@@ -74,7 +76,8 @@ xlabel("Time S");
 ylabel("Power db");
 grid on;
 hold on;
-xline(baseline,'-m','LineWidth',1);
+xline(baseline,'-m','LineWidth',1);  
+xline(baselineS,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)]);
@@ -90,7 +93,8 @@ xlabel("Time S");
 ylabel("Power db");
 grid on;
 hold on;
-xline(baseline,'-m','LineWidth',1);
+xline(baseline,'-m','LineWidth',1);  
+xline(baselineS,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 xlim([time(1), time(end)])
@@ -110,7 +114,8 @@ caxis(pgirange);
 ylim(ylim)
 ylabel("Frequency Hz");
 hold on;
-xline(baseline,'-m','LineWidth',1);
+xline(baseline,'-m','LineWidth',1);   
+xline(baselineS,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 tit = strcat(title1, " power Spectrum @ ", electrode.electrode);
@@ -127,7 +132,8 @@ ylim(ylim)
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
-xline(baseline,'-m','LineWidth',1);
+xline(baseline,'-m','LineWidth',1);   
+xline(baselineS,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 tit = strcat(title2," power Spectrum @ ", electrode.electrode);
@@ -146,7 +152,8 @@ axis xy
 xlabel("Time S");
 ylabel("Frequency Hz");
 hold on;
-xline(baseline,'-m','LineWidth',1);
+xline(baseline,'-m','LineWidth',1);  
+xline(baselineS,'-m','LineWidth',1);
 xline(electrode.time, '--r');
 xline(window,'-','LineWidth',1);
 tit = strcat(title3," power spectrum @ ", electrode.electrode);

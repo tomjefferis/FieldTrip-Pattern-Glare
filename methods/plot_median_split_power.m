@@ -5,13 +5,15 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     end
 
     if time(1) == 0.5
-        time(1) = -0.2;
+        time(1) = -0.6;
         window = 0.5;
-        baseline = -0.05;
+        baseline = -0.35;
+        baselineS = -0.45;
     elseif time(1) == 3.0
         time(1) = 2.8;
         window = 3;
         baseline = 2.95;
+        baselineS = 2.75;
     end
 
     electrode_idx = get_electrode_index(low, electrode);
@@ -28,8 +30,9 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     ylabel("Power db");
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
-    legend("Low PGI", "High PGI","Maximum Effect","Baseline End", "Window Start", 'location', 'eastoutside');
+    legend("Low PGI", "High PGI","Maximum Effect","Baseline End", "Baseline Start", "Window Start", 'location', 'eastoutside');
     grid on;
     xlim([time(1), time(end)])
     ylim([min(min(lowitpc,highitpc)) *1.2 ,max(max(lowitpc,highitpc))* 1.2])
@@ -46,8 +49,9 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     ylabel("Power db");
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
-    legend("Low Medium", "High Medium","Maximum Effect","Baseline End", "Window Start", 'location', 'eastoutside');
+    legend("Low Medium", "High Medium","Maximum Effect","Baseline End","Baseline Start", "Window Start", 'location', 'eastoutside');
     grid on;
     xlim([time(1), time(end)])
     ylim([min(min(lowitlc,highitlc)) *1.2 ,max(max(lowitlc,highitlc))* 1.2])
@@ -73,6 +77,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     hold on;
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
     tit = strcat("Low Group Power Spectrum PGI");
     title(tit);
@@ -90,6 +95,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     hold on;
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
     tit = strcat("High Group Power Spectrum PGI");
     title(tit);
@@ -107,6 +113,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     hold on;
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
     tit = strcat("Low Group Power Spectrum Medium");
     title(tit);
@@ -124,6 +131,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     hold on;
     xline(electrode.time, '--r');
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(window,'-','LineWidth',1);
     tit = strcat("High Group Power Spectrum Medium");
     title(tit);
@@ -132,13 +140,15 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     set(gcf, 'Position', [100, 100, 1900, 1600]);
 
     labPos1 = get(xl1, 'Position');
-    labPos1(1) = labPos1(1)*1.13;
+    labPos1(1) = labPos1(1)*1.4;
     labPos1(2) = labPos1(2)/1.2;
+    %SlabPos1 = [-0.3,-0.7598,-1];
     set(xl1, 'Position', labPos1);
 
     labPos2 = get(xl2, 'Position');
-    labPos2(1) = labPos2(1)*1.13;
-    labPos2(2) = labPos2(2)/1.17;
+    labPos2(1) = labPos2(1)*1.4;
+    labPos2(2) = labPos2(2)/1.2;
+    %labPos2 = [-0.3,-3.20,-1];
     set(xl2, 'Position', labPos2);
 
     if contains(factor, "habituation") || contains(factor, "sensitization")

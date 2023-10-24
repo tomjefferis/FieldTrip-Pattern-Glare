@@ -5,13 +5,15 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     end
 
     if time(1) == 0.5
-        time(1) = -0.2;
+        time(1) = -0.6;
         window = 0.5;
-        baseline = -0.05;
+        baseline = -0.35;
+        baselineS = -0.45;
     elseif time(1) == 3.0
         time(1) = 2.8;
         window = 3;
         baseline = 2.95;
+        baselineS = 2.75;
     end
 
     electrode_idx = get_electrode_index(data, electrode);
@@ -38,11 +40,12 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     subplot(4, 1, 1);
     ax1 = plot(data.time,dataitpc,'g','LineWidth', 1.4);
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     yline(0,'--o');
     title('PGI Power');
-    legend("PGI","Baseline End", "Max Effect", "Window Start", 'location', 'eastoutside');
+    legend("PGI","Baseline End","Baseline Start", "Max Effect", "Window Start", 'location', 'eastoutside');
     xl1 = xlabel("Time S");
     ylabel("Power db");
     grid on;
@@ -52,11 +55,12 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     subplot(4, 1, 2);
     ax2 = plot(data.time,meditpc,'b', data.time, thickitpc, 'r', data.time, thinitpc, 'g','LineWidth', 1.4);
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     yline(0,'--o');
     title('Medium Power');
-    legend("Medium","Thick","Thin","Baseline End", "Max Effect", "Window Start", 'location', 'eastoutside');
+    legend("Medium","Thick","Thin","Baseline End","Baseline End", "Max Effect", "Window Start", 'location', 'eastoutside');
     xl2 = xlabel("Time S");
     ylabel("Power db");
     grid on;
@@ -74,6 +78,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     ylabel("Frequency Hz");
     hold on;
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("PGI Power Spectrum");
@@ -91,6 +96,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     ylabel("Frequency Hz");
     hold on;
     xline(baseline,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("Medium Power Spectrum");

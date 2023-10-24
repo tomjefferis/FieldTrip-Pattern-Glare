@@ -5,14 +5,17 @@ if ~exist('font_size','var')
 end
 
 if time(1) == 0.5
-    time(1) = -0.2;
+    time(1) = -0.6;
     window = 0.5;
-    baseline = -0.05;
+    baseline = -0.35;
+    baselineS = -0.45;
 elseif time(1) == 3.0
     time(1) = 2.8;
     window = 3;
     baseline = 2.95;
+    baselineS = 2.75;
 end
+
 
 [low1, high1] = median_split(dataone, 1, design2);
 [low2, high2] = median_split(datatwo, 1, design2);
@@ -43,7 +46,7 @@ lowitpc3 = mean(squeeze(low3.powspctrm(electrode_idx, :, :)), 1);
 highitpc3 = mean(squeeze(high3.powspctrm(electrode_idx, :, :)), 1);
 
 if contains(factor,"onsets") || contains(factor,"Onsets")
-    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End", "Max Effect", "Window Start"];
+    legend1 = ["Onsets 2,3 PGI", "Onsets 4,5 PGI", "Onsets 6,7 PGI", "Baseline End","Baseline Start", "Max Effect", "Window Start"];
     legend2 = ["Onsets 2,3 Med", "Onsets 4,5 Med", "Onsets 6,7 Med", "", "Max Effect", ""];
     
     title1 = 'Onsets 2,3';
@@ -51,7 +54,7 @@ if contains(factor,"onsets") || contains(factor,"Onsets")
     title3 = 'Onsets 6,7';
     title4 = 'Onsets';
 else
-    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End", "Max Effect", "Window Start"];
+    legend1 = ["Partition 1 PGI", "Partition 2 PGI", "Partition 3 PGI", "Baseline End","Baseline Start", "Max Effect", "Window Start"];
     legend2 = ["Partition 1 Med", "Partition 2 Med", "Partition 3 Med", "", "Max Effect", ""];
     
     title1 = 'Partition 1';
@@ -69,7 +72,9 @@ else
     ylabel(strcat(title4," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     grid on;
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);    
+    xline(baselineS,'-m','LineWidth',1);
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     xlim([time(1), time(end)])
@@ -84,7 +89,8 @@ else
     ylabel("Power db");
     grid on;
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     xlim([time(1), time(end)])
@@ -118,7 +124,8 @@ else
     caxis(pgirange);
     ylabel(strcat(title1," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("Power Spectrum @ ", electrode.electrode);
@@ -134,7 +141,8 @@ else
     caxis(pgirange);
     ylabel("Frequency Hz");
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("Power Spectrum @ ", electrode.electrode);
@@ -152,7 +160,8 @@ else
     xlabel("Time S");
     ylabel(strcat(title2," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("Low group power spectrum ", title2, " @ ", electrode.electrode);
@@ -170,7 +179,8 @@ else
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("High group power spectrum ", title2, " @ ", electrode.electrode);
@@ -188,7 +198,8 @@ else
     xlabel("Time S");
     ylabel(strcat(title3," PGI"),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);   
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("Low group power spectrum ", title3, " @ ", electrode.electrode);
@@ -206,7 +217,8 @@ else
     xlabel("Time S");
     ylabel("Frequency Hz");
     hold on;
-    xline(baseline,'-m','LineWidth',1);
+    xline(baseline,'-m','LineWidth',1);  
+    xline(baselineS,'-m','LineWidth',1);
     xline(electrode.time, '--r');
     xline(window,'-','LineWidth',1);
     tit = strcat("High group power spectrum ", title3, " @ ", electrode.electrode);

@@ -4,7 +4,7 @@
 clear all;
 restoredefaultpath;
 addpath('./methods');
-addpath('C:\Users\Tom\AppData\Roaming\MathWorks\MATLAB Add-Ons\Collections\Image Manipulation Toolbox\MIMT')
+addpath('C:\Users\Tom\AppData\Roaming\MathWorks\MATLAB Add-Ons\Collections\MIMT\MIMT')
 
 grand_avg_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
@@ -26,7 +26,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
 time_window = [0.5 3];
 n_participants = 40;
-baseline_period = [-0.35 -0.25];
+baseline_period = [-0.45 -0.35];
 %baseline_period = [2.75 2.95];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
 max_windows = 4; % maximum amount of windows the roi finder finds
@@ -34,7 +34,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -53,13 +53,13 @@ generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOT
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
 factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
-onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
+onsets_parts = {'partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -151,7 +151,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -176,7 +176,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -253,3 +253,4 @@ else
     end
 
 end
+

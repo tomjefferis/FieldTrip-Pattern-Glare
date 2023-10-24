@@ -11,8 +11,8 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         time(1) = 2.8;
         temp_time = 2.8;
     elseif temp_time == 0.5
-        time(1) = baseline_period(1);
-        temp_time = baseline_period(1);
+        time(1) = -0.6;
+        temp_time = -0.6;
     else
         time(1) = datas{1}.time(1);
     end

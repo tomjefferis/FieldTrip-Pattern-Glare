@@ -1,4 +1,4 @@
-function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, results, paper_plot)
+function plots = plot_topo_map(stat, start_time, end_time, polarity, factor, results, paper_plot)
 
     difference = linspace(start_time, end_time, 8); %amount of subplots in this
 
@@ -18,10 +18,10 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
     figure;
     set(gcf, 'Position',  [100, 100, 1600, 400]);
 
-    tiledlayout(1,7)
+    tiledlayout(1,7);
 
     for i = 1:7
-
+        nexttile;
         %finding time window from the closest times in the series to the inputs
         lower = interp1(stat.time, 1:length(stat.time), difference(i), 'nearest');
         upper = interp1(stat.time, 1:length(stat.time), difference(i + 1), 'nearest');
@@ -37,7 +37,6 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         highlight = round(mean(clustermark(:, lower:upper), 2));
         highlight = stat.label(highlight == 1);
 
-        nexttile;
         % cfg for plot
         cfg = [];
         cfg.xlim = [difference(i), difference(i + 1)];
@@ -51,6 +50,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
         cfg.comment = 'no';
         cfg.parameter = 'stat';
         cfg.zlim = [-2 4];
+        cfg.figure = 'gcf';
 
         %if i == 5
         %    cfg.colorbar = 'South'; % adds to every plot usually disabled, uness need figure with bar
@@ -58,9 +58,9 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
 
         cfg.parameter = 'stat';
         ft_topoplotER(cfg, stat);
-        t = title(strcat(string(round(difference(i),2)), " - ", string(round(difference(i+1),2)), "s"));
-        t_pos = get(t,'position');
-        set(t,'position',[t_pos(1) t_pos(2)/2 t_pos(3)])
+        %t = title(strcat(string(round(difference(i),2)), " - ", string(round(difference(i+1),2)), "s"));
+        %t_pos = get(t,'position');
+        %set(t,'position',[t_pos(1) t_pos(2)/2 t_pos(3)])
 
     end
 
@@ -105,7 +105,7 @@ function plot = plot_topo_map(stat, start_time, end_time, polarity, factor, resu
     end
 
     
-    plot = gcf;
+    plots = gcf;
     if ~paper_plot
         sgtitle(title_main);
         saveas(gcf, save_dir_full);
