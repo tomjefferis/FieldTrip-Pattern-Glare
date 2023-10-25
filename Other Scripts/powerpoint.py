@@ -19,9 +19,37 @@ for image in imageList:
     else:
         imageList_other.append(image)
 
-# sort the lists alphabetically
-imageList_0_5_3s.sort()
-imageList_other.sort()
+imageList_0_5_3s_onsets = []
+imageList_0_5_3s_partitions = []
+imageList_0_5_3s_onsetsVS = []
+
+imageList_other_onsets = []
+imageList_other_partitions = []
+imageList_other_onsetsVS = []
+
+for image in imageList_0_5_3s:
+    if "Onsets 2,3" in image:
+        imageList_0_5_3s_onsetsVS.append(image)
+    elif "Partitions" in image:
+        imageList_0_5_3s_partitions.append(image)
+    else:
+        imageList_0_5_3s_onsets.append(image)
+
+for image in imageList_other:
+    if "Onsets 2,3" in image:
+        imageList_other_onsetsVS.append(image)
+    elif "Partitions" in image:
+        imageList_other_partitions.append(image)
+    else:
+        imageList_other_onsets.append(image)
+
+# sort the lists
+imageList_0_5_3s_onsets.sort()
+imageList_0_5_3s_partitions.sort()
+imageList_0_5_3s_onsetsVS.sort()
+imageList_other_onsets.sort()
+imageList_other_partitions.sort()
+imageList_other_onsetsVS.sort()
 
 
 # create a new presentation
@@ -38,10 +66,44 @@ subtitle.text = "Results: " + typeExperiment
 title_slide_layout = prs.slide_layouts[0]
 slide = prs.slides.add_slide(title_slide_layout)
 title = slide.shapes.title
-title.text = "DC Shift"
+title.text = "DC Shift Onsets"
 
 # add the images to center of the slide but keep aspect ratio and fit to slide
-for image in imageList_0_5_3s:
+for image in imageList_0_5_3s_onsets:
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    left = top = Inches(0)
+    pic = slide.shapes.add_picture(imageDir + '\\' + image, left, top)
+    pic.width = Inches(6.5)
+    pic.height = Inches(7.5)
+    pic.left = int((prs.slide_width - pic.width)/2)
+
+
+# creat title slide
+title_slide_layout = prs.slide_layouts[0]
+slide = prs.slides.add_slide(title_slide_layout)
+title = slide.shapes.title
+title.text = "DC Shift Partitions"
+
+# add the images to center of the slide but keep aspect ratio and fit to slide
+for image in imageList_0_5_3s_partitions:
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    left = top = Inches(0)
+    pic = slide.shapes.add_picture(imageDir + '\\' + image, left, top)
+    pic.width = Inches(6.5)
+    pic.height = Inches(7.5)
+    pic.left = int((prs.slide_width - pic.width)/2)
+
+
+# creat title slide
+title_slide_layout = prs.slide_layouts[0]
+slide = prs.slides.add_slide(title_slide_layout)
+title = slide.shapes.title
+title.text = "DC Shift Onsets 2,3 vs 4,5 vs 6,7"
+
+# add the images to center of the slide but keep aspect ratio and fit to slide
+for image in imageList_0_5_3s_onsetsVS:
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
     left = top = Inches(0)
@@ -56,10 +118,10 @@ for image in imageList_0_5_3s:
 title_slide_layout = prs.slide_layouts[0]
 slide = prs.slides.add_slide(title_slide_layout)
 title = slide.shapes.title
-title.text = "Offset Period"
+title.text = "Offset Period Onsets"
 
 # add the images to center of the slide but keep aspect ratio and fit to slide
-for image in imageList_other:
+for image in imageList_other_onsets:
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
     left = top = Inches(0)
@@ -68,7 +130,38 @@ for image in imageList_other:
     pic.height = Inches(7.5)
     pic.left = int((prs.slide_width - pic.width)/2)
 
+# creat title slide
+title_slide_layout = prs.slide_layouts[0]
+slide = prs.slides.add_slide(title_slide_layout)
+title = slide.shapes.title
+title.text = "Offset Period Partitions"
 
+# add the images to center of the slide but keep aspect ratio and fit to slide
+for image in imageList_other_partitions:
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    left = top = Inches(0)
+    pic = slide.shapes.add_picture(imageDir + '\\' + image, left, top)
+    pic.width = Inches(6.5)
+    pic.height = Inches(7.5)
+    pic.left = int((prs.slide_width - pic.width)/2)
+
+# creat title slide
+title_slide_layout = prs.slide_layouts[0]
+slide = prs.slides.add_slide(title_slide_layout)
+title = slide.shapes.title
+title.text = "Offset Period Onsets 2,3 vs 4,5 vs 6,7"
+
+# add the images to center of the slide but keep aspect ratio and fit to slide
+for image in imageList_other_onsetsVS:
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    left = top = Inches(0)
+    pic = slide.shapes.add_picture(imageDir + '\\' + image, left, top)
+    pic.width = Inches(6.5)
+    pic.height = Inches(7.5)
+    pic.left = int((prs.slide_width - pic.width)/2)
+    
 # save the presentation
 prs.save('W:\\PhD\\PatternGlareData\\Results\\'+ typeExperiment + '\\figures\\figures.pptx')
 

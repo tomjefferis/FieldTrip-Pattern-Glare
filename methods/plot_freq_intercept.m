@@ -18,7 +18,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
 
     electrode_idx = get_electrode_index(data, electrode);
 
-    data = average_power(data, data{1}.freq);
+    data = average_power(data, [data{1}.freq(1) data{1}.freq(end)]);
 
     dataitpc = mean(squeeze(data.powspctrm(electrode_idx,:,:)),1);
     meditpc = mean(squeeze(data.med_powspctrm(electrode_idx,:,:)),1);

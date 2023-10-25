@@ -89,13 +89,13 @@ end
 else
     if isonestsvs
     if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat("Onsets Interaction by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s ',string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        retfigname = strcat(direction1," Through Time for Onsets ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
     else
-        retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s ',string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
     end
 elseif ispart
     if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat("Partitions Interaction by ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        retfigname = strcat(direction1," Through Time for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
     else
         retfigname = strcat(orthog," ",factor," by ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
     end
