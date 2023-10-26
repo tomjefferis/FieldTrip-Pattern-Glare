@@ -24,7 +24,7 @@ dat3 = ft_freqgrandaverage(cfg, datathree{:});
 
 
 xlimit = [time(1), time(end)];
-ylim = [dat1.freq(1), dat1.freq(end)];
+ylims = [dat1.freq(1), dat1.freq(end)];
 %start = 2.8;
 f1 = figure;
 
@@ -111,7 +111,7 @@ colorbar;
 xlabel("Time S");
 xlim([time(1), time(end)])
 caxis(pgirange);
-ylim(ylim)
+ylim(ylims)
 ylabel("Frequency Hz");
 hold on;
 xline(baseline,'-m','LineWidth',1);   
@@ -128,7 +128,7 @@ shading interp;
 colorbar;
 xlabel("Time S");
 caxis(pgirange);
-ylim(ylim)
+ylim(ylims)
 xlim([time(1), time(end)])
 ylabel("Frequency Hz");
 hold on;
@@ -145,7 +145,7 @@ view(2);
 shading interp;
 colorbar;
 xlim(xlimit);
-ylim(ylim);
+ylim(ylims);
 caxis(pgirange);
 %ylim(ylimit);
 axis xy
