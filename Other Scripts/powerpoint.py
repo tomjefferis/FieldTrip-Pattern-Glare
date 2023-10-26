@@ -28,7 +28,7 @@ imageList_other_partitions = []
 imageList_other_onsetsVS = []
 
 for image in imageList_0_5_3s:
-    if "Onsets 2,3" in image:
+    if ("Time" in image or "by" in image) and "Onsets" in image:
         imageList_0_5_3s_onsetsVS.append(image)
     elif "Partitions" in image:
         imageList_0_5_3s_partitions.append(image)
@@ -36,7 +36,7 @@ for image in imageList_0_5_3s:
         imageList_0_5_3s_onsets.append(image)
 
 for image in imageList_other:
-    if "Onsets 2,3" in image:
+    if ("Time" in image or "by" in image) and "Onsets" in image:
         imageList_other_onsetsVS.append(image)
     elif "Partitions" in image:
         imageList_other_partitions.append(image)
