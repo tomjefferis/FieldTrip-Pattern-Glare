@@ -11,8 +11,8 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
         time(1) = 2.8;
         temp_time = 2.8;
     elseif temp_time == 0.5
-        time(1) = -0.6;
-        temp_time = -0.6;
+        time(1) = -0.2;
+        temp_time = -0.2;
     else
         time(1) = datas{1}.time(1);
     end
@@ -20,9 +20,9 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     step = 1/step;
     pad_samp = 125;
     [thin, med, thick] = split_data(datas,true);
-    thin = pad_series(thin, pad_samp, step);
-    med = pad_series(med, pad_samp, step);
-    thick = pad_series(thick, pad_samp, step);
+    %thin = pad_series(thin, pad_samp, step);
+    %med = pad_series(med, pad_samp, step);
+    %thick = pad_series(thick, pad_samp, step);
 
     if ~strcmp(output,'pow')
         thin = [];
