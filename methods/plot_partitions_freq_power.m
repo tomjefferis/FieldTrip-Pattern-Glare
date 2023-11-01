@@ -1,20 +1,21 @@
-function plots = plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, paper_figs, time, font_size)
+function plots = plot_partitions_freq_power(dataone, datatwo, datathree, electrode, design2, factor, results, paper_figs, time, font_size, baseline)
 
 if ~exist('font_size','var')
     font_size = 12;
 end
 
 if time(1) == 0.5
-    time(1) = -0.6;
+    time(1) = baseline(1);
     window = 0.5;
-    baseline = -0.35;
-    baselineS = -0.45;
+    baselineS = baseline(1,2);
+    baseline = baseline(1,1);
 elseif time(1) == 3.0
     time(1) = 2.8;
     window = 3;
     baseline = 2.95;
     baselineS = 2.75;
 end
+
 
 
 [low1, high1] = median_split(dataone, 1, design2);

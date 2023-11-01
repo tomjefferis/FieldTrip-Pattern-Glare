@@ -1,4 +1,4 @@
-function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, cis, results, time_freq)
+function paper_figures(data, stat, design, onsets_part, figname, start_time, end_time, cis, results, time_freq, baseline)
 
     figname = paper_figure_name(figname, onsets_part, start_time, end_time, time_freq);
     font_size = 18;
@@ -61,26 +61,26 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     if ~contains(string(time_freq), "time")
         if (strcmp(onsets_part, 'onsets') || contains(onsets_part, 'onset 1') || contains(onsets_part, 'Partition 1')) && ~contains(onsets_part, 'partitions-vs-onsets')
             if ~contains(factor, 'Intercept') 
-                erpplot = freq_power_median_split(data,1, design, electrode,time_freq, [start_time end_time], factor, results, true, font_size)
+                erpplot = freq_power_median_split(data,1, design, electrode,time_freq, [start_time end_time], factor, results, true, font_size, baseline)
                 erpplot = print('-RGBImage');
             else
-                erpplot = plot_freq_intercept(data, electrode, [start_time end_time], factor, results, true, font_size);
+                erpplot = plot_freq_intercept(data, electrode, [start_time end_time], factor, results, true, font_size, baseline);
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'partitions')&& ~contains(onsets_part, 'partitions-vs-onsets')
             if ~contains(factor, 'Through Time') 
-            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, [start_time end_time],font_size)
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true, [start_time end_time],font_size, baseline)
             erpplot = print('-RGBImage');
             else
-                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size)
+                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size, baseline)
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'onsets-23-45-67')
             if ~contains(factor, 'Through Time') || ~contains(factor, 'none')
-            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size)
+            erpplot = plot_partitions_freq_power(data1, data2, data3, electrode, design2, factor, results, true,[start_time end_time], font_size, baseline)
             erpplot = print('-RGBImage');
             else
-                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true, font_size)
+                erpplot = plot_partitions_intercept_power(data1, data2, data3, electrode, design2, factor, results, true, font_size, baseline)
                 erpplot = print('-RGBImage');
             end
         elseif contains(onsets_part, 'partitions-vs-onsets')

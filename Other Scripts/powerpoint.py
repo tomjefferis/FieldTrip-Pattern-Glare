@@ -5,16 +5,17 @@ from pptx.util import Inches
 
 
 typeExperiment = 'frequency' # frequency or time
-imageDir = 'W:\\PhD\\PatternGlareData\\Results\\'+ typeExperiment + '\\figures'
+imageDir = 'W:\\PhD\\PatternGlareData\\Results\\'+ typeExperiment + '\\figures\\Archive 2 Good Setup'
 
 # get the list of images
 imageList = os.listdir(imageDir)
+imageList = [x for x in imageList if x.endswith(".png")]
 
 # split list into two based on if the image dir contains "0.5-3s"
 imageList_0_5_3s = []
 imageList_other = []
 for image in imageList:
-    if "0.5-3s" in image:
+    if "0.5-3" in image:
         imageList_0_5_3s.append(image)
     else:
         imageList_other.append(image)

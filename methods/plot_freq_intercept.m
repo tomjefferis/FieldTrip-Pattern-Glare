@@ -1,14 +1,13 @@
-function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, paper_figs, font_size)
+function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, paper_figs, font_size, baseline)
 
     if ~exist('font_size','var')
         font_size = 12;
     end
-
     if time(1) == 0.5
-        time(1) = -0.6;
+        time(1) = baseline(1);
         window = 0.5;
-        baseline = -0.35;
-        baselineS = -0.45;
+        baselineS = baseline(1,2);
+        baseline = baseline(1,1);
     elseif time(1) == 3.0
         time(1) = 2.8;
         window = 3;
