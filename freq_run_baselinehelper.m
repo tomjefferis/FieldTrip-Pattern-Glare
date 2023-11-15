@@ -109,8 +109,8 @@ else
 
             wavelet_width = round(200 / duration);
 
-            if duration * cycles > 200 
-                wavelet_width = cycles - 1;
+            if duration * wavelet_width > 200 
+                wavelet_width = wavelet_width - 1;
             end
             
             for m = 1:numel(partitionss)
@@ -229,8 +229,8 @@ else
 
             wavelet_width = round(200 / duration);
 
-            if duration * cycles > 200 
-                wavelet_width = cycles - 1;
+            if duration * wavelet_width > 200 
+                wavelet_width = wavelet_width - 1;
             end
 
             for m = 1:numel(partitionss)

@@ -5,7 +5,7 @@ from pptx.util import Inches
 
 
 typeExperiment = 'frequency' # frequency or time
-imageDir = 'W:\\PhD\\PatternGlareData\\Results\\'+ typeExperiment + '\\figures\\Archive 2 Good Setup'
+imageDir = 'W:\\PhD\\PatternGlareData\\Results\\'+ typeExperiment + '\\figures'
 
 # get the list of images
 imageList = os.listdir(imageDir)
