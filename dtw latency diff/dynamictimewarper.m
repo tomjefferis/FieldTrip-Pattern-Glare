@@ -10,12 +10,12 @@ function dynamictimewarper(data1, data2, fs)
 
 
 
-for i = 1:size(data1,1)
+for i = 1:size(data1,2)
     query = zscore(data1{i}.erp);
     reference = zscore(data2{i}.erp);
     [dist,ix,iy] = dtw(query,reference);
     latency = ix - iy;
-    meanAbsLatency(i,:) = latency;
+    meanAbsLatency{i} = latency;
     figure;
     plot(ix,iy,'--',[ix(1) ix(end)],[iy(1) iy(end)])
     title("Warping Path")
@@ -25,13 +25,19 @@ for i = 1:size(data1,1)
 end
 
 fs = 1/fs;
+lat = zeros(size(meanAbsLatency,2),max(cellfun('size',meanAbsLatency,2)))
+lat(lat==0) = NaN;
+for i = 1:size(meanAbsLatency,2)
+    lat(i,1:size(meanAbsLatency{i},2)) = meanAbsLatency{i};
+end
 
-absoloutemean = median(meanAbsLatency);
+
+absoloutemean = median(lat,"all","omitmissing");
 absoloutemean = absoloutemean*fs;
 absmeanstr = strcat("DTW Median latency difference: ",string(absoloutemean),"s");
 disp(absmeanstr)
 
-absoloutemean = mode(meanAbsLatency);
+absoloutemean = mode(lat,"all");
 absoloutemean = absoloutemean*fs;
 absmeanstr = strcat("DTW Mode latency difference: ",string(absoloutemean),"s");
 disp(absmeanstr)

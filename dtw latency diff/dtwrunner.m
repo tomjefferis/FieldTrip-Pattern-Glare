@@ -8,7 +8,7 @@ restoredefaultpath;
 desired_time = 0.5; % in seconds
 desired_fs = 500; % sample rate in Hz
 desired_noise_level = 0.5; % SNR ratio
-desired_trials = 50; % number of trials per participant to generate
+desired_trials = 10; % number of trials per participant to generate
 desired_participants = 1; % number of participants to generate
 desired_jitter = 20; % jitter in ± ms 
 desired_peak_fs = 20; % frequency of peak in Hz
