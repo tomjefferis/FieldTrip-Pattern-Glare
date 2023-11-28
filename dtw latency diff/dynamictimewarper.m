@@ -25,7 +25,7 @@ for i = 1:size(data1,2)
 end
 
 fs = 1/fs;
-lat = zeros(size(meanAbsLatency,2),max(cellfun('size',meanAbsLatency,2)))
+lat = zeros(size(meanAbsLatency,2),max(cellfun('size',meanAbsLatency,2)));
 lat(lat==0) = NaN;
 for i = 1:size(meanAbsLatency,2)
     lat(i,1:size(meanAbsLatency{i},2)) = meanAbsLatency{i};
@@ -46,6 +46,11 @@ absoloutearea = median(arealatency);
 absmeanstr = strcat("DTW Area median distance: ",string(absoloutearea));
 disp(absmeanstr)
 
+[~, maxlatIDX] = max(abs(lat));
+maxlat = lat(maxlatIDX);
+maxlat = maxlat*fs;
+absmeanstr = strcat("DTW Max distance: ",string(maxlat));
+disp(absmeanstr)
 
 end
 
