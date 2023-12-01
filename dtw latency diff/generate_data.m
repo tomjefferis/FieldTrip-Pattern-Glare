@@ -17,7 +17,7 @@ function signals = generate_data(desired_time, desired_fs, desired_noise_level, 
     my_noise = noise(n_samples, desired_total_trials, desired_fs);
     my_peak = peak(n_samples, desired_total_trials, desired_fs, desired_peak_fs, peak_time, desired_jitter);
 
-    signal = my_peak + (my_noise*desired_noise_level);
+    signal = 5 * my_peak + 3*(my_noise*desired_noise_level);
 
     if desired_total_trials > 1
         my_noise = split_vector(my_noise, n_samples);

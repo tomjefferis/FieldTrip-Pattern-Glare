@@ -16,11 +16,21 @@ for i = 1:size(data1,2)
     [dist,ix,iy] = dtw(query,reference);
     latency = ix - iy;
     meanAbsLatency{i} = latency;
-    figure;
+    %% create a 3x3 subplot of the warping path, and the two signals
+    subplot(3,3,[1 4])
+    plot(query)
+    view([-90 90])
+    title("Query Signal")
+    subplot(3,3,[8 9])
+    plot(reference)
+    title("Reference Signal")
+    subplot(3,3,[2 3 5 6])
     plot(ix,iy,'--',[ix(1) ix(end)],[iy(1) iy(end)])
     title("Warping Path")
-    xlabel("Signal 2")
-    ylabel("Signal 1")
+    xlabel("Reference Signal")
+    ylabel("Query Signal")
+    % make plot 1080x1080 pixels
+    set(gcf,'Position',[0 0 1080 1080])
     arealatency(i) = (trapz(ix,iy) - trapz([ix(1) ix(end)],[iy(1) iy(end)]))/trapz([ix(1) ix(end)],[iy(1) iy(end)]);
 end
 
