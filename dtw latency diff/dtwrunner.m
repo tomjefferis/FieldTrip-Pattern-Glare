@@ -7,7 +7,7 @@ restoredefaultpath;
 % parameters of synthetic signal
 desired_time = 0.5; % in seconds
 desired_fs = 500; % sample rate in Hz
-desired_noise_level = 0.8; % SNR ratio
+desired_noise_level = 0.1; % SNR ratio
 desired_trials = 1; % number of trials per participant to generate
 desired_participants = 1; % number of participants to generate
 desired_jitter = 0; % jitter in ± ms 
