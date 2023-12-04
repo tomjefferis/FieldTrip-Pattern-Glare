@@ -17,7 +17,7 @@ function signals = generate_data(desired_time, desired_fs, desired_noise_level, 
     my_noise = noise(n_samples, desired_total_trials, desired_fs);
     my_peak = peak(n_samples, desired_total_trials, desired_fs, desired_peak_fs, peak_time, desired_jitter);
 
-    signal = 5 * my_peak + 3*(my_noise*desired_noise_level);
+    signal =  my_peak + (my_noise*desired_noise_level);
 
     if desired_total_trials > 1
         my_noise = split_vector(my_noise, n_samples);
@@ -52,7 +52,7 @@ function signals = generate_data(desired_time, desired_fs, desired_noise_level, 
         %subset = bpfilt(subset, 0.1, 30, desired_fs, 0);
         erp = mean(subset,2);
         %erp  = bpfilt(erp, 0.1, 30, desired_fs, 0);
-        plot(erp);
+        %plot(erp);
         data.erp = erp;
         data.trials = subset;
         participants{p} = data;

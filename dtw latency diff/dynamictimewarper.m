@@ -1,13 +1,9 @@
-function dynamictimewarper(data1, data2, fs)
+function [absoloutemean,absoloutemedian,absoloutemode,maxlat, maxlat95] = dynamictimewarper(data1, data2, fs)
 % Dynamic Time Warper is a function that gets the DTW distance for the
 % electrode and computes the Fractional peak, peak, and area of the erp
 % component
 
 % Input: data = array of erp data for a single electrode samples x trials
-
-
-
-
 
 
 for i = 1:size(data1,2)
@@ -17,20 +13,20 @@ for i = 1:size(data1,2)
     latency = ix - iy;
     meanAbsLatency{i} = latency;
     %% create a 3x3 subplot of the warping path, and the two signals
-    subplot(3,3,[1 4])
-    plot(query)
-    view([-90 90])
-    title("Query Signal")
-    subplot(3,3,[8 9])
-    plot(reference)
-    title("Reference Signal")
-    subplot(3,3,[2 3 5 6])
-    plot(ix,iy,'--',[ix(1) ix(end)],[iy(1) iy(end)])
-    title("Warping Path")
-    xlabel("Reference Signal")
-    ylabel("Query Signal")
+    %subplot(3,3,[1 4])
+    %plot(query)
+    %view([-90 90])
+    %title("Query Signal")
+    %subplot(3,3,[8 9])
+    %plot(reference)
+    %title("Reference Signal")
+    %subplot(3,3,[2 3 5 6])
+    %plot(ix,iy,'--',[ix(1) ix(end)],[iy(1) iy(end)])
+    %title("Warping Path")
+    %xlabel("Reference Signal")
+    %ylabel("Query Signal")
     % make plot 1080x1080 pixels
-    set(gcf,'Position',[0 0 1080 1080])
+    %set(gcf,'Position',[0 0 1080 1080])
     arealatency(i) = (trapz(ix,iy) - trapz([ix(1) ix(end)],[iy(1) iy(end)]))/trapz([ix(1) ix(end)],[iy(1) iy(end)]);
 end
 
@@ -42,25 +38,28 @@ for i = 1:size(meanAbsLatency,2)
 end
 
 
-absoloutemean = median(lat,"all","omitmissing");
-absoloutemean = absoloutemean*fs;
-absmeanstr = strcat("DTW Median latency difference: ",string(absoloutemean),"s");
-disp(absmeanstr)
+absoloutemedian = median(lat,"all","omitmissing");
+absoloutemedian = absoloutemedian*fs;
 
-absoloutemean = mode(lat,"all");
-absoloutemean = absoloutemean*fs;
-absmeanstr = strcat("DTW Mode latency difference: ",string(absoloutemean),"s");
-disp(absmeanstr)
+absoloutemode = mode(lat,"all");
+absoloutemode = absoloutemode*fs;
 
 absoloutearea = median(arealatency);
-absmeanstr = strcat("DTW Area median distance: ",string(absoloutearea));
-disp(absmeanstr)
+
+absoloutemean = mean(lat,"all","omitmissing");
+absoloutemean = absoloutemean*fs;
 
 [~, maxlatIDX] = max(abs(lat));
 maxlat = lat(maxlatIDX);
 maxlat = maxlat*fs;
-absmeanstr = strcat("DTW Max distance: ",string(maxlat));
-disp(absmeanstr)
+
+% 95th percentile of absolute latency
+maxlat95 = prctile(abs(lat),95);
+% find the index of the closest value to the 95th percentile
+[~, maxlat95] = min(abs(abs(lat) - maxlat95));
+% get the value of the 95th percentile
+maxlat95 = lat(maxlat95);
+maxlat95 = maxlat95*fs;
 
 end
 

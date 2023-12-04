@@ -1,4 +1,4 @@
-function fracpeaklatency(data1, data2, fs)
+function latency = fracpeaklatency(data1, data2, fs)
 
     for i = 1:size(data1,1)
         % get the peak of data1 and data2 with the indexs using max
@@ -23,9 +23,6 @@ function fracpeaklatency(data1, data2, fs)
 
     f = 1/fs;
     latency = (loc1 - loc2) * f;
-    stringlat = num2str(latency);
-    stringlat = strcat("50% Peak Latency: ",stringlat, ' seconds');
-    disp(stringlat);
-
+    
 end
 
