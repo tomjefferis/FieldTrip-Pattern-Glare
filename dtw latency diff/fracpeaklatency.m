@@ -10,8 +10,8 @@ function latency = fracpeaklatency(data1, data2, fs)
         pks2 = pks2 * 0.5;
 
         % find the index of the 50% peak or the closest value to it
-        loc1(i) = find(data1{i}.erp > pks1, 1);
-        loc2(i) = find(data2{i}.erp > pks2, 1);
+        [~, loc1(i)] = min(abs(data1{i}.erp - pks1));
+        [~, loc2(i)] = min(abs(data2{i}.erp - pks2));
 
         
 

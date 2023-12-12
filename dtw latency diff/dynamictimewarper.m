@@ -10,7 +10,7 @@ for i = 1:size(data1,2)
     query = zscore(data1{i}.erp);
     reference = zscore(data2{i}.erp);
     [dist,ix,iy] = dtw(query,reference);
-    latency = ix - iy;
+    latency = ix - iy; % doing x - y since if the horizontal distance was 0 that would mean x=y 
     meanAbsLatency{i} = latency;
     %% create a 3x3 subplot of the warping path, and the two signals
     %subplot(3,3,[1 4])
