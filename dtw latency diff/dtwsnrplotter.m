@@ -9,7 +9,7 @@ SNR_test = [0.1:0.05:0.9];
 desired_peak_loc_1 = 0.1; % in seconds
 desired_peak_loc_2 = 0.2; % in seconds
 desired_time = 0.5; % in seconds
-num_permutations = 10; % number of times to generate signal per snr level
+num_permutations = 10000; % number of times to generate signal per snr level
  
 
 % parameters of synthetic signal
@@ -33,7 +33,7 @@ frac_peak_latency = zeros(num_permutations,length(SNR_test));
 
 
 for i = 1:length(SNR_test)
-    for j = 1:num_permutations
+    parfor j = 1:num_permutations
         signals1 = generate_data(desired_time, desired_fs, SNR_test(i), desired_trials, ...
             desired_participants, desired_jitter, desired_peak_fs,desired_peak_loc_1);
         
@@ -144,6 +144,7 @@ lg.Layout.Tile = 8;
 tit = strcat("DTW vs other methods for varying NSR levels for ",string(desired_time*1000),"ms signal");
 sgt = sgtitle(tit);
 sgt.FontSize = 24;
+sgt.FontWeight = 'Bold';
 
 set(gcf,'Position',[0 0 2560 1080])
 figname = strcat("DTW_results_NSR_",string(desired_time*1000),"ms_signal.png");
