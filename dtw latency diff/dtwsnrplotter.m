@@ -9,7 +9,7 @@ SNR_test = [0.1:0.05:0.9];
 desired_peak_loc_1 = 0.1; % in seconds
 desired_peak_loc_2 = 0.2; % in seconds
 desired_time = 0.5; % in seconds
-num_permutations = 10000; % number of times to generate signal per snr level
+num_permutations = 1000; % number of times to generate signal per snr level
  
 
 % parameters of synthetic signal
@@ -33,7 +33,7 @@ frac_peak_latency = zeros(num_permutations,length(SNR_test));
 
 
 for i = 1:length(SNR_test)
-    parfor j = 1:num_permutations
+    for j = 1:num_permutations
         signals1 = generate_data(desired_time, desired_fs, SNR_test(i), desired_trials, ...
             desired_participants, desired_jitter, desired_peak_fs,desired_peak_loc_1);
         
@@ -49,6 +49,15 @@ for i = 1:length(SNR_test)
     end
 end
 
+% Calculate standard deviation for error bars
+std_median_dtw_distances = std(median_dtw_distances, 1);
+std_mean_dtw_distances = std(mean_dtw_distances, 1);
+std_mode_dtw_distances = std(mode_dtw_distances, 1);
+std_max_dtw_distances = std(max_dtw_distances, 1);
+std_max95_dtw_distances = std(max95_dtw_distances, 1);
+std_peak_latency = std(peak_latency, 1);
+std_frac_peak_latency = std(frac_peak_latency, 1);
+
 median_dtw_distances = median(median_dtw_distances,1);
 mean_dtw_distances = median(mean_dtw_distances,1);
 mode_dtw_distances = median(mode_dtw_distances,1);
@@ -57,13 +66,12 @@ max95_dtw_distances = median(max95_dtw_distances,1);
 peak_latency = median(peak_latency,1);
 frac_peak_latency = median(frac_peak_latency,1);
 
-
 %% Plotting the results, subplot for each line with X bing SNR and Y being the DTW distance
 figure;
 tiledlayout(2,4);
 
 ax1 = nexttile;
-plot(SNR_test,median_dtw_distances,'LineWidth',2)
+errorbar(SNR_test, median_dtw_distances, std_median_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(median_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -73,7 +81,7 @@ xlabel('NSR')
 ylabel('DTW distance (ms)')
 
 ax2 = nexttile;
-plot(SNR_test,mean_dtw_distances,'LineWidth',2)
+errorbar(SNR_test, mean_dtw_distances, std_mean_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(mean_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -83,7 +91,7 @@ xlabel('NSR')
 ylabel('DTW distance (ms)')
 
 ax3 = nexttile;
-plot(SNR_test,mode_dtw_distances,'LineWidth',2)
+errorbar(SNR_test, mode_dtw_distances, std_mode_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(mode_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -93,7 +101,7 @@ xlabel('NSR')
 ylabel('DTW distance (ms)')
 
 ax4 = nexttile;
-plot(SNR_test,max_dtw_distances,'LineWidth',2)
+errorbar(SNR_test, max_dtw_distances, std_max_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(max_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -103,7 +111,7 @@ xlabel('NSR')
 ylabel('DTW distance (ms)')
 
 ax5 = nexttile;
-plot(SNR_test,max95_dtw_distances,'LineWidth',2)
+errorbar(SNR_test, max95_dtw_distances, std_max95_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(max95_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -113,7 +121,7 @@ xlabel('NSR')
 ylabel('DTW distance (ms)')
 
 ax6 = nexttile;
-plot(SNR_test,peak_latency,'LineWidth',2)
+errorbar(SNR_test, peak_latency, std_peak_latency, 'LineWidth', 2)
 hold on
 yline(mean(peak_latency),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
@@ -123,7 +131,7 @@ xlabel('NSR')
 ylabel('Peak latency (ms)')
 
 ax7 = nexttile;
-plot(SNR_test,frac_peak_latency,'LineWidth',2)
+errorbar(SNR_test, frac_peak_latency, std_frac_peak_latency, 'LineWidth', 2)
 hold on
 yline(mean(frac_peak_latency),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
