@@ -1,4 +1,4 @@
-function [absoloutemean,absoloutemedian,absoloutemode,maxlat, maxlat95] = dynamictimewarper(data1, data2, fs)
+function [maxlatIQR, maxlat, maxlat95] = dynamictimewarper(data1, data2, fs)
 % Dynamic Time Warper is a function that gets the DTW distance for the
 % electrode and computes the Fractional peak, peak, and area of the erp
 % component
@@ -38,16 +38,14 @@ for i = 1:size(meanAbsLatency,2)
 end
 
 
-absoloutemedian = median(lat,"all","omitmissing");
-absoloutemedian = absoloutemedian*fs;
+% find iqr of absolute latency
+maxlatIQR = prctile(abs(lat),75);
+% find the index of the closest value to the 95th percentile
+[~, maxlatIQR] = min(abs(abs(lat) - maxlatIQR));
+% get the value of the 95th percentile
+maxlatIQR = lat(maxlatIQR);
+maxlatIQR = maxlatIQR*fs;
 
-absoloutemode = mode(lat,"all");
-absoloutemode = absoloutemode*fs;
-
-absoloutearea = median(arealatency);
-
-absoloutemean = mean(lat,"all","omitmissing");
-absoloutemean = absoloutemean*fs;
 
 [~, maxlatIDX] = max(abs(lat));
 maxlat = lat(maxlatIDX);

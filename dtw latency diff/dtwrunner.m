@@ -22,13 +22,13 @@ desired_peak_fs = 5; % frequency of peak in Hz
 
 
 for i = 1:length(SNR_test)
-    median_dtw_distances = zeros(num_permutations,1);
-    mean_dtw_distances = zeros(num_permutations,1);
-    mode_dtw_distances = zeros(num_permutations,1);
+    iqr_dtw_distances = zeros(num_permutations,1);
     max_dtw_distances = zeros(num_permutations,1);
     max95_dtw_distances = zeros(num_permutations,1);
     peak_latency = zeros(num_permutations,1);
     frac_peak_latency = zeros(num_permutations,1);
+    area_latency = zeros(num_permutations,1);
+    area_latency_25 = zeros(num_permutations,1);
 
 
     parfor j = 1:num_permutations
@@ -40,9 +40,11 @@ for i = 1:length(SNR_test)
             desired_participants, desired_jitter, desired_peak_fs,desired_peak_loc_2);
 
         
-        [mean_dtw_distances(j),median_dtw_distances(j),mode_dtw_distances(j),max_dtw_distances(j),max95_dtw_distances(j)] = dynamictimewarper(signals1,signals2,desired_fs);
+        [iqr_dtw_distances(j),max_dtw_distances(j),max95_dtw_distances(j)] = dynamictimewarper(signals1,signals2,desired_fs);
         [peak_latency(j)] = peaklatency(signals1,signals2, desired_fs);
         [frac_peak_latency(j)] = fracpeaklatency(signals1,signals2, desired_fs);
+        [area_latency(j)] = peakArea(signals1,signals2, desired_fs, 0.5);
+        [area_latency_25(j)] = peakArea(signals1,signals2, desired_fs, 0.25);
 
     end
     signals1 = generate_data(desired_time, desired_fs, SNR_test(i), desired_trials, ...
@@ -87,52 +89,52 @@ for i = 1:length(SNR_test)
     tiledlayout(2, 4);
 
     ax1 = nexttile;
-    histogram(mean_dtw_distances)
-    title('Mean DTW distance')
-    subtitle(['Middle point: ', num2str(median(mean_dtw_distances)),'s'])
-    xline(median(mean_dtw_distances),'--r','LineWidth',2)
-    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
-
-    ax2 = nexttile;
-    histogram(median_dtw_distances)
-    title('Median DTW distance')
-    subtitle(['Middle point: ', num2str(median(median_dtw_distances)),'s'])
-    xline(median(median_dtw_distances),'--r','LineWidth',2)
-    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
-
-    ax3 = nexttile;
-    histogram(mode_dtw_distances)
-    title('Mode DTW distance')
-    subtitle(['Middle point: ', num2str(median(mode_dtw_distances)),'s'])
-    xline(median(mode_dtw_distances),'--r','LineWidth',2)
-    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
-
-    ax4 = nexttile;
     histogram(max_dtw_distances)
     title('Max DTW absoloute distance')
     subtitle(['Middle point: ', num2str(median(max_dtw_distances)),'s'])
     xline(median(max_dtw_distances),'--r','LineWidth',2)
     xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
 
-    ax5 = nexttile;
+    ax2 = nexttile;
     histogram(max95_dtw_distances)
-    title('Max 95% absoloute DTW distance')
+    title('95th percentile absoloute DTW distance')
     subtitle(['Middle point: ', num2str(median(max95_dtw_distances)),'s'])
     xline(median(max95_dtw_distances),'--r','LineWidth',2)
     xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
 
-    ax6 = nexttile;
+    ax3 = nexttile;
+    histogram(iqr_dtw_distances)
+    title('75th percentile DTW absoloute distance')
+    subtitle(['Middle point: ', num2str(median(iqr_dtw_distances)),'s'])
+    xline(median(iqr_dtw_distances),'--r','LineWidth',2)
+    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
+
+    ax4 = nexttile;
     histogram(peak_latency)
     title('Peak latency')
     subtitle(['Middle point: ', num2str(median(peak_latency)),'s'])
     xline(median(peak_latency),'--r','LineWidth',2)
     xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
 
-    ax7 = nexttile;
+    ax5 = nexttile;
     histogram(frac_peak_latency)
     title('Fractional peak latency')
     subtitle(['Middle point: ', num2str(median(frac_peak_latency)),'s'])
     xline(median(frac_peak_latency),'--r','LineWidth',2)
+    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
+
+    ax6 = nexttile;
+    histogram(area_latency)
+    title('50% Fractional Area latency')
+    subtitle(['Middle point: ', num2str(median(area_latency)),'s'])
+    xline(median(area_latency),'--r','LineWidth',2)
+    xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
+
+    ax7 = nexttile;
+    histogram(area_latency_25)
+    title('25% Fractional Area latency')
+    subtitle(['Middle point: ', num2str(median(area_latency_25)),'s'])
+    xline(median(area_latency_25),'--r','LineWidth',2)
     xline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
 
     linkaxes([ax1,ax2,ax3,ax4,ax5,ax6,ax7],'xy')

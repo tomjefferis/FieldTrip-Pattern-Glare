@@ -22,13 +22,13 @@ desired_peak_fs = 5; % frequency of peak in Hz
 
 
 for i = 1:length(SNR_test)
-    median_dtw_distances = zeros(num_permutations,1);
-    mean_dtw_distances = zeros(num_permutations,1);
-    mode_dtw_distances = zeros(num_permutations,1);
+    iqr_dtw_distances = zeros(num_permutations,1);
     max_dtw_distances = zeros(num_permutations,1);
     max95_dtw_distances = zeros(num_permutations,1);
     peak_latency = zeros(num_permutations,1);
     frac_peak_latency = zeros(num_permutations,1);
+    area_latency = zeros(num_permutations,1);
+    area_latency_25 = zeros(num_permutations,1);
 
 
     for j = 1:num_permutations
@@ -40,9 +40,11 @@ for i = 1:length(SNR_test)
             desired_participants, desired_jitter, desired_peak_fs,desired_peak_loc_2);
 
         
-        [mean_dtw_distances(j),median_dtw_distances(j),mode_dtw_distances(j),max_dtw_distances(j),max95_dtw_distances(j)] = dynamictimewarper(signals1,signals2,desired_fs);
+        [iqr_dtw_distances(j),max_dtw_distances(j),max95_dtw_distances(j)] = dynamictimewarper(signals1,signals2,desired_fs);
         [peak_latency(j)] = peaklatency(signals1,signals2, desired_fs);
         [frac_peak_latency(j)] = fracpeaklatency(signals1,signals2, desired_fs);
+        [area_latency(j)] = peakArea(signals1,signals2, desired_fs, 0.5);
+        [area_latency_25(j)] = peakArea(signals1,signals2, desired_fs, 0.25);
 
     end
 
@@ -78,8 +80,8 @@ for i = 1:length(SNR_test)
 
     %% Plotting the results, subplots for each metric, histogran for each metric
     figure;
-    data = [mean_dtw_distances, median_dtw_distances, mode_dtw_distances, max_dtw_distances, max95_dtw_distances, peak_latency, frac_peak_latency];
-    labels = {'Mean DTW', 'Median DTW', 'Mode DTW', 'Max DTW', 'Max 95% DTW', 'Peak Latency', 'Fractional Peak Latency'};
+    data = [iqr_dtw_distances, max_dtw_distances, max95_dtw_distances, peak_latency, frac_peak_latency, area_latency, area_latency_25];
+    labels = {'75th percentile DTW', 'Max DTW', '95th percentile DTW', 'Peak Latency', 'Fractional Peak Latency', '50% Fractional Area', '25% Fractional Area'};
     
     boxchart(data);
     set(gca,'XTickLabel',labels);
