@@ -21,7 +21,7 @@ desired_jitter = 0; % jitter in ± ms
 desired_peak_fs = 5; % frequency of peak in Hz
 %Controls where the peak is placed in seconds
 
-baseline = round(((min(desired_peak_loc_1, desired_peak_loc_2)-((1/desired_peak_fs)/2))/1.5) * desired_fs);
+baseline = round(((min(desired_peak_loc_1, desired_peak_loc_2)-((1/desired_peak_fs)/2))) * desired_fs);
 
 iqr_dtw_distances = zeros(length(SNR_test),1);
 max_dtw_distances = zeros(num_permutations,length(SNR_test));
@@ -45,7 +45,7 @@ for i = 1:length(SNR_test)
         [iqr_dtw_distances(j,i),max_dtw_distances(j,i),max95_dtw_distances(j,i)] = dynamictimewarper(signals1,signals2,desired_fs);
         [peak_latency(j,i)] = peaklatency(signals1,signals2, desired_fs);
         [frac_peak_latency(j,i)] = fracpeaklatency(signals1,signals2, desired_fs);
-        [area_latency(j,i)] = peakArea(signals1,signals2, desired_fs, 0.5);
+        [area_latency(j,i)] = peakArea(signals1,signals2, desired_fs, 0.5,baseline);
         [baseline_dev(j,i)] = baselineDeviation(signals1,signals2, desired_fs, baseline, 2);
     
     end

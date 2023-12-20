@@ -1,4 +1,4 @@
-function latency = peakArea(data1, data2, fs, areaThreshold)
+function latency = peakArea(data1, data2, fs, areaThreshold, baseline)
 
     % determines the latency using fractional area
     avgLatency = [];
@@ -11,33 +11,53 @@ function latency = peakArea(data1, data2, fs, areaThreshold)
         dat1 = data1{i}.erp;
         dat2 = data2{i}.erp;
 
-        % find the max point
-        [~, maxInd1] = max(dat1);
-        [~, maxInd2] = max(dat2);
 
-        %zscore the data
-        dat1_z = zscore(dat1);
-        dat2_z = zscore(dat2);
-        thresh1 = mean(dat1_z);
-        thresh2 = mean(dat2_z);
-       
+        dat1_base = dat1(1:baseline);
+        dat2_base = dat2(1:baseline);
 
-        % calculate the area under the curve from the threshold to the max point
-        threshIndex1 = find(dat1 > thresh1, 1, 'first');
-        threshIndex2 = find(dat2 > thresh2, 1, 'first');
+        dat1_base_std = std(dat1_base);
+        dat2_base_std = std(dat2_base);
+
+        dat1_base_mean = mean(dat1_base);
+        dat2_base_mean = mean(dat2_base);
+
+
+        component_start_1 = find(dat1 > dat1_base_mean + 3*dat1_base_std, 1, 'first');
+        component_end_1 = find(dat1 >= dat1(component_start_1), 1, 'last');
+
+        component_start_2 = find(dat2 > dat2_base_mean + 3*dat2_base_std, 1, 'first');
+        component_end_2 = find(dat2 >= dat2(component_start_2), 1, 'last');
+
+
 
         %calculate the area under the curve from the threshold to the max point
 
-        maxArea1 = trapz(dat1(threshIndex1:maxInd1));
-        maxArea2 = trapz(dat2(threshIndex2:maxInd2));
+        maxArea1 = trapz(dat1(component_start_1:component_end_1));
+        maxArea2 = trapz(dat2(component_start_2:component_end_2));
+
+
+
+        %figure;
+        %plot(dat1,'linewidth',2);
+        %hold on;
+        %xline(component_start_1,"LineWidth", 1.5);
+        %xline(component_end_1,"LineWidth", 1.5);
+        %yline(dat1(component_start_1));
+        % fill the area under the curve and above the threshold
+        %fill([component_start_1:component_end_1], dat1(component_start_1:component_end_1), 'r', 'FaceAlpha', 0.6);
+        
 
         % calculate the point at which the area is 50% of the max area 
         areaThresh1 = maxArea1*areaThreshold;
         areaThresh2 = maxArea2*areaThreshold;
 
         % find the point at which the area is 50% of the max area
-        areaIndex1 = find(cumtrapz(dat1) > areaThresh1, 1, 'first');
-        areaIndex2 = find(cumtrapz(dat2) > areaThresh2, 1, 'first');
+        areaIndex1 = find(cumtrapz(dat1(component_start_1:component_end_1)) >= areaThresh1, 1, 'first') + component_start_1;
+        areaIndex2 = find(cumtrapz(dat2(component_start_2:component_end_2)) >= areaThresh2, 1, 'first') + component_start_2;
+
+        %xline(areaIndex1, "LineWidth", 2, "Color", "b");
+        % fill the 50% area
+        %fill([component_start_1:areaIndex1], dat1(component_start_1:areaIndex1), 'b', 'FaceAlpha', 0.6);
 
         if isempty(areaIndex2)
             areaIndex2 = length(dat2);
