@@ -37,9 +37,11 @@ for i = 1:size(meanAbsLatency,2)
     lat(i,1:size(meanAbsLatency{i},2)) = meanAbsLatency{i};
 end
 
+pathlength = length(ix)*fs;
+
 
 % find iqr of absolute latency
-maxlatIQR = prctile(abs(lat),75);
+maxlatIQR = median(abs(lat)) + pathlength*std(abs(lat));
 % find the index of the closest value to the 95th percentile
 [~, maxlatIQR] = min(abs(abs(lat) - maxlatIQR));
 % get the value of the 95th percentile

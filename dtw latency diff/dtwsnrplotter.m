@@ -5,10 +5,10 @@ clear all;
 restoredefaultpath;
 
 %% Parameters of this analysis
-SNR_test = [0.1:0.05:0.9];
-desired_peak_loc_1 = 0.2; % in seconds
-desired_peak_loc_2 = 0.3; % in seconds
-desired_time = 0.5; % in seconds
+SNR_test = [0.1:0.1:0.9];
+desired_peak_loc_1 = 0.15; % in seconds
+desired_peak_loc_2 = 0.17; % in seconds
+desired_time = 0.25; % in seconds
 num_permutations = 100; % number of times to generate signal per snr level
 
 
@@ -77,7 +77,7 @@ errorbar(SNR_test, iqr_dtw_distances, std_iqr_dtw_distances, 'LineWidth', 2)
 hold on
 yline(mean(iqr_dtw_distances),'r--', 'LineWidth',2)
 yline((desired_peak_loc_1 - desired_peak_loc_2), 'g--', 'LineWidth',2)
-title('75th Percentile DTW distance')
+title('TESTING pathlength*fs*std DTW')
 subtitle("Average latency = " + mean(iqr_dtw_distances) + "ms")
 xlabel('NSR')
 ylabel('DTW distance (ms)')

@@ -9,7 +9,7 @@ SNR_test = [0.1:0.1:0.9];
 desired_peak_loc_1 = 0.1; % in seconds
 desired_peak_loc_2 = 0.2; % in seconds
 desired_time = 0.5; % in seconds
-num_permutations = 10000; % number of times to generate signal per snr level
+num_permutations = 100; % number of times to generate signal per snr level
  
 
 % parameters of synthetic signal
