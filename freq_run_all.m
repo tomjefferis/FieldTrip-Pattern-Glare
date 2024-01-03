@@ -25,8 +25,8 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %time_window = [3.0 3.99];
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
 time_window = [0.5 3];
-n_participants = 40;
-baseline_period = [-0.2 -0.05];
+n_participants = 1;
+baseline_period = [-0.5 -0.05];
 %baseline_period = [2.75 2.95];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
 max_windows = 4; % maximum amount of windows the roi finder finds
@@ -59,7 +59,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -176,7 +176,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -297,7 +297,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
@@ -414,7 +414,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'normal'};  % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = true;
+paper_figs = false;
 %% End of config
 
 %% parfor loop running pgi analysis for all onsets_parts
