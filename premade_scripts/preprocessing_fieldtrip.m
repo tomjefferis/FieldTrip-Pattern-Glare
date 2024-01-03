@@ -1,6 +1,5 @@
 %% preprocessing pipeline for FieldTrip *** Author; Cihan Dogan, Edited by Tom Jefferis
 % Edits include reducing memory usage and making pipeline multi-threaded which reduces processing time greatly
-% 2023 Edit includes mirror padding of 1 second 
 clear all;
 restoredefaultpath;
 
@@ -8,12 +7,13 @@ restoredefaultpath;
 
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
-to_preprocess = {'mean_intercept'}; 
+to_preprocess = {'mean_intercept','partitions'}; 
 type_of_analysis = 'frequency_domain'; % frequency_domain or time_domain
 onsets = [
-    [6,7];
-
-%[2,3,4,5,6,7,8];
+%[2,3,4,5,6,7,8]
+[2,3]
+[4,5]
+[6,7]
 ];
 number_of_onsets = size(onsets);
 number_of_onsets = number_of_onsets(1);
@@ -54,8 +54,8 @@ for k = to_preprocess
 
                 data_structure = strcat(data_structure, p);
 
-                data_fname = strcat(data_structure, '_075_80Hz.dat');
-                data_structure = strcat(data_structure, '_075_80HZ.mat');
+                data_fname = strcat(data_structure, '-Deci_ready_for_ft.dat');
+                data_structure = strcat(data_structure, '-Deci_ready_for_ft.mat');
                 file_main_path = strcat(participant_main_path, data_structure);
 
                 if ~isfile(file_main_path)
@@ -83,8 +83,6 @@ for k = to_preprocess
                 cfg.bpfilter = 'yes';
                 cfg.bpfilttype = 'fir';
                 cfg.bpfreq = filter_freq;
-                cfg.padding = 5.5;
-                cfg.padtype = 'mirror';
 
                 data = ft_preprocessing(cfg, raw);
 
@@ -103,7 +101,12 @@ for k = to_preprocess
                 cfg = [];
                 cfg.artfctdef.reject = 'complete';
                 cfg.artfctdef.zvalue.artifact = artifact;
-                postprocessed = ft_rejectartifact(cfg, data);
+                try
+                    postprocessed = ft_rejectartifact(cfg, data);
+                catch
+                    disp(strcat('REJECTED PARTICIPANT...', int2str(participant)));
+                    continue;
+                end
 
 
                 data = [];
