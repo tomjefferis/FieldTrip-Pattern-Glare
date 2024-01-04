@@ -1,7 +1,7 @@
 %% EEG pattern glare analysis - Author: Tom Jefferis
-%% This file is used for running all the statistics for onsets, partitions and onsets 2,3vs4,5,vs 6,7
+%% This file is used for running discomfort the statistics for onsets, partitions and onsets 2,3vs4,5,vs 6,7
 %% setting up paths to plugins and default folder
-clear all;
+clear discomfort;
 restoredefaultpath;
 addpath('./methods');
 addpath('C:\Users\Tom\AppData\Roaming\MathWorks\MATLAB Add-Ons\Collections\MIMT\MIMT')
@@ -25,7 +25,7 @@ grand_avg_eyes = 'time_domain_eye_confound_onsets_2_3_4_5_6_7_8_grand-average.ma
 %time_window = [3.0 3.99];
 %time_window = [3.09, 3.18; 3.18, 3.45; 3.45, 3.83; 3.08, 3.99;];
 time_window = [0.5 3];
-n_participants = 1;
+n_participants = 40;
 baseline_period = [-0.5 -0.05];
 %baseline_period = [2.75 2.95];
 aggregated_roi = false; % uses aggregated average approach to find the ROI
@@ -34,7 +34,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -52,7 +52,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
@@ -62,7 +62,7 @@ testing = true;
 paper_figs = false;
 %% End of config
 
-%% parfor loop running pgi analysis for all onsets_parts
+%% parfor loop running pgi analysis for discomfort onsets_parts
 
 if contains(time_freq, "time")
 
@@ -151,7 +151,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -169,7 +169,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
@@ -179,7 +179,7 @@ testing = true;
 paper_figs = false;
 %% End of config
 
-%% parfor loop running pgi analysis for all onsets_parts
+%% parfor loop running pgi analysis for discomfort onsets_parts
 
 if contains(time_freq, "time")
 
@@ -255,7 +255,7 @@ else
 end
 
 %% EEG pattern glare analysis - Author: Tom Jefferis
-%% This file is used for running all the statistics for onsets, partitions and onsets 2,3vs4,5,vs 6,7
+%% This file is used for running discomfort the statistics for onsets, partitions and onsets 2,3vs4,5,vs 6,7
 %% setting up paths to plugins and default folder
 
 %% Experiment parameters
@@ -272,7 +272,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -290,7 +290,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
@@ -300,7 +300,7 @@ testing = true;
 paper_figs = false;
 %% End of config
 
-%% parfor loop running pgi analysis for all onsets_parts
+%% parfor loop running pgi analysis for discomfort onsets_parts
 
 if contains(time_freq, "time")
 
@@ -389,7 +389,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = true;
+stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
@@ -407,7 +407,7 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, all
+factor_scores = {'none'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
@@ -417,7 +417,7 @@ testing = true;
 paper_figs = false;
 %% End of config
 
-%% parfor loop running pgi analysis for all onsets_parts
+%% parfor loop running pgi analysis for discomfort onsets_parts
 
 if contains(time_freq, "time")
 

@@ -133,7 +133,7 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
 
 
             elseif strcmp(onsets_part, 'partitions')
-                if isfile(filename)
+                if isfile(filename) && isfile(filename2) && isfile(filename3)
                     load(filename);
                     order(end + 1) = index;
                 else
@@ -147,7 +147,7 @@ function [ft_data, order] = load_data(main_path, filename, n_participants, onset
                 p3_data{idx_used_for_saving_data} = part3;
 
             else
-                if isfile(filename)
+                if isfile(filename) && isfile(filename2) && isfile(filename3)
                     load(filename);
                     order(end + 1) = index;
                 else
