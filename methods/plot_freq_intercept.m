@@ -13,6 +13,11 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
         window = 3;
         baseline = 2.95;
         baselineS = 2.75;
+    else
+        time(1) = -0.05;
+        window = 0;
+        baselineS = baseline(1,2);
+        baseline = baseline(1,1);
     end
 
     electrode_idx = get_electrode_index(data, electrode);

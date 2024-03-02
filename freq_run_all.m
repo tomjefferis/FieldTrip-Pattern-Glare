@@ -4,7 +4,7 @@
 clear discomfort;
 restoredefaultpath;
 addpath('./methods');
-addpath('C:\Users\Tom\AppData\Roaming\MathWorks\MATLAB Add-Ons\Collections\MIMT\MIMT')
+addpath('C:\Users\tomje\AppData\Roaming\MathWorks\MATLAB Add-Ons\Collections\Image Manipulation Toolbox\MIMT')
 
 grand_avg_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_grand-average.mat'; % file name within folder that has participant data
 single_trial_filename = 'time_domain_mean_intercept_onsets_2_3_4_5_6_7_8_trial-level.mat'; % file name for single trial data
@@ -52,14 +52,14 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, discomfort
+factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog','normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for discomfort onsets_parts
@@ -169,14 +169,14 @@ plot_partitions_erps = false; % 10x2 figure of median split partitions for facto
 generate_ci = true; % do we want confidence intervals !!BREAKS MEDIAN SPLIT PLOTS AND PARTITION SPLIT IF FALSE!!
 %% generate experiment dsign
 time_freq = 'frequency'; % time or frequency domain options: time or frequency
-factor_scores = {'discomfort'}; % options: none, headache, visual-stress, discomfort, discomfort
+factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, discomfort
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog','normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for discomfort onsets_parts
@@ -297,7 +297,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for discomfort onsets_parts
@@ -414,7 +414,7 @@ three_way_type = {'sensitization'}; % same as previous but only used when making
 partitionss = {'normal'};  % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
-paper_figs = false;
+paper_figs = true;
 %% End of config
 
 %% parfor loop running pgi analysis for discomfort onsets_parts

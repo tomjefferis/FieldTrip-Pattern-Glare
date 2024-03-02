@@ -2,7 +2,7 @@
 % Edits include reducing memory usage and making pipeline multi-threaded which reduces processing time greatly
 clear all;
 restoredefaultpath;
-
+    
 
 
 %%Vars needed ot edit for preprocessing
@@ -10,14 +10,14 @@ restoredefaultpath;
 to_preprocess = {'mean_intercept','partitions'}; 
 type_of_analysis = 'frequency_domain'; % frequency_domain or time_domain
 onsets = [
-%[2,3,4,5,6,7,8]
-[6,7]
+[2,3,4,5,6,7,8]
+
 ];
 number_of_onsets = size(onsets);
 number_of_onsets = number_of_onsets(1);
 n_participants = 40;
-filter_freq = [0.1, 30];
-baseline_window = [2.8 3.0];
+filter_freq = [0.1, 80];
+baseline_window = [-0.5 -0.05];
 decimate = 250;
 
 %% main preprocessing loop
@@ -29,7 +29,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
         ft_defaults;
-        for participant = 13:n_participants
+        for participant = 1:12
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);

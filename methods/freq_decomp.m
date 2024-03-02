@@ -10,7 +10,10 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
     if temp_time >= 3 
         time(1) = 2.8;
         temp_time = 2.8;
-    elseif temp_time == 0.5
+    elseif temp_time == 0.5 || temp_time < 0.5 
+        time(1) = -0.5;
+        temp_time = -0.5;
+    elseif temp_time == 0.05
         time(1) = -0.5;
         temp_time = -0.5;
     else
