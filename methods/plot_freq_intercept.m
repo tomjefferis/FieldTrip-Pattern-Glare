@@ -14,7 +14,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
         baseline = 2.95;
         baselineS = 2.75;
     else
-        time(1) = -0.05;
+        time(1) = -0.2;
         window = 0;
         baselineS = baseline(1,2);
         baseline = baseline(1,1);
@@ -28,6 +28,10 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     meditpc = mean(squeeze(data.med_powspctrm(electrode_idx,:,:)),1);
     thickitpc = mean(squeeze(data.thick_powspctrm(electrode_idx,:,:)),1);
     thinitpc = mean(squeeze(data.thin_powspctrm(electrode_idx,:,:)),1);
+
+    maxitpc = max([max(dataitpc), max(meditpc), max(thickitpc), max(thinitpc)])+ 0.2;
+    minitpc = min([min(dataitpc), min(meditpc), min(thickitpc), min(thinitpc)])- 0.2;
+    itpcrange = [minitpc, maxitpc];
 
     minmed = round(min(min(min(min(squeeze(data.med_powspctrm(electrode_idx, :, :)))))) - 0.5);
     maxmed = round(max(max(max(max(squeeze(data.med_powspctrm(electrode_idx, :, :)))))) + 0.5);
@@ -54,6 +58,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     ylabel("Power db");
     grid on;
     xlim([time(1), time(end)])
+    ylim(itpcrange);
     
 
     subplot(4, 1, 2);
@@ -69,6 +74,7 @@ function plots = plot_freq_intercept(data, electrode, time, factor, save_dir, pa
     ylabel("Power db");
     grid on;
     xlim([time(1), time(end)])
+    ylim(itpcrange);
 
     subplot(4, 1, 3);
     ax3 = surf(data.time, data.freq, squeeze(data.powspctrm(electrode_idx, :, :)));

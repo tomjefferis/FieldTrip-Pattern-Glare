@@ -29,7 +29,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
         ft_defaults;
-        for participant = 1:12
+        for participant = 12
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);
@@ -79,7 +79,7 @@ for k = to_preprocess
                 cfg.baselinewindow = baseline_window;
 
                 cfg.bpfilter = 'yes';
-                cfg.bpfilttype = 'fir';
+                cfg.bpfilttype = 'but';
                 cfg.bpfreq = filter_freq;
             
                 data = ft_preprocessing(cfg, raw);
@@ -628,7 +628,7 @@ function [results_dir, main_path] = getFolderPath()
         % Code to run on Windows platform
         results_dir = 'W:\PhD\PatternGlareData\Results'; % path to results
         main_path = 'W:\PhD\PatternGlareData\participants\participant_';
-        addpath('W:\PhD\MatlabPlugins\fieldtrip-20210906'); % path to fieldtrip
+        addpath('W:\PhD\MatlabPlugins\fieldtrip-20240110'); % path to fieldtrip
         addpath('W:\PhD\MatlabPlugins\spm12') % path to spm
     else
         fprintf('Unsupported System');

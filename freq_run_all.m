@@ -56,7 +56,7 @@ factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, d
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-partitionss = {'orthog','normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
 paper_figs = true;
@@ -173,7 +173,7 @@ factor_scores = {'all'}; % options: none, headache, visual-stress, discomfort, d
 onsets_parts = {'onsets','partitions','onsets-23-45-67'}; % options: onsets, partitions, onsets-23-45-67, eyes, partition1, partitions-vs-onsets
 type_of_effects = {'habituation','sensitization'}; % habituation or sensitization
 three_way_type = {'sensitization'}; % same as previous but only used when making the 3 way comparison
-partitionss = {'orthog','normal'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
+partitionss = {'orthog'}; % orthogonolize design matrix for partitions (zero center), options: normal, orthog
 %% disable this when wanting to run for real results
 testing = true;
 paper_figs = true;
