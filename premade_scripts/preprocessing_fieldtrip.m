@@ -10,7 +10,9 @@ restoredefaultpath;
 to_preprocess = {'mean_intercept','partitions'}; 
 type_of_analysis = 'frequency_domain'; % frequency_domain or time_domain
 onsets = [
-[2,3,4,5,6,7,8]
+[2,3],
+[4,5],
+[6,7]
 
 ];
 number_of_onsets = size(onsets);
@@ -29,7 +31,7 @@ for k = to_preprocess
     for i = 1:n_onsets
         subset_onsets = onsets(i, :);
         ft_defaults;
-        for participant = 12
+        for participant = 1:n_participants
 
             %% gets the onsets of interest
             [thin, med, thick, description] = get_onsets(subset_onsets, analysis_type);
@@ -75,9 +77,10 @@ for k = to_preprocess
                 %% setup the FT preprocessing fns
                 % filtering and baselining the data
                 cfg = [];
-                cfg.demean = 'yes';
-                cfg.baselinewindow = baseline_window;
-
+                if strcmp(type_of_analysis, 'frequency_domain')
+                    cfg.demean = 'yes';
+                    cfg.baselinewindow = baseline_window;
+                end
                 cfg.bpfilter = 'yes';
                 cfg.bpfilttype = 'but';
                 cfg.bpfreq = filter_freq;

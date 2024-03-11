@@ -233,7 +233,7 @@ else
     titles = strcat("Interactions through ", title4, " Low vs High group ", factor);
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
 
-    set(gcf, 'Position', [100, 100, 1900, 1600]);
+    set(gcf, 'Position', [100, 100, 1400, 1600]);
 
     legPos1 = get(leg1, 'Position');
 

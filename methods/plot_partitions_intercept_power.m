@@ -169,7 +169,7 @@ title(tit);
 titles = strcat("Interactions through ", title4, " for ", factor);
 set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
 
-set(gcf, 'Position', [100, 100, 1900, 1800]);
+set(gcf, 'Position', [100, 100, 1400, 1800]);
 
 
 if ~paper_figs

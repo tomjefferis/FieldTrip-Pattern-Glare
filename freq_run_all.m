@@ -37,7 +37,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
-frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
+frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 %% Plotting config
@@ -154,7 +154,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
-frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
+frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 %% Plotting config
@@ -275,7 +275,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
-frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
+frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 %% Plotting config
@@ -392,7 +392,7 @@ posneg = false; %true = positive side of roi false = negative
 stat_run = false;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
-frequency_ranges = {[8,12],[20, 35],[30,45],[40,60],[60,80]}; % start and end frequency for stat tests
+frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
 power_itc = 'pow'; %looking at power ot itc options: pow, itc
 decimate = 250; % this is the frequency domain resampling for memory efficiancy, this should be calculated using nyquist 
 %% Plotting config

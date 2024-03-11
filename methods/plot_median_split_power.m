@@ -137,7 +137,7 @@ function plots = plot_median_split_power(low, high, electrode, time, factor, sav
     title(tit);
 
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
-    set(gcf, 'Position', [100, 100, 1900, 1600]);
+    set(gcf, 'Position', [100, 100, 1400, 1600]);
 
     labPos1 = get(xl1, 'Position');
     labPos1(1) = labPos1(1)*1.4;
