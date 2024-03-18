@@ -35,7 +35,7 @@ factor = temp;
 
 
 
-for i = 1:length(parts) 
+for i = 1:length(parts)
     
     if strcmp(parts(i),'onsets') && ~isthreeway
         if strcmp(onsets_part, "onsets-23-45-67")
@@ -59,56 +59,57 @@ for i = 1:length(parts)
         orthog = 'Unorthogonalized';
     elseif strcmp(parts(i),'orthog')
         orthog = 'Orthogonalized';
-    
+        
     end
 end
 
 if contains(string(time_freq), "time")
-
-if isonestsvs
-    if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat(direction1," Through Time for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+    
+    if isonestsvs
+        if strcmp(factor,'none')|| contains(factor,"Mean")
+            retfigname = strcat(direction1," Through Time for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+        else
+            retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+        end
+    elseif ispart
+        if strcmp(factor,'none')|| contains(factor,"Mean")
+            retfigname = strcat(direction1," Through Time for Partitions ",string(starttime),"-",string(endtime),'s');
+        else
+            retfigname = strcat(orthog," ",factor," by ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
+        end
+    elseif isthreeway
+        retfigname = strcat(orthog," ",factor," by ",direction1, " in the Partitions by ", direction2, " in the Onsets ",string(starttime),"-",string(endtime),"s ");
     else
-        retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),'s');
+        if strcmp(factor,'none') || contains(factor,"Mean")
+            retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),'s');
+        else
+            retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
+        end
     end
-elseif ispart
-    if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat(direction1," Through Time for Partitions ",string(starttime),"-",string(endtime),'s');
-    else
-        retfigname = strcat(orthog," ",factor," by ",direction1," for Partitions ",string(starttime),"-",string(endtime),'s');
-    end
-elseif isthreeway
-    retfigname = strcat(orthog," ",factor," by ",direction1, " in the Partitions by ", direction2, " in the Onsets ",string(starttime),"-",string(endtime),"s ");
-else
-    if strcmp(factor,'none') || contains(factor,"Mean")
-        retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),'s');
-    else
-        retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),'s');
-    end
-end
 else
     if isonestsvs
-    if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat(direction1," Through Time for Onsets ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        if strcmp(factor,'none')|| contains(factor,"Mean")
+            retfigname = strcat(direction1," Through Time for Onsets ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        else
+            retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        end
+    elseif ispart
+        if strcmp(factor,'none')|| contains(factor,"Mean")
+            retfigname = strcat(direction1," Through Time for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        else
+            retfigname = strcat(orthog," ",factor," by ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        end
+    elseif isthreeway
+        retfigname = strcat(orthog," ",factor," by ",direction1, " by Decrease in the Partitions by ", direction2, " in the Onsets",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
     else
-        retfigname = strcat(orthog," ",factor," by ",direction1," for Onsets 2,3 vs 4,5 vs 6,7 ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
-    end
-elseif ispart
-    if strcmp(factor,'none')|| contains(factor,"Mean")
-        retfigname = strcat(direction1," Through Time for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
-    else
-        retfigname = strcat(orthog," ",factor," by ",direction1," for Partitions ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
-    end
-elseif isthreeway
-    retfigname = strcat(orthog," ",factor," by ",direction1, " by Decrease in the Partitions by ", direction2, " in the Onsets",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
-else
-    if strcmp(factor,'none') || contains(factor,"Mean")
-        retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
-    else
-        retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        if strcmp(factor,'none') || contains(factor,"Mean")
+            retfigname = strcat("Onsets 2-8 for ",factor," ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        else
+            retfigname = strcat("Onsets 2-8 for ",factor," factor ",string(starttime),"-",string(endtime),"s ",string(time_freq(1)),"Hz - ",string(time_freq(2)), "Hz");
+        end
     end
 end
-end
+
 
 
 end

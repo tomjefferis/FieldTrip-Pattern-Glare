@@ -1,19 +1,24 @@
-function plots = plot_median_split_power(low, high, electrode, time, factor, save_dir, paper_figs, font_size,baselinet)
+function plots = plot_median_split_power(low, high, electrode, time, factor, save_dir, paper_figs, font_size,baseline)
 
     if ~exist('font_size','var')
         font_size = 12;
     end
 
     if time(1) == 0.5
-        time(1) = baselinet(1);
+        time(1) = baseline(1);
         window = 0.5;
-        baseline = baselinet(1,1);
-        baselineS = baselinet(1,2);
+        baselineS = baseline(1,2);
+        baseline = baseline(1,1);
     elseif time(1) == 3.0
         time(1) = 2.8;
         window = 3;
         baseline = 2.95;
         baselineS = 2.75;
+    elseif time(1) < 0.5
+        time(1) = baseline(1);
+        window = 0;
+        baselineS = baseline(1,2);
+        baseline = baseline(1,1);
     end
 
     electrode_idx = get_electrode_index(low, electrode);

@@ -20,7 +20,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     end
 
 
-    if iscell(figname)
+    if isstring(figname)
         factor = figname{1};
     else
         factor = figname;
@@ -157,8 +157,14 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     %set figure title and font size to 14
     set(gca, 'FontSize', 14);
-    title(figname);
+    title(textwrap(figname,40));
     figname = strrep(figname, '/', '');
+    % increase height of figure
+    % get figure position
+    poss = get(gcf, 'Position');
+    % increase height by 100
+    poss(4) = poss(4) + 100;
+    set(gcf, 'Position', poss);
 
     figname = strcat(figname, " ", Effect_direction);
 
