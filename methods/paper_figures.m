@@ -157,7 +157,7 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
 
     %set figure title and font size to 14
     set(gca, 'FontSize', 14);
-    title(textwrap(figname,40));
+    title(textwrap(figname,50));
     figname = strrep(figname, '/', '');
     % increase height of figure
     % get figure position
