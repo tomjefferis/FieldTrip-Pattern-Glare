@@ -34,7 +34,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
@@ -151,7 +151,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
@@ -272,7 +272,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests
@@ -389,7 +389,7 @@ spatial_roi = false; % generate a spatial region of interest - not useful for mo
 posneg = false; %true = positive side of roi false = negative
 %% Time Domain config
 % if need statistical test without plotting
-stat_run = false;
+stat_run = true;
 %% frequency config
 wavelet_width = 5; % mostly obselite now moving to time based calculation of width 
 frequency_ranges = {[8,13],[20, 30],[30,45],[45,60],[60,80]}; % start and end frequency for stat tests

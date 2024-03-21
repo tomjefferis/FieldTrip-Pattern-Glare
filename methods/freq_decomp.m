@@ -1,4 +1,4 @@
-function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time, baseline_period, step)
+function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time, baseline_period, step, channel)
 
     %%  Frequency decomposition function
     %   This is the main function for frequency decomposition
@@ -66,7 +66,7 @@ function datas = freq_decomp(datas, wavelet_width, output,frequency_range, time,
 
     %cfg.parameter = 'avg';
     
-parfor index = 1:numel(datas)
+for index = 1:numel(datas)
     cfg = [];
     cfg.output = output;
     cfg.method = 'wavelet';
@@ -74,7 +74,7 @@ parfor index = 1:numel(datas)
     cfg.foi = frequency_range(1):1:frequency_range(2); 
     cfg.toi = start:step:endt;
     cfg.pad = 'nextpow2';
-    cfg.channel = 'all';
+    cfg.channel = channel;
     cfg.trials = 'all';
     cfg.keeptrials = 'yes';
     
