@@ -49,29 +49,14 @@ ylabel('Frequency (Hz)');
 
 % add y lines for freq bands at [8,13],[20, 30],[30,45],[45,60],[60,80]
 hold on;
-y = [8, 13];
+y = [10, 18, 15];
 yline(y(1), 'r', 'LineWidth', 2);
 yline(y(2), 'r', 'LineWidth', 2);
-
-y = [20, 29.8];
-yline(y(1), 'g', 'LineWidth', 2);
-yline(y(2), 'g', 'LineWidth', 2);
-
-y = [30.2, 44.8];
-yline(y(1), 'b', 'LineWidth', 2);
-yline(y(2), 'b', 'LineWidth', 2);
-
-y = [45.2, 59.8];
-yline(y(1), 'y', 'LineWidth', 2);
-yline(y(2), 'y', 'LineWidth', 2);
-
-y = [60.2, 80];
-yline(y(1), 'm', 'LineWidth', 2);
-yline(y(2), 'm', 'LineWidth', 2);
+yline(y(3), 'b', 'LineWidth', 2);
 
 ylim([8 80]);
 xlim([-0.2 4]);
-legend([{'power'},{'8 Hz'}, {'13 Hz'}, {'20 Hz'}, {'30 Hz'}, {'30 Hz'}, {'45 Hz'}, {'45 Hz'}, {'60 Hz'}, {'60 Hz'}, {'80 Hz'}]);
+legend([{'power'},{'10 Hz'}, {'18 Hz'},{'15 Hz'}]);
 % legend outside right
 legend('Location', 'eastoutside');
 

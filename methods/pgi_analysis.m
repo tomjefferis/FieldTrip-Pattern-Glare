@@ -3,6 +3,7 @@ function tab = pgi_analysis(grand_avg_filename, single_trial_filename, grand_avg
         plot_erps, median_split_plots, gfp_plot, plot_designs, plot_partitions_erps, generate_ci, time_freq, factor_scores, ...
         onsets_part, type_of_effect, three_way_type, orthoganilized_partitions, testing, paper_figs)
 
+    close all;
     %% Experiment setup
     [results_dir, main_path] = getFolderPath();
     % If the factors are all then it sets all the factors
