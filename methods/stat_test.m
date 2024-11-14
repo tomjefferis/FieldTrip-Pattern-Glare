@@ -3,7 +3,7 @@ function stat = stat_test(data, factor, start_time, end_time, design_matrix, tim
     randomizer = 5000;
 
     if testing
-        randomizer = 1000;
+        randomizer = 100;
     end
 
     %prepare neighbors so the test know what electrodes are where in space

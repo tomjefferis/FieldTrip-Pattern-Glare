@@ -7,8 +7,8 @@ restoredefaultpath;
 
 %%Vars needed ot edit for preprocessing
 [results_dir, main_path] = getFolderPath();
-to_preprocess = {'mean_intercept','partitions'}; 
-type_of_analysis = 'frequency_domain'; % frequency_domain or time_domain
+to_preprocess = {'partitions'}; 
+type_of_analysis = 'time_domain'; % frequency_domain or time_domain
 onsets = [
 [2,3],
 [4,5],
@@ -18,9 +18,9 @@ onsets = [
 number_of_onsets = size(onsets);
 number_of_onsets = number_of_onsets(1);
 n_participants = 40;
-filter_freq = [0.1, 80];
-baseline_window = [-0.5 -0.05];
-decimate = 250;
+filter_freq = [0.1, 30];
+baseline_window = [-0.2 0];
+decimate = 512;
 
 %% main preprocessing loop
 for k = to_preprocess
@@ -54,8 +54,8 @@ for k = to_preprocess
 
                 data_structure = strcat(data_structure, p);
 
-                data_fname = strcat(data_structure, '-Deci_ready_for_ft.dat');
-                data_structure = strcat(data_structure, '-Deci_ready_for_ft.mat');
+                data_fname = strcat(data_structure, '_075_80Hz.dat');
+                data_structure = strcat(data_structure, '_075_80Hz.mat');
                 file_main_path = strcat(participant_main_path, data_structure);
 
                 if ~isfile(file_main_path)

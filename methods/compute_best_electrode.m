@@ -62,12 +62,12 @@ function [significant_electrode] = compute_best_electrode(stat, type, cluster)
                     previous_values = peak_level_stats(electrode);
                     previous_t = previous_values{2};
                     if t_value > previous_t && contains(type, 'positive')
-                        peak_level_stats(electrode) = {t, t_value};
+                        peak_level_stats(electrode) = {t, t_value, col};
                     elseif t_value < previous_t && contains(type, 'negative')
-                        peak_level_stats(electrode) = {t, t_value};
+                        peak_level_stats(electrode) = {t, t_value, col};
                     end
                 else
-                    peak_level_stats(electrode) = {0, 0};
+                    peak_level_stats(electrode) = {0, 0, 0};
                 end
             end
         end
@@ -83,6 +83,7 @@ function [significant_electrode] = compute_best_electrode(stat, type, cluster)
         stats = peak_level_stats(electrode);
         t_value = stats{2};
         time = stats{1};
+        significant_electrode.max_indx = stats{3};
         if t_value > significant_electrode.t_value && contains(type, 'positive')
             significant_electrode.electrode = electrode;
             significant_electrode.time = time;
@@ -107,10 +108,13 @@ function [significant_electrode] = compute_best_electrode(stat, type, cluster)
         end
     end
     significant_electrode.sig_start = stat.time(start_clus);
+    significant_electrode.sig_start_index = start_clus;
     try
         significant_electrode.sig_end =  stat.time(end_clus);
+        significant_electrode.sig_end_index = end_clus;
     catch
         significant_electrode.sig_end =  stat.time(end);
+        significant_electrode.sig_endt_index = length(stat.time);
     end
 
 end

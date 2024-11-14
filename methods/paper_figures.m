@@ -48,8 +48,6 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
     figure;
     electrode = compute_best_electrode(stat, Effect_direction);
     cd (results + '\workspace')
-    Cluster_vol = plot_cluster_vol(stat, factor, start_time, end_time, Effect_direction, '', true);
-    set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
     Cluster_vol = print('-RGBImage');
     Topomap = plot_topo_map(stat, start_time, end_time, Effect_direction, factor, '', true);
     set(findall(gcf,'-property','FontSize'),'FontSize',font_size);
@@ -133,13 +131,11 @@ function paper_figures(data, stat, design, onsets_part, figname, start_time, end
         end
     end
 
-    im1 = {Cluster_vol, Elec_View};
-    outpict = imstacker(im1, 'dim', 2, 'padding', [255, 255, 255], 'gravity', 'center');
-    images = {outpict, Topomap, erpplot};
+    images = {Topomap, erpplot};
 
     % Define the annotation text and spacing
-    text_str = {'a)', 'b)', 'c)'};
-    text_pos = [10, 450; 10, 1170; 10, 1700];
+    text_str = {'a)', 'b)'};
+    text_pos = [10, 450; 10, 1170;];
     text_gap = [0.1; 0.1; 0.2];
 
     outpict = imstacker(images, 'dim', 1, 'padding', [255, 255, 255], 'gravity', 'center');

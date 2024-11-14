@@ -41,12 +41,6 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(low1.data, low2.data, low3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    %h(9).Color = [0.8350 0.0780 0.1840];
-    %h(8).Color = [0.4660 0.8740 0.1880];
-    %h(7).Color = [0.3010 0.7450 0.9330];
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
    
     hold on;
     leg1 = legend(legend1, 'location', 'eastoutside');
@@ -61,12 +55,6 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     data = partitions_combine(high1.data, high2.data, high3.data, "PGI");
     generate_erp_plot_alt(results, start, endtime, data, electrode, "none", false, "positive", paper_plot);
     h = get(gca, 'Children');
-    %h(9).Color = [0.8350 0.0780 0.1840];
-    %h(8).Color = [0.4660 0.8740 0.1880];
-    %h(7).Color = [0.3010 0.7450 0.9330];
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
    
     hold on;
     leg2 = legend(legend1, 'location', 'westoutside');
@@ -85,10 +73,6 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     h(8).Color = 'b';
     h(9).Color = 'g';
     h(10).Color = 'r';
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
    
     hold on;
     leg3 = legend(legend2, 'location', 'eastoutside');
@@ -105,10 +89,6 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     h(8).Color = 'b';
     h(9).Color = 'g';
     h(10).Color = 'r';
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
    
     hold on;
     leg4 = legend(legend2, 'location', 'westoutside');
@@ -116,14 +96,9 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     title("");
     subtitle("");
     xlabel("");
-%%
     ax5 = subplot(5,2,5);
     generate_erp_plot(results, start, endtime, low1.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
     xlabel("");
    
     hold on;
@@ -135,28 +110,20 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ax6 = subplot(5,2,6);
     generate_erp_plot(results, start, endtime, high1.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
     xlabel("");
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
     title("");
     hold on;
     leg6 = legend('location', 'westoutside');
     subtitle("");
-%%
+
     ax7 = subplot(5,2,7);
     generate_erp_plot(results, start, endtime, low2.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
    
     hold on;
     leg7 = legend('location', 'eastoutside');
-    %legend('hide');
+
     ylabel(strcat(title2,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
     title("");
     subtitle("");
@@ -164,11 +131,7 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ax8 = subplot(5,2,8);
     generate_erp_plot(results, start, endtime, high2.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
-   
+
     hold on;
     leg8 = legend('location', 'westoutside');
     ylabel("","Rotation",0,'HorizontalAlignment','right','fontweight','bold'); 
@@ -178,25 +141,19 @@ function plot = plot_partitions_erp(dataone, datatwo, datathree, electrode, desi
     ax9 = subplot(5,2,9);
     generate_erp_plot(results, start, endtime, low3.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
+
    
     hold on;
     leg9 = legend('location', 'eastoutside');
     ylabel(strcat(title3,""),"Rotation",0,'HorizontalAlignment','right','fontweight','bold');
-    %legend('hide');
+  
     title("");
     subtitle("");
 
     ax10 = subplot(5,2,10);
     generate_erp_plot(results, start, endtime, high3.data, electrode, "none", cis, "positive", paper_plot);
     h = get(gca, 'Children');
-    %delete(h(1));
-    %delete(h(2));
-    %delete(h(3));
-    %delete(h(4));
+
        
     hold on;
     subtitle("");
