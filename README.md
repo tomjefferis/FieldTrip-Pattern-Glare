@@ -1,6 +1,9 @@
 # FieldTrip Pattern Glare
 ## Overview
-This program is a complete pipeline for pattern-glare analysis in FieldTrip.
+This program is a complete pipeline for pattern-glare analysis in FieldTrip and was used to generate results for publications listed below.
+
+### Publications
+[Sensitization and Habituation of Hyper-Excitation to Constant Presentation of Pattern-Glare Stimuli ](https://www.mdpi.com/3051632)
 
 ## Capabilities
 ### What Works:
