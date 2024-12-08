@@ -25,7 +25,7 @@ Frequency spectrum plots | N/A | ✅ Power & ❌ ITC
 * Preprocess data using the included [preprocessing script](premade_scripts/freq_run_baselinehelper.m) in `premade_scripts`
 
 ## Configuration
-* Setup filepaths in [main.mat](main.mat)
+* Setup filepaths in [main.m](main.m)
   * Lines 8-20 are needed for preprocessed filenames
   * Method [getFolderPath](methods/getFolderPath.m) needs changing to your path (found in `methods/getFolderPath.m`)
   * Fill out config parameters lines 21-55
